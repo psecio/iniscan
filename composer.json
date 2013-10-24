@@ -1,0 +1,24 @@
+{
+    "name":"psecio/iniscan",
+    "type":"library",
+    "description":"A scanner to evaluate php.ini security",
+    "keywords":["php.ini","scanner"],
+    "homepage":"https://github.com/psecio/iniscan.git",
+    "license":"MIT",
+    "authors":[
+        {
+            "name":"Chris Cornutt",
+            "email":"ccornutt@phpdeveloper.org",
+            "homepage":"http://www.phpdeveloper.org/"
+        }
+    ],
+    "require":{
+        "php":">=5.3.1",
+        "symfony/console": "~2.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Psecio": "src/"
+        }
+    }
+}
