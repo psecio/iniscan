@@ -39,21 +39,27 @@ class ScanCommand extends Command
         $results = $scan->execute();
 
         // loop through the results and output color coded
-        $output->writeLn("\nResults for ".$path.":\n".str_repeat('=', 10));
-        $output->writeLn(str_pad("LEVEL", 10, ' ').'| Name');
-        $output->writeLn(str_repeat('-', 20));
+        $output->writeLn("\nResults for ".$path.":\n".str_repeat('=', 12));
+        $output->writeLn(str_pad("Status", 12, ' ').'| '.str_pad("Level", 12, ' ').'| Name');
+        $output->writeLn(str_repeat('-', 40));
         $fail = 0;
         $pass = 0;
 
         foreach ($results as $result) {
             if ($result->getStatus() === false) {
                 $fail++;
+                $status = 'FAIL';
                 $color = 'red';
             } else {
                 $pass++;
+                $status = 'PASS';
                 $color = 'green';
             }
-            $output->writeLn('<fg='.$color.'>'.str_pad($result->getLevel(), 10, ' ').'| '.$result->getName().'</fg='.$color.'>');
+            $output->writeLn(
+                '<fg='.$color.'>'
+                .str_pad($status, 12, ' ')
+                .'| '.str_pad($result->getLevel(), 12, ' ')
+                .'| '.$result->getName().'</fg='.$color.'>');
         }
         $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
 
