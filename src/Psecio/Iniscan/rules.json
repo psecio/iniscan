@@ -1,0 +1,27 @@
+{
+	"rules": {
+		"Session": [
+			{
+				"name": "Cookies for sessions",
+				"description": "Must use cookies to manage sessions",
+				"level": "ERROR",
+				"test": {
+					"key": "Session|session.use_cookies",
+					"operation": "equals",
+					"value": "1"
+				}
+			},
+			{
+				"name": "Cookie domain set",
+				"description": "It is recommended that you set the default domain for cookies.",
+				"level": "WARNING",
+				"test": {
+					"key": "Session|session.cookie_domain",
+					"operation": "isset"
+				}
+			}
+		],
+		"File": [
+		]
+	}
+}
