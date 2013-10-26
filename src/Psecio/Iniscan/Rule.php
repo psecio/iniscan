@@ -71,6 +71,15 @@ class Rule
 		return $this->test;
 	}
 
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
+	public function getDescription()
+	{
+		return $this->description;
+	}
+
 	public function evaluate(array $ini)
 	{
 		$test = $this->getTest();
