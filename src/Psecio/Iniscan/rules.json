@@ -33,7 +33,7 @@
 				}
 			},
 			{
-				"name": "Showing errors",
+				"name": "Displaying errors",
 				"description": "Don't show errors in production ('Off' recommended)",
 				"level": "WARNING",
 				"test": {
@@ -44,13 +44,21 @@
 			},
 			{
 				"name": "Disable PHP signature",
-				"descrption": "Showing the PHP signature exposes additional information",
+				"description": "Showing the PHP signature exposes additional information",
 				"level": "WARNING",
 				"test": {
 					"key": "expose_php",
 					"operation": "equals",
 					"value": "Off"
 				}
+			}
+		],
+		"Custom": [
+			{
+				"name": "Disable harmful CLI functions",
+				"description": "Several functions, if enabled, can be used for remote command injection",
+				"level": "WARNING",
+				"test": "DisableCliFunctions"
 			}
 		]
 	}
