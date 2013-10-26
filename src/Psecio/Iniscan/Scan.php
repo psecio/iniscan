@@ -43,7 +43,7 @@ class Scan
 		foreach ($rules->rules as $index => $ruleSet) {
 			foreach ($ruleSet as $type => $rule) {
 				// make a rule
-				$rule = new \Psecio\Iniscan\Rule($rule);
+				$rule = new \Psecio\Iniscan\Rule($rule, $index);
 
 				// execute its test
 				$rule->evaluate($ini);
