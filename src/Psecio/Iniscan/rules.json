@@ -6,7 +6,7 @@
 				"description": "Must use cookies to manage sessions",
 				"level": "ERROR",
 				"test": {
-					"key": "Session|session.use_cookies",
+					"key": "session.use_cookies",
 					"operation": "equals",
 					"value": "1"
 				}
@@ -16,12 +16,42 @@
 				"description": "It is recommended that you set the default domain for cookies.",
 				"level": "WARNING",
 				"test": {
-					"key": "Session|session.cookie_domain",
+					"key": "session.cookie_domain",
 					"operation": "isset"
 				}
 			}
 		],
-		"File": [
+		"PHP": [
+			{
+				"name": "Disallow remote file open",
+				"description": "Do not allow the opening of remote file resoources ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "allow_url_fopen",
+					"operation": "equals",
+					"value": "Off"
+				}
+			},
+			{
+				"name": "Showing errors",
+				"description": "Don't show errors in production ('Off' recommended)",
+				"level": "WARNING",
+				"test": {
+					"key": "display_errors",
+					"operation": "equals",
+					"value": "Off"
+				}
+			},
+			{
+				"name": "Disable PHP signature",
+				"descrption": "Showing the PHP signature exposes additional information",
+				"level": "WARNING",
+				"test": {
+					"key": "expose_php",
+					"operation": "equals",
+					"value": "Off"
+				}
+			}
 		]
 	}
 }
