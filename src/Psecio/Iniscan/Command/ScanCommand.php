@@ -48,8 +48,10 @@ class ScanCommand extends Command
         foreach ($results as $result) {
             if ($result->getStatus() === false) {
                 $fail++;
+                // if we failed, see how bad it is
+                $severity = $result->getLevel();
+                $color = ($severity == 'WARNING') ? 'yellow' : 'red';
                 $status = 'FAIL';
-                $color = 'red';
             } else {
                 $pass++;
                 $status = 'PASS';
@@ -59,7 +61,10 @@ class ScanCommand extends Command
                 '<fg='.$color.'>'
                 .str_pad($status, 12, ' ')
                 .'| '.str_pad($result->getLevel(), 12, ' ')
-                .'| '.$result->getName().'</fg='.$color.'>');
+                .'| '.$result->getName()
+                .': '.$result->getDescription()
+                .'</fg='.$color.'>'
+                );
         }
         $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
 
