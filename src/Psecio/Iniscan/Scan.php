@@ -39,11 +39,21 @@ class Scan
 		// pull in the rule configuration
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
 
+		if ($rules === null) {
+			throw new \Exception('Cannot parse rule configuration');
+		}
+
 		$ruleList = array();
 		foreach ($rules->rules as $index => $ruleSet) {
 			foreach ($ruleSet as $type => $rule) {
-				// make a rule
-				$rule = new \Psecio\Iniscan\Rule($rule, $index);
+				print_r($rule);
+				if (is_string($rule->test)) {
+					$ruleClass = "\\Psecio\\Iniscan\\Rule\\".$rule->test;
+					$rule = new $ruleClass($rule, $index);
+				} else {
+					// make a rule
+					$rule = new \Psecio\Iniscan\Rule($rule, $index);
+				}
 
 				// execute its test
 				$rule->evaluate($ini);
