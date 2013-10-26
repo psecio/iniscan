@@ -9,10 +9,12 @@ class Rule
 	private $name;
 	private $test;
 	private $status = true;
+	private $section;
 
-	public function __construct($config)
+	public function __construct($config, $section)
 	{
 		$this->setConfig($config);
+		$this->setSection($section);
 	}
 
 	public function setConfig($config)
@@ -28,6 +30,15 @@ class Rule
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	public function setSection($section)
+	{
+		$this->section = $section;
+	}
+	public function getSection()
+	{
+		return $this->section;
 	}
 
 	public function getLevel()
@@ -69,7 +80,7 @@ class Rule
 			throw new \InvalidArgumentException('Invalid operation "'.$test->operation.'"');
 		}
 		$value = (isset($test->value)) ? $test->value : null;
-		$evalInstance = new $evalClass();
+		$evalInstance = new $evalClass($this->getSection());
 
 		($evalInstance->execute($test->key, $value, $ini) == false) 
 			? $this->fail() : $this->pass();
