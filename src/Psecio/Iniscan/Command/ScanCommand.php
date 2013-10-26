@@ -40,7 +40,7 @@ class ScanCommand extends Command
 
         // loop through the results and output color coded
         $output->writeLn("\nResults for ".$path.":\n".str_repeat('=', 12));
-        $output->writeLn(str_pad("Status", 12, ' ').'| '.str_pad("Level", 12, ' ').'| Name');
+        $output->writeLn(str_pad("Status", 12, ' ').'| '.str_pad("Severity", 12, ' ').'| Name');
         $output->writeLn(str_repeat('-', 40));
         $fail = 0;
         $pass = 0;
