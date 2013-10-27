@@ -61,6 +61,16 @@
 					"operation": "notequals",
 					"value": "On"
 				}
+			},
+			{
+				"name": "Do not show errors",
+				"description": "Displaying errors in production can cause information leakage about the application",
+				"level": "ERROR",
+				"test": {
+					"key": "display_errors",
+					"operation": "equals",
+					"value": "On"
+				}
 			}
 		],
 		"Custom": [
