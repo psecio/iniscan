@@ -14,7 +14,7 @@ class ScanCommand extends Command
         $this->setName('scan')
             ->setDescription('Scan the given php.ini')
             ->setDefinition(array(
-                new InputOption('path', 'path', InputOption::VALUE_NONE, 'Path to the php.ini')
+                new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'

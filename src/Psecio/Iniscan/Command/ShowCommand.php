@@ -14,7 +14,7 @@ class ShowCommand extends Command
         $this->setName('show')
             ->setDescription('Show the current PHP configuration')
             ->setDefinition(array(
-                new InputOption('path', 'path', InputOption::VALUE_REQUIRED, 'Path to the php.ini')
+                new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini to show current settings'
@@ -31,6 +31,16 @@ class ShowCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $path = $input->getOption('path');
+
+        // if we're not given a path at all, try to figure it out
+        if ($path === false) {
+            exec("php -i | grep 'Loaded Configuration'", $return);
+            $return = preg_match('/Loaded Configuration File => (.*)$/', $return[0], $match);
+            if (isset($match[1])) {
+                $path = trim($match[1]);
+            }
+        }
+
         if (!is_file($path)) {
             throw new \Exception('Path is null or not not accessible: "'.$path.'"');
         }
