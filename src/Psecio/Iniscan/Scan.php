@@ -46,7 +46,6 @@ class Scan
 		$ruleList = array();
 		foreach ($rules->rules as $index => $ruleSet) {
 			foreach ($ruleSet as $type => $rule) {
-				print_r($rule);
 				if (is_string($rule->test)) {
 					$ruleClass = "\\Psecio\\Iniscan\\Rule\\".$rule->test;
 					$rule = new $ruleClass($rule, $index);
