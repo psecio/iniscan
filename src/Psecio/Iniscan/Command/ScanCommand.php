@@ -22,7 +22,7 @@ class ScanCommand extends Command
     }
 
     /**
-     * Execute the filter command
+     * Execute the "scan" command
      * 
      * @param  InputInterface  $input  Input object
      * @param  OutputInterface $output Output object
