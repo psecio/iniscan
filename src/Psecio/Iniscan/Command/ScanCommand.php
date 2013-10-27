@@ -33,7 +33,7 @@ class ScanCommand extends Command
         $path = $input->getOption('path');
         
         // if we're not given a path at all, try to figure it out
-        if ($path === false) {
+        if ($path === null) {
             exec("php -i | grep 'Loaded Configuration'", $return);
             $return = preg_match('/Loaded Configuration File => (.*)$/', $return[0], $match);
             if (isset($match[1])) {
