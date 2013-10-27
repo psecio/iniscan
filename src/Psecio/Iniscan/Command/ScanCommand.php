@@ -14,7 +14,7 @@ class ScanCommand extends Command
         $this->setName('scan')
             ->setDescription('Scan the given php.ini')
             ->setDefinition(array(
-                new InputOption('path', 'path', InputOption::VALUE_REQUIRED, 'Path to the php.ini')
+                new InputOption('path', 'path', InputOption::VALUE_NONE, 'Path to the php.ini')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -31,6 +31,16 @@ class ScanCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $path = $input->getOption('path');
+        
+        // if we're not given a path at all, try to figure it out
+        if ($path === false) {
+            exec("php -i | grep 'Loaded Configuration'", $return);
+            $return = preg_match('/Loaded Configuration File => (.*)$/', $return[0], $match);
+            if (isset($match[1])) {
+                $path = trim($match[1]);
+            }
+        }
+
         if (!is_file($path)) {
             throw new \Exception('Path is null or not not accessible: "'.$path.'"');
         }
