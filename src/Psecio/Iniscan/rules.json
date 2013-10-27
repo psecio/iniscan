@@ -51,6 +51,16 @@
 					"operation": "equals",
 					"value": "Off"
 				}
+			},
+			{
+				"name": "Disable register globals",
+				"description": "The register globals setting is dangerous and has been deprecated ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "register_globals",
+					"operation": "notequals",
+					"value": "On"
+				}
 			}
 		],
 		"Custom": [
