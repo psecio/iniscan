@@ -52,8 +52,12 @@ class ScanCommand extends Command
 
         // loop through the results and output color coded
         $output->writeLn("\nResults for ".$path.":\n".str_repeat('=', 12));
-        $output->writeLn(str_pad("Status", 12, ' ').'| '.str_pad("Severity", 12, ' ').'| Name');
-        $output->writeLn(str_repeat('-', 40));
+        $output->writeLn(
+            str_pad("Status", 7, ' ').'| '
+            .str_pad("Severity", 9, ' ').'| '
+            .str_pad("Key", 25, ' ').'| Name'
+        );
+        $output->writeLn(str_repeat('-', 70));
         $fail = 0;
         $pass = 0;
 
@@ -72,11 +76,14 @@ class ScanCommand extends Command
             if ($failOnly === true && $status !== 'FAIL') {
                 continue;
             }
+            $test = $result->getTest();
+            $test = (isset($test->key)) ? $test->key : '';
+
             $output->writeLn(
                 '<fg='.$color.'>'
-                .str_pad($status, 12, ' ')
-                .'| '.str_pad($result->getLevel(), 12, ' ')
-                .'| '.$result->getName()
+                .str_pad($status, 7, ' ')
+                .'| '.str_pad($result->getLevel(), 9, ' ')
+                .'| '.str_pad($test, 25, ' ')
                 .': '.$result->getDescription()
                 .'</fg='.$color.'>'
                 );
