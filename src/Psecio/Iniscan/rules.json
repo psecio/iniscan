@@ -107,6 +107,12 @@
 					"operation": "equals",
 					"value": "Off"
 				}
+			},
+			{
+				"name": "Maximum post size too large",
+				"description": "A too large value for the maximum post size could allow for DoS against your application",
+				"level": "WARNING",
+				"test": "MaximumPostSize"
 			}
 		],
 		"Custom": [
