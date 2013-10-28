@@ -19,6 +19,22 @@
 					"key": "session.cookie_domain",
 					"operation": "isset"
 				}
+			},
+			{
+				"name": "Session save path not set or world writeable",
+				"description": "Session save path should be set and writeable by only the web user",
+				"level": "WARNING",
+				"test": "CheckSessionPath"
+			},
+			{
+				"name": "Use of 'use_trans_sid' considered harmful",
+				"description": "If used 'use_trans_sid' setting puts the session ID on the URL, making it easier to hijack",
+				"level": "ERROR",
+				"test": {
+					"key": "session.use_trans_sid",
+					"operation": "equals",
+					"value": "0"
+				}
 			}
 		],
 		"PHP": [
@@ -28,6 +44,16 @@
 				"level": "ERROR",
 				"test": {
 					"key": "allow_url_fopen",
+					"operation": "equals",
+					"value": "Off"
+				}
+			},
+			{
+				"name": "Disallow remote file include",
+				"description": "Do not allow the inclusion of remote file resources ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "allow_url_include",
 					"operation": "equals",
 					"value": "Off"
 				}
@@ -70,6 +96,16 @@
 					"key": "display_errors",
 					"operation": "equals",
 					"value": "On"
+				}
+			},
+			{
+				"name": "Disable magic quotes",
+				"description": "Magic quotes automatically adds quotes to incoming data ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "magic_quotes_gpc",
+					"operation": "equals",
+					"value": "Off"
 				}
 			}
 		],
