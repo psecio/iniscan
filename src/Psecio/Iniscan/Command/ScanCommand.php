@@ -14,7 +14,8 @@ class ScanCommand extends Command
         $this->setName('scan')
             ->setDescription('Scan the given php.ini')
             ->setDefinition(array(
-                new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini')
+                new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini'),
+                new InputOption('fail-only', 'fail-only', InputOption::VALUE_NONE, 'Show only failing checks')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -31,7 +32,8 @@ class ScanCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $path = $input->getOption('path');
-        
+        $failOnly = $input->getOption('fail-only');
+
         // if we're not given a path at all, try to figure it out
         if ($path === null) {
             exec("php -i | grep 'Loaded Configuration'", $return);
@@ -66,6 +68,9 @@ class ScanCommand extends Command
                 $pass++;
                 $status = 'PASS';
                 $color = 'green';
+            }
+            if ($failOnly === true && $status !== 'FAIL') {
+                continue;
             }
             $output->writeLn(
                 '<fg='.$color.'>'
