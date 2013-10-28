@@ -55,7 +55,7 @@ class ScanCommand extends Command
         $output->writeLn(
             str_pad("Status", 7, ' ').'| '
             .str_pad("Severity", 9, ' ').'| '
-            .str_pad("Key", 25, ' ').'| Name'
+            .str_pad("Key", 25, ' ').'| Description'
         );
         $output->writeLn(str_repeat('-', 70));
         $fail = 0;
