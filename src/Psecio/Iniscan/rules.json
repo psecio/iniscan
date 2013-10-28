@@ -113,6 +113,16 @@
 				"description": "A too large value for the maximum post size could allow for DoS against your application",
 				"level": "WARNING",
 				"test": "MaximumPostSize"
+			},
+			{
+				"name": "Safe mode should be disabled",
+				"description": "It's not actually 'safe' ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "safe_mode",
+					"operation": "equals",
+					"value": ""
+				}
 			}
 		],
 		"Custom": [
