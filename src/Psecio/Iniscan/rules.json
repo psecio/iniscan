@@ -21,6 +21,16 @@
 				}
 			},
 			{
+				"name": "Cookie set to HTTP only",
+				"description": "Setting session cookies to 'http only' makes them only readable by the browser",
+				"level": "ERROR",
+				"test": {
+					"key": "session.cookie_httponly",
+					"operation": "equals",
+					"value": "1"
+				}
+			},
+			{
 				"name": "Session save path not set or world writeable",
 				"description": "Session save path should be set and writeable by only the web user",
 				"level": "WARNING",
