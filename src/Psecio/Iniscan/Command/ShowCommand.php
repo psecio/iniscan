@@ -23,7 +23,7 @@ class ShowCommand extends Command
 
     /**
      * Execute the "show" command
-     * 
+     *
      * @param  InputInterface  $input  Input object
      * @param  OutputInterface $output Output object
      * @return null
@@ -34,11 +34,7 @@ class ShowCommand extends Command
 
         // if we're not given a path at all, try to figure it out
         if ($path === null) {
-            exec("php -i | grep 'Loaded Configuration'", $return);
-            $return = preg_match('/Loaded Configuration File => (.*)$/', $return[0], $match);
-            if (isset($match[1])) {
-                $path = trim($match[1]);
-            }
+            $path = php_ini_loaded_file();
         }
 
         if (!is_file($path)) {
@@ -60,6 +56,6 @@ class ShowCommand extends Command
             }
             $output->writeLn("-----------------\n");
         }
-        
+
     }
 }
