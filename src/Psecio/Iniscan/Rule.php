@@ -4,19 +4,59 @@ namespace Psecio\Iniscan;
 
 class Rule
 {
+	/**
+	 * Severity level of the rule
+	 * @var string
+	 */
 	private $level;
+
+	/**
+	 * Description of rule
+	 * @var string
+	 */
 	private $description;
+
+	/**
+	 * Name of the rule
+	 * @var string
+	 */
 	private $name;
+
+	/**
+	 * Test to evaluate the rule
+	 * @var object
+	 */
 	private $test;
+
+	/**
+	 * Pass/fail status of the rule
+	 * @var boolean
+	 */
 	private $status = true;
+
+	/**
+	 * Section in the php.ini the rule's key matches
+	 * @var string
+	 */
 	private $section;
 
+	/**
+	 * Init the object with the given config and section
+	 *
+	 * @param array $config Configuration settings
+	 * @param string $section Section name
+	 */
 	public function __construct($config, $section)
 	{
 		$this->setConfig($config);
 		$this->setSection($section);
 	}
 
+	/**
+	 * Set the configuration values to the class properties
+	 *
+	 * @param array $config Configuration values
+	 */
 	public function setConfig($config)
 	{
 		if (is_object($config)) {
@@ -27,25 +67,51 @@ class Rule
 		}
 	}
 
+	/**
+	 * Get the current "name" value
+	 *
+	 * @return string Name value
+	 */
 	public function getName()
 	{
 		return $this->name;
 	}
 
+	/**
+	 * Set the section the rule belongs to
+	 *
+	 * @param string $section Section name
+	 */
 	public function setSection($section)
 	{
 		$this->section = $section;
 	}
+
+	/**
+	 * Get the current section setting
+	 *
+	 * @return string Section name
+	 */
 	public function getSection()
 	{
 		return $this->section;
 	}
 
+	/**
+	 * Get the severity level (ex. WARNING or ERROR)
+	 *
+	 * @return string Severity level
+	 */
 	public function getLevel()
 	{
 		return $this->level;
 	}
 
+	/**
+	 * Set thep pass/fail status for the rule
+	 *
+	 * @param boolean $flag Pass/fail status
+	 */
 	public function setStatus($flag)
 	{
 		if (!is_bool($flag)) {
@@ -53,33 +119,69 @@ class Rule
 		}
 		$this->status = $flag;
 	}
+
+	/**
+	 * Get the current pass/fail status of the rule
+	 *
+	 * @return boolean Pass/fail status
+	 */
 	public function getStatus()
 	{
 		return $this->status;
 	}
+
+	/**
+	 * Shorthand method to fail the test
+	 */
 	public function fail()
 	{
 		$this->setStatus(false);
 	}
+
+	/**
+	 * Shorthand method to pass the test
+	 */
 	public function pass()
 	{
 		$this->setStatus(true);
 	}
 
+	/**
+	 * Get the current rule's test definition
+	 *
+	 * @return array Testing config
+	 */
 	public function getTest()
 	{
 		return $this->test;
 	}
 
+	/**
+	 * Set the description for the rule
+	 *
+	 * @param string $description Rule description
+	 */
 	public function setDescription($description)
 	{
 		$this->description = $description;
 	}
+
+	/**
+	 * Get the current rule's description
+	 *
+	 * @return string Rule description
+	 */
 	public function getDescription()
 	{
 		return $this->description;
 	}
 
+	/**
+	 * Evaluate the rule and its test
+	 *
+	 * @param array $ini Current php.ini configuration
+	 * @return null
+	 */
 	public function evaluate(array $ini)
 	{
 		$test = $this->getTest();
@@ -91,7 +193,7 @@ class Rule
 		$value = (isset($test->value)) ? $test->value : null;
 		$evalInstance = new $evalClass($this->getSection());
 
-		($evalInstance->execute($test->key, $value, $ini) == false) 
+		($evalInstance->execute($test->key, $value, $ini) == false)
 			? $this->fail() : $this->pass();
 	}
 }
