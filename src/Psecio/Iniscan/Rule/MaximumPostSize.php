@@ -9,7 +9,7 @@ class MaximumPostSize extends \Psecio\Iniscan\Rule
 {
 	private $maxPost = 8;
 
-	public function evaluate($ini)
+	public function evaluate(array $ini)
 	{
 		$postSize = $ini['PHP']['post_max_size'];
 

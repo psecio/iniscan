@@ -13,17 +13,17 @@ class DisableCliFunctions extends \Psecio\Iniscan\Rule
 	 * @var array
 	 */
 	private $functions = array(
-		'exec', 'passthru', 'shell_exec', 'system', 
+		'exec', 'passthru', 'shell_exec', 'system',
 		'proc_open', 'popen', 'curl_exec', 'curl_multi_exec'
 	);
 
 	/**
 	 * Evaluate the operation
-	 * 
-	 * @param array $ini 
+	 *
+	 * @param array $ini
 	 * @return boolean Pass/fail result
 	 */
-	public function evaluate($ini)
+	public function evaluate(array $ini)
 	{
 		if (isset($ini['PHP']['disable_functions'])) {
 
