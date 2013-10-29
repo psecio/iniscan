@@ -63,9 +63,9 @@ class Scan
 	 * @param string $path Path to the string to parse
 	 * @return array Ini settings
 	 */
-	public function parseConfig($path)
+	public function parseConfig($path = null)
 	{
-		$ini = parse_ini_file($path, true);
+		$ini = parse_ini_file( (!is_null($path) ? $path : $this->path), true);
 		return $ini;
 	}
 
