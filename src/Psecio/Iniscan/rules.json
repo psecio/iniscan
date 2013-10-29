@@ -74,7 +74,7 @@
 				"level": "WARNING",
 				"test": {
 					"key": "display_errors",
-					"operation": "equals",
+					"operation": "notequals",
 					"value": "Off"
 				}
 			},
@@ -99,22 +99,12 @@
 				}
 			},
 			{
-				"name": "Do not show errors",
-				"description": "Displaying errors in production can cause information leakage about the application",
-				"level": "ERROR",
-				"test": {
-					"key": "display_errors",
-					"operation": "equals",
-					"value": "On"
-				}
-			},
-			{
 				"name": "Disable magic quotes",
 				"description": "Magic quotes automatically adds quotes to incoming data ('Off' recommended)",
 				"level": "ERROR",
 				"test": {
 					"key": "magic_quotes_gpc",
-					"operation": "equals",
+					"operation": "notequals",
 					"value": "Off"
 				}
 			},
