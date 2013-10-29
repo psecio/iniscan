@@ -32,7 +32,6 @@ class ListCommand extends Command
         if ($ruleFilePath !== false && is_file($ruleFilePath)) {
             $rules = json_decode(file_get_contents($ruleFilePath));
 
-            //print_r($rules);
             $output->writeLn("\n<fg=yellow>Current tests:</fg=yellow>");
             foreach ($rules->rules as $section => $ruleSet) {
                 $output->writeLn('<info>'.$section.'</info>');
