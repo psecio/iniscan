@@ -44,6 +44,20 @@ class Scan
 	}
 
 	/**
+	 * Get the current rules to evaluate
+	 *
+	 * @return array Set of rules
+	 */
+	public function getRules()
+	{
+		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
+		if ($rules === null) {
+			throw new \Exception('Cannot parse rule configuration');
+		}
+		return $rules;
+	}
+
+	/**
 	 * Execute the scan
 	 *
 	 * @return array Set of post-evaluation rules (with pass/fail status)
@@ -52,13 +66,7 @@ class Scan
 	{
 		$path = $this->getPath();
 		$ini = parse_ini_file($path, true);
-
-		// pull in the rule configuration
-		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
-
-		if ($rules === null) {
-			throw new \Exception('Cannot parse rule configuration');
-		}
+		$rules = $this->getRules();
 
 		$ruleList = array();
 		foreach ($rules->rules as $index => $ruleSet) {
