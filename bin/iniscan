@@ -11,7 +11,8 @@ use Symfony\Component\Console\Application;
 $app = new Application('INI Scan', '0.1');
 $app->addCommands(array(
 	new \Psecio\Iniscan\Command\ScanCommand(),
-	new \Psecio\Iniscan\Command\ShowCommand()
+	new \Psecio\Iniscan\Command\ShowCommand(),
+    new \Psecio\Iniscan\Command\ListCommand()
 ));
 $app->run();
 ?>
