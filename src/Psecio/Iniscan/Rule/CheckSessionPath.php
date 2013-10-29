@@ -19,8 +19,10 @@ class CheckSessionPath extends \Psecio\Iniscan\Rule
 		if ($perms == 777) {
 			$this->fail();
 			$this->setDescription('Path '.$savePath.' is world writeable');
+			return false;
 		} else {
 			$this->pass();
+			return true;
 		}
 	}
 }
