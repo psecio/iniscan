@@ -58,6 +58,18 @@ class Scan
 	}
 
 	/**
+	 * Parse the configuration (php.ini) file
+	 *
+	 * @param string $path Path to the string to parse
+	 * @return array Ini settings
+	 */
+	public function parseConfig($path)
+	{
+		$ini = parse_ini_file($path, true);
+		return $ini;
+	}
+
+	/**
 	 * Execute the scan
 	 *
 	 * @return array Set of post-evaluation rules (with pass/fail status)
@@ -65,7 +77,7 @@ class Scan
 	public function execute()
 	{
 		$path = $this->getPath();
-		$ini = parse_ini_file($path, true);
+		$ini = $this->parseConfig();
 		$rules = $this->getRules();
 
 		$ruleList = array();
