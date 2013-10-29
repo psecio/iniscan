@@ -77,7 +77,7 @@ class Scan
 	public function execute()
 	{
 		$path = $this->getPath();
-		$ini = $this->parseConfig();
+		$ini = $this->parseConfig($path);
 		$rules = $this->getRules();
 
 		$ruleList = array();
