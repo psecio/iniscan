@@ -4,16 +4,27 @@ namespace Psecio\Iniscan;
 
 class Scan
 {
+	/**
+	 * Path to the php.ini file
+	 * @var string
+	 */
 	private $path;
-	private $rules = array(
-		'session'
-	);
 
+	/**
+	 * Init the object with the given ini path
+	 *
+	 * @param string $path PHP.ini path to evaluate
+	 */
 	public function __construct($path)
 	{
 		$this->setPath($path);
 	}
 
+	/**
+	 * Set the ini path to evaluate
+	 *
+	 * @param string $path Path to php.ini
+	 */
 	public function setPath($path)
 	{
 		if (!is_file($path)) {
@@ -21,16 +32,22 @@ class Scan
 		}
 		$this->path = realpath($path);
 	}
+
+	/**
+	 * Get the current path value
+	 *
+	 * @return string Path location
+	 */
 	public function getPath()
 	{
 		return $this->path;
 	}
 
-	public function getRules()
-	{
-		return $this->rules;
-	}
-
+	/**
+	 * Execute the scan
+	 *
+	 * @return array Set of post-evaluation rules (with pass/fail status)
+	 */
 	public function execute()
 	{
 		$path = $this->getPath();
