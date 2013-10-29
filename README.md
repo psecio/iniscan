@@ -67,5 +67,14 @@ The `show` command lists out the contents of your `php.ini` file with a bit of e
 bin/iniscan show --path=/path/to/php.ini
 ```
 
+##### List
+
+The `list` command shows a listing of the current rules being checked and their related php.ini key.
+
+```
+bin/iniscan list
+```
+
+
 
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
