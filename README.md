@@ -61,6 +61,11 @@ If the path is omitted, *iniscan* will try to find it based off the current conf
 vendor/bin/iniscan scan --path=/path/to/php.ini --fail-only
 ```
 
+The `scan` command will return an exit code based on the results:
+
+- 0: No errors
+- 1: Failures found
+
 ##### Show
 
 The `show` command lists out the contents of your `php.ini` file with a bit of extra formatting.
