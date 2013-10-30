@@ -84,8 +84,8 @@
 				"level": "WARNING",
 				"test": {
 					"key": "expose_php",
-					"operation": "equals",
-					"value": "Off"
+					"operation": "notequals",
+					"value": "On"
 				}
 			},
 			{
