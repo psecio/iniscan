@@ -52,13 +52,13 @@ FAIL   | WARNING  |                          : Path /tmp is world writeable
 The `scan` command will be the most used - it runs the rules checks against the given ini file and reports back the results. For example:
 
 ```
-bin/iniscan scan --path=/path/to/php.ini
+vendor/bin/iniscan scan --path=/path/to/php.ini
 ```
 
 If the path is omitted, *iniscan* will try to find it based off the current configuration (a "php -i" call). By default, this reports back both the pass and fail results of the checks. If you'd like to only return the failures, you can use the `fail-only` argument:
 
 ```
-bin/iniscan scan --path=/path/to/php.ini --fail-only
+vendor/bin/iniscan scan --path=/path/to/php.ini --fail-only
 ```
 
 ##### Show
@@ -66,7 +66,7 @@ bin/iniscan scan --path=/path/to/php.ini --fail-only
 The `show` command lists out the contents of your `php.ini` file with a bit of extra formatting.
 
 ```
-bin/iniscan show --path=/path/to/php.ini
+vendor/bin/iniscan show --path=/path/to/php.ini
 ```
 
 ##### List
@@ -74,7 +74,7 @@ bin/iniscan show --path=/path/to/php.ini
 The `list` command shows a listing of the current rules being checked and their related php.ini key.
 
 ```
-bin/iniscan list
+vendor/bin/iniscan list
 ```
 
 
