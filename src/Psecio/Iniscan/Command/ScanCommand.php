@@ -86,7 +86,7 @@ class ScanCommand extends Command
         }
         $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
 
-        return;
+        return (count($fail) > 0) ? 1 : 0;
     }
 }
 
