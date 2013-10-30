@@ -157,6 +157,19 @@ class Rule
 	}
 
 	/**
+	 * Set the test information for the rule
+	 * 
+	 * @param mixed $test Either a test object or array
+	 */
+	public function setTest($test)
+	{
+		if (is_array($test)) {
+			$test = (object)$test;
+		}
+		$this->test = $test;
+	}
+
+	/**
 	 * Set the description for the rule
 	 *
 	 * @param string $description Rule description
