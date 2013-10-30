@@ -24,7 +24,7 @@ class ScanCommand extends Command
 
     /**
      * Execute the "scan" command
-     *
+     * 
      * @param  InputInterface  $input  Input object
      * @param  OutputInterface $output Output object
      * @return null
@@ -80,7 +80,7 @@ class ScanCommand extends Command
                 .str_pad($status, 7, ' ')
                 .'| '.str_pad($result->getLevel(), 9, ' ')
                 .'| '.str_pad($test, 25, ' ')
-                .': '.$result->getDescription()
+                .'| '.$result->getDescription()
                 .'</fg='.$color.'>'
                 );
         }
@@ -90,4 +90,4 @@ class ScanCommand extends Command
     }
 }
 
-?>
+?>  
