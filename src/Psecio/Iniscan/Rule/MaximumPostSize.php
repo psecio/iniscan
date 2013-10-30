@@ -11,6 +11,7 @@ class MaximumPostSize extends \Psecio\Iniscan\Rule
 
 	public function evaluate(array $ini)
 	{
+		$this->setTest(array('key' => 'post_max_size'));
 		$postSize = $ini['PHP']['post_max_size'];
 
 		// find the number(s)
