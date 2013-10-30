@@ -24,7 +24,7 @@ The only current dependency is the Symfony console.
 *Example usage:*
 
 ```
-bin/iniscan scan --path=/path/to/php.ini
+vendor/bin/iniscan scan --path=/path/to/php.ini
 ```
 
 
