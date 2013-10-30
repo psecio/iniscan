@@ -20,5 +20,8 @@
         "psr-0": {
             "Psecio": "src/"
         }
-    }
+    },
+    "bin": [
+        "bin/iniscan"
+    ]
 }
