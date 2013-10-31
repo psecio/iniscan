@@ -64,6 +64,47 @@ class Scan
 	}
 
 	/**
+	 * Get the current set of deprecated settings from the config
+	 *
+	 * @return array Set of deprecated settings
+	 */
+	public function getDeprecated()
+	{
+		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
+
+		if ($rules === null) {
+			throw new \Exception('Cannot parse rule configuration');
+		}
+		if (!isset($rules->settings[1]->deprecated)) {
+			throw new \Exception('Deprecated configuration not found');
+		}
+		return $rules->settings[1]->deprecated;
+	}
+
+	/**
+	 * See if a setting is listing as deprecated in the PHP version given
+	 *
+	 * @param string $key PHP.ini settings key
+	 * @param string $phpVersion Current PHP version [optional]
+	 * @return boolean Key is deprecated/not deprecated
+	 */
+	public function isDeprecated($key, $phpVersion = PHP_VERSION)
+	{
+		$deprecated = $this->getDeprecated();
+
+		// loop through the versions and see if our key is in there
+		foreach ($deprecated as $index => $value) {
+			if ($index === $key) {
+				$compare = version_compare($phpVersion, $value);
+				if ($compare >= 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Parse the configuration (php.ini) file
 	 *
 	 * @param string $path Path to the string to parse
@@ -95,6 +136,11 @@ class Scan
 				} else {
 					// make a rule
 					$rule = new \Psecio\Iniscan\Rule($rule, $index);
+				}
+
+				$key = $rule->getTestKey();
+				if ($this->isDeprecated($key) === true) {
+					continue;
 				}
 
 				// execute its test
