@@ -27,20 +27,17 @@ class ListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $ruleFilePath = realpath(__DIR__.'/../rules.json');
+        $scan = new \Psecio\Iniscan\Scan();
+        $rules = $scan->getRules();
 
-        if ($ruleFilePath !== false && is_file($ruleFilePath)) {
-            $rules = json_decode(file_get_contents($ruleFilePath));
-
-            $output->writeLn("\n<fg=yellow>Current tests:</fg=yellow>");
-            foreach ($rules->rules as $section => $ruleSet) {
-                $output->writeLn('<info>'.$section.'</info>');
-                foreach ($ruleSet as $rule) {
-                    $ruleKey = (isset($rule->test->key)) ? $rule->test->key : '[custom]';
-                    $output->writeLn(str_pad($ruleKey, 30).'| '.$rule->description);
-                }
-                $output->writeLn("\n");
+        $output->writeLn("\n<fg=yellow>Current tests:</fg=yellow>");
+        foreach ($rules as $section => $ruleSet) {
+            $output->writeLn('<info>'.$section.'</info>');
+            foreach ($ruleSet as $rule) {
+                $ruleKey = (isset($rule->test->key)) ? $rule->test->key : '[custom]';
+                $output->writeLn(str_pad($ruleKey, 30).'| '.$rule->description);
             }
+            $output->writeLn("\n");
         }
     }
 }
