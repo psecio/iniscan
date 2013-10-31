@@ -140,7 +140,8 @@
 		{
 			"deprecated": {
 				"register_globals": "5.4.0",
-				"magic_quotes_gpc": "5.4.0"
+				"magic_quotes_gpc": "5.4.0",
+				"safe_mode": "5.4.0"
 			}
 		}
 	]
