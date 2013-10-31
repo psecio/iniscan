@@ -139,9 +139,7 @@
 		},
 		{
 			"deprecated": {
-				"5.4.0": [
-					"register_globals"
-				]
+				"register_globals": "5.4.0"
 			}
 		}
 	]
