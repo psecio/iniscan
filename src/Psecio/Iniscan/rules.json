@@ -57,7 +57,7 @@
 						"test": {
 							"key": "allow_url_fopen",
 							"operation": "equals",
-							"value": "Off"
+							"value": "0"
 						}
 					},
 					{
@@ -67,7 +67,7 @@
 						"test": {
 							"key": "allow_url_include",
 							"operation": "equals",
-							"value": "Off"
+							"value": "0"
 						}
 					},
 					{
@@ -77,7 +77,7 @@
 						"test": {
 							"key": "display_errors",
 							"operation": "notequals",
-							"value": "Off"
+							"value": "0"
 						}
 					},
 					{
@@ -87,7 +87,7 @@
 						"test": {
 							"key": "expose_php",
 							"operation": "notequals",
-							"value": "On"
+							"value": "1"
 						}
 					},
 					{
@@ -97,7 +97,7 @@
 						"test": {
 							"key": "register_globals",
 							"operation": "notequals",
-							"value": "On"
+							"value": "1"
 						}
 					},
 					{
@@ -106,8 +106,8 @@
 						"level": "ERROR",
 						"test": {
 							"key": "magic_quotes_gpc",
-							"operation": "notequals",
-							"value": "Off"
+							"operation": "equals",
+							"value": "0"
 						}
 					},
 					{
@@ -123,7 +123,7 @@
 						"test": {
 							"key": "safe_mode",
 							"operation": "equals",
-							"value": ""
+							"value": "0"
 						}
 					}
 				],
