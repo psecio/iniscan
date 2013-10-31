@@ -13,11 +13,13 @@ class Scan
 	/**
 	 * Init the object with the given ini path
 	 *
-	 * @param string $path PHP.ini path to evaluate
+	 * @param string $path PHP.ini path to evaluate [optional]
 	 */
-	public function __construct($path)
+	public function __construct($path = null)
 	{
-		$this->setPath($path);
+		if ($path !== null) {
+			$this->setPath($path);
+		}
 	}
 
 	/**
@@ -51,10 +53,14 @@ class Scan
 	public function getRules()
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
+
 		if ($rules === null) {
 			throw new \Exception('Cannot parse rule configuration');
 		}
-		return $rules;
+		if (!isset($rules->settings[0]->rules)) {
+			throw new \Exception('Rule configuration not found');
+		}
+		return $rules->settings[0]->rules;
 	}
 
 	/**
@@ -81,7 +87,7 @@ class Scan
 		$rules = $this->getRules();
 
 		$ruleList = array();
-		foreach ($rules->rules as $index => $ruleSet) {
+		foreach ($rules as $index => $ruleSet) {
 			foreach ($ruleSet as $type => $rule) {
 				if (is_string($rule->test)) {
 					$ruleClass = "\\Psecio\\Iniscan\\Rule\\".$rule->test;
