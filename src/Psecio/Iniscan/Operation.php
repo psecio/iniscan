@@ -12,7 +12,7 @@ abstract class Operation
 
 	/**
 	 * Init the Operation and set the section
-	 * 
+	 *
 	 * @param string $section Section name
 	 * @return type
 	 */
@@ -23,8 +23,8 @@ abstract class Operation
 
 	/**
 	 * Set the setion name
-	 * 
-	 * @param string $section 
+	 *
+	 * @param string $section
 	 * @return \Psecio\Iniscan\Operation instance
 	 */
 	public function setSection($section)
@@ -35,7 +35,7 @@ abstract class Operation
 
 	/**
 	 * Get the current section name
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getSection()
@@ -45,7 +45,7 @@ abstract class Operation
 
 	/**
 	 * Execute the operation
-	 * 
+	 *
 	 * @param string $key INI key name
 	 * @param string $value Value to match
 	 * @param array $ini Current INI settings
@@ -55,7 +55,7 @@ abstract class Operation
 
 	/**
 	 * Find the given value in the INI array
-	 * 
+	 *
 	 * @param string $path "Path" to the value
 	 * @param array $ini Current INI settings
 	 * @throws \InvalidArgumentException If the section is unknown
@@ -69,7 +69,7 @@ abstract class Operation
 			throw new \InvalidArgumentException('Unknown section '.$section);
 		}
 		if (!array_key_exists($path, $ini[$section])) {
-			throw new \InvalidArgumentException('Unknown path '.$path);
+			throw new Exceptions\PathNotFoundException('Unknown path '.$path.' - is it defined?');
 		}
 		return $ini[$section][$path];
 	}
