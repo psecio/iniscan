@@ -73,4 +73,27 @@ abstract class Operation
 		}
 		return $ini[$section][$path];
 	}
+
+	/**
+	 * Cast the values from php.ini to a standard format
+	 *
+	 * @param mixed $value php.ini setting value
+	 * @return mixed "Casted" result
+	 */
+	public function castValue($value)
+	{
+		switch($value) {
+			case 'Off':
+			case '':
+				$casted = '0';
+				break;
+			case 'On':
+			case '1':
+				$casted = '1';
+			default:
+				$casted = $value;
+		}
+
+		return $casted;
+	}
 }
