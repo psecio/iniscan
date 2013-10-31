@@ -157,8 +157,22 @@ class Rule
 	}
 
 	/**
+	 * Get the PHP.ini setting key from the test
+	 *
+	 * @return string Test key
+	 */
+	public function getTestKey()
+	{
+		$test = $this->getTest();
+		if (!isset($test->key)) {
+			throw new \InvalidArgumentException('Test key not found');
+		}
+		return $test->key;
+	}
+
+	/**
 	 * Set the test information for the rule
-	 * 
+	 *
 	 * @param mixed $test Either a test object or array
 	 */
 	public function setTest($test)
