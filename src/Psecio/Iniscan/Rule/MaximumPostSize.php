@@ -9,9 +9,14 @@ class MaximumPostSize extends \Psecio\Iniscan\Rule
 {
 	private $maxPost = 8;
 
+	public function __construct($config, $section)
+	{
+		parent::__construct($config, $section);
+		$this->setTest(array('key' => 'post_max_size'));
+	}
+
 	public function evaluate(array $ini)
 	{
-		$this->setTest(array('key' => 'post_max_size'));
 		$postSize = $ini['PHP']['post_max_size'];
 
 		// find the number(s)

@@ -17,6 +17,12 @@ class DisableCliFunctions extends \Psecio\Iniscan\Rule
 		'proc_open', 'popen', 'curl_exec', 'curl_multi_exec'
 	);
 
+	public function __construct($config, $section)
+	{
+		parent::__construct($config, $section);
+		$this->setTest(array('key' => 'disable_functions'));
+	}
+
 	/**
 	 * Evaluate the operation
 	 *
@@ -25,8 +31,6 @@ class DisableCliFunctions extends \Psecio\Iniscan\Rule
 	 */
 	public function evaluate(array $ini)
 	{
-		$this->setTest(array('key' => 'disable_functions'));
-
 		if (isset($ini['PHP']['disable_functions'])) {
 
 			$functions = explode(',', $ini['PHP']['disable_functions']);

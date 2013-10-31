@@ -7,10 +7,14 @@ namespace Psecio\Iniscan\Rule;
  */
 class CheckSessionPath extends \Psecio\Iniscan\Rule
 {
+	public function __construct($config, $section)
+	{
+		parent::__construct($config, $section);
+		$this->setTest(array('key' => 'session.save_path'));
+	}
+
 	public function evaluate(array $ini)
 	{
-		$this->setTest(array('key' => 'session.save_path'));
-
 		if (!isset($ini['Session']['session.save_path'])) {
 			$this->setDescription('Path not set, default (/tmp) is world writeable');
 			$this->fail();
