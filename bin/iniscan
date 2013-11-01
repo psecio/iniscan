@@ -7,12 +7,27 @@ set_time_limit(0);
 (@include_once __DIR__ . '/../vendor/autoload.php') || @include_once __DIR__ . '/../../../autoload.php';
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
+$output = new ConsoleOutput();
 $app = new Application('INI Scan', '0.1');
 $app->addCommands(array(
 	new \Psecio\Iniscan\Command\ScanCommand(),
 	new \Psecio\Iniscan\Command\ShowCommand(),
     new \Psecio\Iniscan\Command\ListCommand()
 ));
-$app->run();
+$app->setCatchExceptions(false);
+
+$output->writeLn("<fg=cyan>== Executing INI Scan [".date('m.d.Y H:i:s')."] ==</fg=cyan>");
+try {
+    $app->run();
+} catch (\Exception $e) {
+    $indent = str_repeat(' ', 3);
+    $output->writeLn(
+        $indent."<fg=white;bg=red;options=bold>ERROR:".str_repeat(' ', 20)."</fg=white;bg=red;options=bold>\n"
+        .$indent."<fg=red>[".$e->getCode()."] ".$e->getMessage()."</fg=red>"
+    );
+    exit(1);
+}
+
 ?>
