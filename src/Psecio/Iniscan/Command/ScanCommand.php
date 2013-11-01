@@ -15,7 +15,8 @@ class ScanCommand extends Command
             ->setDescription('Scan the given php.ini')
             ->setDefinition(array(
                 new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini'),
-                new InputOption('fail-only', 'fail-only', InputOption::VALUE_NONE, 'Show only failing checks')
+                new InputOption('fail-only', 'fail-only', InputOption::VALUE_NONE, 'Show only failing checks'),
+                new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -33,6 +34,7 @@ class ScanCommand extends Command
     {
         $path = $input->getOption('path');
         $failOnly = $input->getOption('fail-only');
+        $format = $input->getOption('format');
 
         // if we're not given a path at all, try to figure it out
         if ($path === null) {
@@ -51,7 +53,12 @@ class ScanCommand extends Command
             'failOnly' => $failOnly
         );
 
-        $outputHandler = new \Psecio\Iniscan\Command\Scan\Output\Console($output, $options);
+        $format = ($format === null) ? 'console' : $format;
+        $formatClass = "\\Psecio\\Iniscan\\Command\\Scan\\Output\\".ucwords(strtolower($format));
+        if (!class_exists($formatClass)) {
+            throw new \Psecio\Iniscan\Exceptions\FormatNotFoundException('Output format "'.$format.'" not found');
+        }
+        $outputHandler = new $formatClass($output, $options);
         return $outputHandler->render($results);
     }
 }
