@@ -90,7 +90,7 @@ By default *iniscan* will output information directly to the console in a human-
 vendor/bin/iniscan show --path=/path/to/php.ini --format=json
 ```
 
-**NOTE:** Currently, only the `scan` command supports alternate output formats - and only two: console and JSON.
+**NOTE:** Currently, only the `scan` command supports alternate output formats - and only three: console, JSON and XML.
 
 
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
