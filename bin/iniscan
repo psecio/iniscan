@@ -18,7 +18,6 @@ $app->addCommands(array(
 ));
 $app->setCatchExceptions(false);
 
-$output->writeLn("<fg=cyan>== Executing INI Scan [".date('m.d.Y H:i:s')."] ==</fg=cyan>");
 try {
     $app->run();
 } catch (\Exception $e) {
