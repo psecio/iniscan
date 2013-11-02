@@ -10,6 +10,8 @@ class Console extends \Psecio\Iniscan\Command\Output
         $path = $this->getOption('path');
         $failOnly = $this->getOption('failOnly');
 
+        $output->writeLn("<fg=cyan>== Executing INI Scan [".date('m.d.Y H:i:s')."] ==</fg=cyan>");
+
         // loop through the results and output color coded
         $output->writeLn("\nResults for ".$path.":\n".str_repeat('=', 12));
         $output->writeLn(
