@@ -82,6 +82,15 @@ The `list` command shows a listing of the current rules being checked and their 
 vendor/bin/iniscan list
 ```
 
+#### Output formats
+
+By default *iniscan* will output information directly to the console in a human-readable result. You can also specify other output formats that may be easier to parse programatically (like JSON). Use the `--format` option to change the output:
+
+```
+vendor/bin/iniscan show --path=/path/to/php.ini --format=json
+```
+
+**NOTE:** Currently, only the `scan` command supports alternate output formats - and only two: console and JSON.
 
 
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
