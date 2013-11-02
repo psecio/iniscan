@@ -204,6 +204,20 @@ class Rule
 	}
 
 	/**
+	 * Output the values from the current rule as an array
+	 * 
+	 * @return array
+	 */
+	public function values()
+	{
+		return array(
+			'name' => $this->name,
+			'level' => $this->description,
+			'status' => $this->status
+		);
+	}
+
+	/**
 	 * Evaluate the rule and its test
 	 *
 	 * @param array $ini Current php.ini configuration
