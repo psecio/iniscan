@@ -15,6 +15,8 @@ class Json extends \Psecio\Iniscan\Command\Output
         	$resultValues[] = $result->values();
         }
 
-        $output->writeLn(json_encode($resultValues));
+        $result = array('results' => $resultValues);
+
+        $output->writeLn(json_encode($result));
     }
 }
