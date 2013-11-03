@@ -212,7 +212,8 @@ class Rule
 	{
 		return array(
 			'name' => $this->name,
-			'level' => $this->description,
+			'description' => $this->description,
+			'level' => $this->level,
 			'status' => $this->status
 		);
 	}
