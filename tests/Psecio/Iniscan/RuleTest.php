@@ -120,4 +120,79 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $rule->setConfig($obj);
         $this->assertEquals($rule->getName(), 'testing');
     }
+
+    /**
+     * Test that an exception is thrown when a non-boolean
+     *     status is set
+     * 
+     * @expectedException \InvalidArgumentException
+     * @covers \Psecio\Iniscan\Rule::setStatus
+     */
+    public function testSetNonBooleanStatus()
+    {
+        $rule = new Rule(array(), 'testing123');
+        $rule->setStatus('badvalue');
+    }
+
+    /**
+     * Test the getter/setter for level
+     * 
+     * @covers \Psecio\Iniscan\Rule::getLevel
+     */
+    public function testGetSetLevel()
+    {
+        $config = array(
+            'level' => 'ERROR'
+        );
+        $rule = new Rule($config, 'testing123');
+        $this->assertEquals($rule->getLevel(), 'ERROR');
+    }
+
+    /**
+     * Test the getter/setter for status
+     * 
+     * @covers \Psecio\Iniscan\Rule::getStatus
+     */
+    public function testGetSetStatus()
+    {
+        $config = array(
+            'status' => true
+        );
+        $rule = new Rule($config, 'testing123');
+        $this->assertEquals($rule->getStatus(), true);
+    }
+
+    /**
+     * Test the getter for the rule's test key
+     * 
+     * @covers \Psecio\Iniscan\Rule::getTestKey
+     */
+    public function testGetTestKey()
+    {
+        $config = array(
+            'test' => (object)array(
+                'key' => 'foobar'
+            )
+        );
+        $rule = new Rule($config, 'testing123');
+        $this->assertEquals($rule->getTestKey(), 'foobar');
+    }
+
+    /**
+     * Test the result of the values method to
+     *     make an array from the object
+     * 
+     * @covers \Psecio\Iniscan\Rule::values
+     */
+    public function testGetRuleValues()
+    {
+        $config = array(
+            'name' => 'test1',
+            'description' => 'test description',
+            'level' => 'ERROR',
+            'status' => true
+        );
+        $rule = new Rule($config, 'testing123');
+        $this->assertEquals($rule->values(), $config);
+    }
 }
