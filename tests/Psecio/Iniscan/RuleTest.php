@@ -90,4 +90,34 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $rule->setSection('foobar');
         $this->assertEquals('foobar', $rule->getSection());
     }
+
+    /**
+     * Testing the setting of the config with an array
+     * 
+     * @covers \Psecio\Iniscan\Rule::setConfig
+     */
+    public function testSetConfigArray()
+    {
+        $config = array(
+            'name' => 'testing'
+        );
+        $rule = new Rule(array(), 'testing123');
+        $rule->setConfig($config);
+        $this->assertEquals($rule->getName(), 'testing');
+    }
+
+    /**
+     * Testing the setting of the configuration with an object
+     * 
+     * @covers \Psecio\Iniscan\Rule::setConfig
+     */
+    public function testSetConfigObject()
+    {
+        $obj = new \stdClass();
+        $obj->name = 'testing';
+
+        $rule = new Rule(array(), 'testing123');
+        $rule->setConfig($obj);
+        $this->assertEquals($rule->getName(), 'testing');
+    }
 }
