@@ -173,9 +173,11 @@ class Scan
 
 				// if we have contexts, check the rule
 				$ruleContext = $rule->getContext();
+				$scanContext = $this->getContext();
+
 				if ($ruleContext !== null) {
-					$int = array_intersect($ruleContext, $this->getContext());
-					if (empty($int)) {
+					$int = array_intersect($ruleContext, $scanContext);
+					if (empty($int) && !empty($scanContext)) {
 						continue;
 					}
 				}
