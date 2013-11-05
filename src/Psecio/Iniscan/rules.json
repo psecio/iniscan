@@ -77,7 +77,8 @@
 						"test": {
 							"key": "display_errors",
 							"operation": "notequals",
-							"value": "0"
+							"value": "0",
+							"context": ["prod"]
 						}
 					},
 					{
