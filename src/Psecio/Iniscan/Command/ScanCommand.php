@@ -16,6 +16,7 @@ class ScanCommand extends Command
                 new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini'),
                 new InputOption('fail-only', 'fail-only', InputOption::VALUE_NONE, 'Show only failing checks'),
                 new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
+                new InputOption('context', 'context', InputOption::VALUE_OPTIONAL, 'Environment context (ex. "prod")')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -34,6 +35,10 @@ class ScanCommand extends Command
         $path = $input->getOption('path');
         $failOnly = $input->getOption('fail-only');
         $format = $input->getOption('format');
+        $context = $input->getOption('context');
+
+        $context = ($context !== null)
+            ? explode(', ', $context) : array();
 
         // if we're not given a path at all, try to figure it out
         if ($path === null) {
@@ -44,7 +49,7 @@ class ScanCommand extends Command
             throw new \Exception('Path is null or not not accessible: "'.$path.'"');
         }
 
-        $scan = new \Psecio\Iniscan\Scan($path);
+        $scan = new \Psecio\Iniscan\Scan($path, $context);
         $results = $scan->execute();
 
         $options = array(
