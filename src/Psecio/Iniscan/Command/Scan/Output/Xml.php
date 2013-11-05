@@ -7,10 +7,8 @@ class Xml extends \Psecio\Iniscan\Command\Output
     public function render($results)
     {
         $output = $this->getOutput();
-        $path = $this->getOption('path');
-        $failOnly = $this->getOption('failOnly');
-
         $resultValues = array();
+
         foreach ($results as $result) {
         	$resultValues[] = $result->values();
         }
