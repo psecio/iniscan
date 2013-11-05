@@ -11,15 +11,22 @@ class Scan
 	private $path;
 
 	/**
+	 * Set of context environments to run in (ex. "prod" or "dev")
+	 * @var array
+	 */
+	private $contexts = array();
+
+	/**
 	 * Init the object with the given ini path
 	 *
 	 * @param string $path PHP.ini path to evaluate [optional]
 	 */
-	public function __construct($path = null)
+	public function __construct($path = null, array $context = array())
 	{
 		if ($path !== null) {
 			$this->setPath($path);
 		}
+		$this->setContext($context);
 	}
 
 	/**
@@ -43,6 +50,26 @@ class Scan
 	public function getPath()
 	{
 		return $this->path;
+	}
+
+	/**
+	 * Set the current context list
+	 *
+	 * @param array $context Context list
+	 */
+	public function setContext(array $context)
+	{
+		$this->context = $context;
+	}
+
+	/**
+	 * Get the current context list
+	 *
+	 * @return array Context list
+	 */
+	public function getContext()
+	{
+		return $this->context;
 	}
 
 	/**
@@ -126,6 +153,7 @@ class Scan
 		$path = $this->getPath();
 		$ini = $this->parseConfig($path);
 		$rules = $this->getRules();
+		$context = $this->getContext();
 
 		$ruleList = array();
 		foreach ($rules as $index => $ruleSet) {
@@ -141,6 +169,15 @@ class Scan
 				$key = $rule->getTestKey();
 				if ($this->isDeprecated($key) === true) {
 					continue;
+				}
+
+				// if we have contexts, check the rule
+				$ruleContext = $rule->getContext();
+				if ($ruleContext !== null) {
+					$int = array_intersect($ruleContext, $this->getContext());
+					if (empty($int)) {
+						continue;
+					}
 				}
 
 				// execute its test

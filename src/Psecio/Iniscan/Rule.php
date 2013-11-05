@@ -184,6 +184,17 @@ class Rule
 	}
 
 	/**
+	 * Get the test context list
+	 *
+	 * @return mixed Either the array of context or null if not found
+	 */
+	public function getContext()
+	{
+		return (isset($this->test->context))
+			? $this->test->context : null;
+	}
+
+	/**
 	 * Set the description for the rule
 	 *
 	 * @param string $description Rule description
@@ -205,7 +216,7 @@ class Rule
 
 	/**
 	 * Output the values from the current rule as an array
-	 * 
+	 *
 	 * @return array
 	 */
 	public function values()
