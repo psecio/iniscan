@@ -93,4 +93,14 @@ vendor/bin/iniscan show --path=/path/to/php.ini --format=json
 **NOTE:** Currently, only the `scan` command supports alternate output formats - and only three: console, JSON and XML.
 
 
+#### Contexts
+
+The scanner also supports the concept of "contexts" - environments you may be executing the scanner in. For example, in your development environment, it may be okay to have `display_errors` on. In production, however, this is a bad idea. The scanner's default assumes you're using it in prod, so it uses the strictest checks unless you tell it otherwise. To do so, use the `context` command line option:
+
+```
+vendor/bin/iniscan show --path=/path/to/php.ini --context=dev
+```
+
+In this case, we're told it we're running in dev, so anything that specifically mentions "prod" isn't executed.
+
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
