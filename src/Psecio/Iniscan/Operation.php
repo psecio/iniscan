@@ -82,16 +82,12 @@ abstract class Operation
 	 */
 	public function castValue($value)
 	{
-		switch($value) {
-			case 'Off':
-			case '':
-				$casted = '0';
-				break;
-			case 'On':
-			case '1':
-				$casted = '1';
-			default:
-				$casted = $value;
+		if ($value === 'Off' || $value === '' || $value === 0) {
+			$casted = 0;
+		} elseif ($value === 'On' || $value === '1' || $value === 1) {
+			$casted = 1;
+		} else {
+			$casted = $value;
 		}
 
 		return $casted;
