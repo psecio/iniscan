@@ -18,8 +18,8 @@ class OperationTest extends \PHPUnit_Framework_TestCase
         $operation = new OperationStub('test');
         $result = $operation->castValue($input);
 
-        $this->assertEquals($result, '0');
-        $this->assertEquals(gettype($result), 'string');
+        $this->assertEquals($result, 0);
+        $this->assertEquals(gettype($result), 'integer');
     }
 
     /**
@@ -34,8 +34,8 @@ class OperationTest extends \PHPUnit_Framework_TestCase
         $operation = new OperationStub('test');
         $result = $operation->castValue($input);
 
-        $this->assertEquals($result, '1');
-        $this->assertEquals(gettype($result), 'string');
+        $this->assertEquals($result, 1);
+        $this->assertEquals(gettype($result), 'integer');
     }
 
     /**
