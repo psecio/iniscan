@@ -140,6 +140,15 @@ class Scan
 	public function parseConfig($path = null)
 	{
 		$ini = parse_ini_file( (!is_null($path) ? $path : $this->path), true);
+
+		// pull in settings from other scanned INI files
+		$scannedIniList = php_ini_scanned_files();
+		if ($scannedIniList !== false) {
+			foreach(explode(',', $scannedIniList) as $scannedFile) {
+				$scannedIni = parse_ini_file($scannedFile);
+				$ini = array_merge($ini, $scannedIni);
+			}
+		}
 		return $ini;
 	}
 
