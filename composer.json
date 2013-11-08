@@ -21,6 +21,9 @@
             "Psecio": "src/"
         }
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "bin": [
         "bin/iniscan"
     ]
