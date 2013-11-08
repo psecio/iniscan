@@ -145,7 +145,8 @@ class Scan
 		$scannedIniList = php_ini_scanned_files();
 		if ($scannedIniList !== false) {
 			foreach(explode(',', $scannedIniList) as $scannedFile) {
-				$scannedIni = parse_ini_file($scannedFile);
+                $filePath = trim($scannedFile);
+				$scannedIni = parse_ini_file($filePath);
 				$ini = array_merge($ini, $scannedIni);
 			}
 		}
