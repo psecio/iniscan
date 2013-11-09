@@ -17,6 +17,12 @@ class Scan
 	private $contexts = array();
 
 	/**
+	 * Set of ini keys marked as deprecated
+	 * @var array
+	 */
+	private $marked = array();
+
+	/**
 	 * Init the object with the given ini path
 	 *
 	 * @param string $path PHP.ini path to evaluate [optional]
@@ -109,6 +115,26 @@ class Scan
 	}
 
 	/**
+	 * Mark a found key as a deprecated item
+	 * 
+	 * @param string $key PHP.ini key
+	 */
+	public function markKey($key)
+	{
+		$this->marked[] = $key;
+	}
+
+	/**
+	 * Get the current set of keys marked as deprecated
+	 * 
+	 * @return array
+	 */
+	public function getMarked()
+	{
+		return $this->marked;
+	}
+
+	/**
 	 * See if a setting is listing as deprecated in the PHP version given
 	 *
 	 * @param string $key PHP.ini settings key
@@ -124,6 +150,7 @@ class Scan
 			if ($index === $key) {
 				$compare = version_compare($phpVersion, $value);
 				if ($compare >= 0) {
+					$this->markKey($key);
 					return true;
 				}
 			}
