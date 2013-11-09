@@ -192,6 +192,18 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that an exception is thrown when no test key is defined
+     * 
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetTestKeyNoKey()
+    {
+        $config = array('test' => (object)array());
+        $rule = new Rule($config, 'testing123');
+        $rule->getTestKey();
+    }
+
+    /**
      * Test the result of the values method to
      *     make an array from the object
      * 
