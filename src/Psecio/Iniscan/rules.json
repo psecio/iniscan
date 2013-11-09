@@ -126,6 +126,16 @@
 							"operation": "equals",
 							"value": "0"
 						}
+					},
+					{
+						"name": "Register long arrays is disabled",
+						"description": "Registering long arrays turns on the HTTP_*_VARS (Recommended Off)",
+						"level": "WARNING",
+						"test": {
+							"key": "register_long_arrays",
+							"operation": "equals",
+							"value": "0"
+						}
 					}
 				],
 				"Custom": [
