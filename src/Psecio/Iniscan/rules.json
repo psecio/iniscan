@@ -82,6 +82,17 @@
 						}
 					},
 					{
+						"name": "Log errors",
+						"description": "Log errors in production ('On' recommended)",
+						"level": "WARNING",
+						"test": {
+							"key": "log_errors",
+							"operation": "equals",
+							"value": "1",
+							"context": ["prod"]
+						}
+					},
+					{
 						"name": "Disable PHP signature",
 						"description": "Showing the PHP signature exposes additional information",
 						"level": "WARNING",
