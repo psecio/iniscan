@@ -220,4 +220,19 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $rule = new Rule($config, 'testing123');
         $this->assertEquals($rule->values(), $config);
     }
+
+    /**
+     * Test the getter/setter for the name property
+     * 
+     * @covers \Psecio\Iniscan\Rule::getName
+     * @covers \Psecio\Iniscan\Rule::setName
+     */
+    public function testGetSetName()
+    {
+        $name = 'test name';
+        $rule = new Rule(array(), 'testing123');
+        $rule->setName($name);
+
+        $this->assertEquals($rule->getName(), $name);
+    }
 }

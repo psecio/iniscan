@@ -78,6 +78,16 @@ class Rule
 	}
 
 	/**
+	 * Set the current "name" value
+	 * 
+	 * @param string $name
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+
+	/**
 	 * Set the section the rule belongs to
 	 *
 	 * @param string $section Section name
