@@ -145,6 +145,16 @@
 							"key": "max_input_vars",
 							"operation": "isset"
 						}
+					},
+					{
+						"name": "Do not display startup errors",
+						"description": "Showing startup errors could provide extra information to potential attackers",
+						"level": "WARNING",
+						"test": {
+							"key": "display_startup_errors",
+							"operation": "equals",
+							"value": "0"
+						}
 					}
 				],
 				"Custom": [
