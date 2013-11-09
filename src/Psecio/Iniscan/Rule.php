@@ -246,7 +246,7 @@ class Rule
 		$value = (isset($test->value)) ? $test->value : null;
 		$evalInstance = new $evalClass($this->getSection());
 
-		($evalInstance->execute($test, $value, $ini) == false)
+		($evalInstance->execute($test->key, $value, $ini) == false)
 			? $this->fail() : $this->pass();
 	}
 }
