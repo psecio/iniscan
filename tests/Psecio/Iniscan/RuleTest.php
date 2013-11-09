@@ -61,6 +61,19 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($rule->getTest(), (object)$test);
     }
 
+    public function testGetRuleContext()
+    {
+        $context = array('prod');
+        $test = array(
+            'key' => 'foo',
+            'context' => $context
+        );
+        $rule = new Rule(array(), 'testsection');
+        $rule->setTest($test);
+
+        $this->assertEquals($rule->getContext(), $context);
+    }
+
     /**
      * Test that the description is set correctly
      *
