@@ -82,7 +82,7 @@ abstract class Operation
 	 */
 	public function castValue($value)
 	{
-		if ($value === 'Off' || $value === '' || $value === 0) {
+		if ($value === 'Off' || $value === '' || $value === 0 || $value === '0') {
 			$casted = 0;
 		} elseif ($value === 'On' || $value === '1' || $value === 1) {
 			$casted = 1;
