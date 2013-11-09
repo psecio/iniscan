@@ -69,7 +69,7 @@ abstract class Operation
 			throw new \InvalidArgumentException('Unknown section '.$section);
 		}
 		if (!array_key_exists($path, $ini[$section])) {
-			throw new Exceptions\PathNotFoundException('Unknown path '.$path.' - is it defined?');
+			return false;
 		}
 		return $ini[$section][$path];
 	}
