@@ -136,6 +136,15 @@
 							"operation": "equals",
 							"value": "0"
 						}
+					},
+					{
+						"name": "Maximum input variables",
+						"description": "A maximum number of input variables should be defined to prevent performance issues",
+						"level": "WARNING",
+						"test": {
+							"key": "max_input_vars",
+							"operation": "isset"
+						}
 					}
 				],
 				"Custom": [
