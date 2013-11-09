@@ -51,10 +51,12 @@ class ScanCommand extends Command
 
         $scan = new \Psecio\Iniscan\Scan($path, $context);
         $results = $scan->execute();
-
+        $deprecated = $scan->getMarked();
+        
         $options = array(
             'path' => $path,
-            'failOnly' => $failOnly
+            'failOnly' => $failOnly,
+            'deprecated' => $deprecated
         );
 
         $format = ($format === null) ? 'console' : $format;
