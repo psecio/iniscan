@@ -155,6 +155,15 @@
 							"operation": "equals",
 							"value": "0"
 						}
+					},
+					{
+						"name": "Restrict PHP's file system access (basedir)",
+						"description": "Restricting PHP's access to the file system to a certain directory prevents file-based attacks in unauthorized areas.",
+						"level": "WARNING",
+						"test": {
+							"key": "open_basedir",
+							"operation": "isset"
+						}
 					}
 				],
 				"Custom": [
