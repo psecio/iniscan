@@ -185,6 +185,15 @@
 							"value": "0",
 							"context": ["prod"]
 						}
+					},
+					{
+						"name": "Define a reasonable max upload size",
+						"description": "A maximum upload size should be defined to prevent server overload from large requests",
+						"level": "WARNING",
+						"test": {
+							"key": "upload_max_filesize",
+							"operation": "isset"
+						}
 					}
 				],
 				"Custom": [
