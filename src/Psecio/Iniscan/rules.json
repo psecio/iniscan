@@ -112,6 +112,16 @@
 						}
 					},
 					{
+						"name": "Disable magic quotes at runtime",
+						"description": "Magic quotes should be disabled at runtime in addition to being off for incoming data",
+						"level": "ERROR",
+						"test": {
+							"key": "magic_quotes_runtime",
+							"operation": "equals",
+							"value": "0"
+						}
+					},
+					{
 						"name": "Maximum post size too large",
 						"description": "A too large value for the maximum post size could allow for DoS against your application",
 						"level": "WARNING",
@@ -191,7 +201,8 @@
 			"deprecated": {
 				"register_globals": "5.4.0",
 				"magic_quotes_gpc": "5.4.0",
-				"safe_mode": "5.4.0"
+				"safe_mode": "5.4.0",
+				"magic_quotes_runtime": "5.4.0"
 			}
 		}
 	]
