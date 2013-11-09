@@ -22,7 +22,7 @@ abstract class Operation
 	}
 
 	/**
-	 * Set the setion name
+	 * Set the section name
 	 *
 	 * @param string $section
 	 * @return \Psecio\Iniscan\Operation instance
