@@ -41,7 +41,7 @@ class OperationTest extends \PHPUnit_Framework_TestCase
      * Test the locating of a value in the given INI settings
      * @covers \Psecio\Iniscan\Operation::findValue
      */
-    public function testFndValue()
+    public function testFindValue()
     {
     	$value = 'baz';
     	$ini = array(
@@ -52,5 +52,35 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     	$operation = new OperationStub('PHP');
     	$result = $operation->findValue('foo.bar', $ini);
     	$this->assertEquals($result, $value);
+    }
+
+    /**
+     * Test that false is returned when a key is not found
+     * 
+     * @covers \Psecio\Iniscan\Operation::findValue
+     */
+    public function testKeyNotFound()
+    {
+        $ini = array(
+            'PHP' => array()
+        );
+        $operation = new OperationStub('PHP');
+        $result = $operation->findValue('foo.bar', $ini);
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Test that exception is thrown when the section isn't found
+     * 
+     * @expectedException \InvalidArgumentException
+     * @covers \Psecio\Iniscan\Operation::findValue
+     */
+    public function testSectionNotFound()
+    {
+        $ini = array(
+            'PHP' => array()
+        );
+        $operation = new OperationStub('BAR');
+        $operation->findValue('foo.bar', $ini);
     }
 }
