@@ -164,6 +164,17 @@
 							"key": "open_basedir",
 							"operation": "isset"
 						}
+					},
+					{
+						"name": "Ensure proper error output",
+						"description": "Error reporting should be different based on context, off in production",
+						"level": "WARNING",
+						"test": {
+							"key": "error_reporting",
+							"operation": "greater",
+							"value": "0",
+							"context": ["prod"]
+						}
 					}
 				],
 				"Custom": [
