@@ -47,6 +47,16 @@
 							"operation": "equals",
 							"value": "0"
 						}
+					},
+					{
+						"name": "Cookie set to secure connection",
+						"description": "Cookie secure specifies whether cookies should only be sent over secure connections.",
+						"level": "ERROR",
+						"test": {
+							"key": "session.cookie_secure",
+							"operation": "equals",
+							"value": "1"
+						}
 					}
 				],
 				"PHP": [
