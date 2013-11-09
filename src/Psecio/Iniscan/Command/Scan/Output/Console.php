@@ -9,6 +9,7 @@ class Console extends \Psecio\Iniscan\Command\Output
         $output = $this->getOutput();
         $path = $this->getOption('path');
         $failOnly = $this->getOption('failOnly');
+        $deprecated = $this->getOption('deprecated');
 
         $output->writeLn("<fg=cyan>== Executing INI Scan [".date('m.d.Y H:i:s')."] ==</fg=cyan>");
 
@@ -51,6 +52,15 @@ class Console extends \Psecio\Iniscan\Command\Output
                 );
         }
         $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
+
+        if (!empty($deprecated)) {
+            $output->writeLn("\n<error>WARNING: deprecated configuration items found:</error>");
+            foreach ($deprecated as $dep) {
+                $output->writeLn('<fg=yellow>-> '.$dep.'</fg=yellow>');
+            }
+            $output->writeLn("It's recommended that these settings be removed "
+                ."as they will be removed from future PHP versions.\n");
+        }
 
         return (count($fail) > 0) ? 1 : 0;
     }
