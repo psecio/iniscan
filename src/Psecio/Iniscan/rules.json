@@ -205,6 +205,15 @@
 							"key": "upload_max_filesize",
 							"operation": "isset"
 						}
+					},
+					{
+						"name": "Define a reasonable memory limit",
+						"description": "A memory limit should be defined to prevent server overload from large processes",
+						"level": "WARNING",
+						"test": {
+							"key": "memory_limit",
+							"operation": "isset"
+						}
 					}
 				],
 				"Custom": [
