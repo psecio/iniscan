@@ -5,10 +5,20 @@
 				"Session": [
 					{
 						"name": "Cookies for sessions",
-						"description": "Must use cookies to manage sessions",
+						"description": "Accepts cookies to manage sessions",
 						"level": "ERROR",
 						"test": {
 							"key": "session.use_cookies",
+							"operation": "equals",
+							"value": "1"
+						}
+					},
+					{
+						"name": "Only cookies for sessions",
+						"description": "Must use cookies to manage sessions, don't accept session-ids in a link",
+						"level": "ERROR",
+						"test": {
+							"key": "session.use_only_cookies",
 							"operation": "equals",
 							"value": "1"
 						}
