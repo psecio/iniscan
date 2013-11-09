@@ -9,7 +9,7 @@ class OperationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test the "casting" of a value to a consistent output
 	 * given a string
-	 * 
+	 *
 	 * @covers \Psecio\Iniscan\Operation::castValue
 	 */
     public function testCastValueString()
@@ -25,12 +25,44 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     /**
 	 * Test the "casting" of a value to a consistent output
 	 * given an integer
-	 * 
+	 *
 	 * @covers \Psecio\Iniscan\Operation::castValue
 	 */
     public function testCastValueInteger()
     {
     	$input = 1;
+        $operation = new OperationStub('test');
+        $result = $operation->castValue($input);
+
+        $this->assertEquals($result, 1);
+        $this->assertEquals(gettype($result), 'integer');
+    }
+
+	/**
+	 * Test the "casting" of a value to a consistent output
+	 * given number 0 as a string
+	 *
+	 * @covers \Psecio\Iniscan\Operation::castValue
+	 */
+    public function testCastValueNumberAsString()
+    {
+        $input = '0';
+        $operation = new OperationStub('test');
+        $result = $operation->castValue($input);
+
+        $this->assertEquals($result, 0);
+        $this->assertEquals(gettype($result), 'integer');
+    }
+
+	/**
+	 * Test the "casting" of a value to a consistent output
+	 * given number 1 as a string
+	 *
+	 * @covers \Psecio\Iniscan\Operation::castValue
+	 */
+    public function testCastValueNumber1AsString()
+    {
+        $input = '1';
         $operation = new OperationStub('test');
         $result = $operation->castValue($input);
 
