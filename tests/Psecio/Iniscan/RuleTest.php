@@ -235,4 +235,52 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($rule->getName(), $name);
     }
+
+    /**
+     * Test the evaluation of a passing rule
+     * 
+     * @covers \Psecio\Iniscan\Rule::evaluate
+     */
+    public function testEvaluationValid()
+    {
+        $test = array(
+            'key' => 'foo',
+            'operation' => 'equals',
+            'value' => '1'
+        );
+        $ini = array(
+            'PHP' => array(
+                'foo' => '1'
+            )
+        );
+        $rule = new Rule(array(), 'PHP');
+        $rule->setTest($test);
+
+        $result = $rule->evaluate($ini);
+        $this->assertTrue($rule->getStatus());
+    }
+
+    /**
+     * Test the evluation of a failing rule
+     * 
+     * @covers \Psecio\Iniscan\Rule::evaluate
+     */
+    public function testEvaluationInvalid()
+    {
+        $test = array(
+            'key' => 'foo',
+            'operation' => 'equals',
+            'value' => '1'
+        );
+        $ini = array(
+            'PHP' => array(
+                'foo' => 'test'
+            )
+        );
+        $rule = new Rule(array(), 'PHP');
+        $rule->setTest($test);
+
+        $result = $rule->evaluate($ini);
+        $this->assertFalse($rule->getStatus());
+    }
 }
