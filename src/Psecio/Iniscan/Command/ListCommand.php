@@ -4,6 +4,7 @@ namespace Psecio\Iniscan\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputOption;
 
 class ListCommand extends Command
 {
@@ -11,6 +12,9 @@ class ListCommand extends Command
     {
         $this->setName('list')
             ->setDescription('Output information about the current rule checks')
+            ->setDefinition(array(
+                new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
+            ))
             ->setHelp(
                 'Output information about the current rule checks'
             );
@@ -25,19 +29,17 @@ class ListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $format = $input->getOption('format');
         $scan = new \Psecio\Iniscan\Scan();
         $rules = $scan->getRules();
+        $options = array();
 
-        $ruleCount = 0;
-        $output->writeLn("\n<fg=yellow>Current tests:</fg=yellow>");
-        foreach ($rules as $section => $ruleSet) {
-            $output->writeLn('<info>'.$section.'</info>');
-            foreach ($ruleSet as $rule) {
-                $ruleCount++;
-                $ruleKey = (isset($rule->test->key)) ? $rule->test->key : '[custom]';
-                $output->writeLn('   '.str_pad($ruleKey, 30).'| '.$rule->description);
-            }
+        $format = ($format === null) ? 'console' : $format;
+        $formatClass = "\\Psecio\\Iniscan\\Command\\ListCommand\\Output\\".ucwords(strtolower($format));
+        if (!class_exists($formatClass)) {
+            throw new \Psecio\Iniscan\Exceptions\FormatNotFoundException('Output format "'.$format.'" not found');
         }
-        $output->writeLn("\n<info>".$ruleCount.' tests</info>');
+        $outputHandler = new $formatClass($output, $options);
+        return $outputHandler->render($rules);
     }
 }
