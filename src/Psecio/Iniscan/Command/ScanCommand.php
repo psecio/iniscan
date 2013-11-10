@@ -60,7 +60,7 @@ class ScanCommand extends Command
         );
 
         $format = ($format === null) ? 'console' : $format;
-        $formatClass = "\\Psecio\\Iniscan\\Command\\Scan\\Output\\".ucwords(strtolower($format));
+        $formatClass = "\\Psecio\\Iniscan\\Command\\ScanCommand\\Output\\".ucwords(strtolower($format));
         if (!class_exists($formatClass)) {
             throw new \Psecio\Iniscan\Exceptions\FormatNotFoundException('Output format "'.$format.'" not found');
         }
