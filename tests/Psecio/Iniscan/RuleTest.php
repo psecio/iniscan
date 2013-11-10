@@ -283,4 +283,22 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $result = $rule->evaluate($ini);
         $this->assertFalse($rule->getStatus());
     }
+
+    /**
+     * Test the evlauation with a bad operation
+     * 
+     * @expectedException \InvalidArgumentException
+     * @covers \Psecio\Iniscan\Rule::evaluate
+     */
+    public function testEvaluationBadOperation()
+    {
+        $rule = new Rule(array(), 'PHP');
+        $rule->setTest(array(
+            'key' => 'foo',
+            'operation' => 'badop',
+            'value' => '1'
+        ));
+        $ini = array();
+        $result = $rule->evaluate($ini);
+    }
 }
