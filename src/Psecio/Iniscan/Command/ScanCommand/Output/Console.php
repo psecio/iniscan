@@ -1,6 +1,6 @@
 <?php
 
-namespace Psecio\Iniscan\Command\Scan\Output;
+namespace Psecio\Iniscan\Command\ScanCommand\Output;
 
 class Console extends \Psecio\Iniscan\Command\Output
 {

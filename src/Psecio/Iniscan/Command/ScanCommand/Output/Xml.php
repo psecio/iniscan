@@ -1,6 +1,6 @@
 <?php
 
-namespace Psecio\Iniscan\Command\Scan\Output;
+namespace Psecio\Iniscan\Command\ScanCommand\Output;
 
 class Xml extends \Psecio\Iniscan\Command\Output
 {
