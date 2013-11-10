@@ -37,7 +37,7 @@ class ShowCommand extends Command
         }
 
         if (!is_file($path)) {
-            throw new \Exception('Path is null or not not accessible: "'.$path.'"');
+            throw new \Exception('Path is null or not accessible: "'.$path.'"');
         }
         $ini = parse_ini_file($path, true);
 
