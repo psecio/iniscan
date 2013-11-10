@@ -227,12 +227,32 @@
 						}
 					},
 					{
+						"name": "Reduce max upload size",
+						"description": "The max upload size should not be too high, to prevent server overload from large requests",
+						"level": "WARNING",
+						"test": {
+							"key": "upload_max_filesize",
+							"operation": "smaller",
+							"value": "2M"
+						}
+					},
+					{
 						"name": "Define a reasonable memory limit",
 						"description": "A memory limit should be defined to prevent server overload from large processes",
 						"level": "WARNING",
 						"test": {
 							"key": "memory_limit",
 							"operation": "isset"
+						}
+					},
+					{
+						"name": "Reduce memory limit",
+						"description": "The standard memory limit should not be too high, if you need more memory for a single script you can adjust that during runtime using ini_set()",
+						"level": "WARNING",
+						"test": {
+							"key": "memory_limit",
+							"operation": "smaller",
+							"value": "128M"
 						}
 					}
 				],
