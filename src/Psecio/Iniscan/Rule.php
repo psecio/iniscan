@@ -118,7 +118,7 @@ class Rule
 	}
 
 	/**
-	 * Set thep pass/fail status for the rule
+	 * Set the pass/fail status for the rule
 	 *
 	 * @param boolean $flag Pass/fail status
 	 */

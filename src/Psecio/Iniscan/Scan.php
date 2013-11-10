@@ -14,7 +14,7 @@ class Scan
 	 * Set of context environments to run in (ex. "prod" or "dev")
 	 * @var array
 	 */
-	private $contexts = array();
+	private $context = array();
 
 	/**
 	 * Set of ini keys marked as deprecated
@@ -26,6 +26,7 @@ class Scan
 	 * Init the object with the given ini path
 	 *
 	 * @param string $path PHP.ini path to evaluate [optional]
+	 * @param array $context Set of context environments to run in (ex. "prod" or "dev") [optional]
 	 */
 	public function __construct($path = null, array $context = array())
 	{
