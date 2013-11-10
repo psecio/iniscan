@@ -22,7 +22,7 @@ class MaximumPostSize extends \Psecio\Iniscan\Rule
 		// find the number(s)
 		preg_match('/[0-9]+/', $postSize, $match);
 		if (isset($match[0]) && $match[0] > $this->maxPost) {
-			$this->setDescription('Unless neccessary, a maximum post size of '.$postSize.' is too large');
+			$this->setDescription('Unless necessary, a maximum post size of '.$postSize.' is too large');
 			$this->fail();
 			return false;
 		} else {

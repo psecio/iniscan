@@ -14,7 +14,6 @@ abstract class Operation
 	 * Init the Operation and set the section
 	 *
 	 * @param string $section Section name
-	 * @return type
 	 */
 	public function __construct($section)
 	{

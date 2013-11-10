@@ -72,7 +72,7 @@
 				"PHP": [
 					{
 						"name": "Disallow remote file open",
-						"description": "Do not allow the opening of remote file resoources ('Off' recommended)",
+						"description": "Do not allow the opening of remote file resources ('Off' recommended)",
 						"level": "ERROR",
 						"test": {
 							"key": "allow_url_fopen",
