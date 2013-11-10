@@ -14,7 +14,8 @@ $app = new Application('INI Scan', '0.1');
 $app->addCommands(array(
 	new \Psecio\Iniscan\Command\ScanCommand(),
 	new \Psecio\Iniscan\Command\ShowCommand(),
-    new \Psecio\Iniscan\Command\ListCommand()
+    new \Psecio\Iniscan\Command\ListCommand(),
+    new \Psecio\Iniscan\Command\FixCommand()
 ));
 $app->setCatchExceptions(false);
 
