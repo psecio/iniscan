@@ -55,7 +55,18 @@ class FixCommand extends Command
         $scan = new \Psecio\Iniscan\Scan($path, $context);
         $rules = get_object_vars($scan->getRules());
 
-        $output = '';
+        $output->writeLn($this->generateIniOutput($rules));
+    }
+
+    /**
+     * Generate the output string of the more secure ini settings
+     * 
+     * @param array $rules Set of current rules
+     * @return string INI string
+     */
+    public function generateIniOutput($rules)
+    {
+        $ini = '';
         $config = array();
 
         foreach ($rules as $section => $ruleSet) {
@@ -63,7 +74,7 @@ class FixCommand extends Command
                 if (isset($rule->test)) {
                     if (is_object($rule->test)) {
                         if (!in_array($rule->test->operation, array('isset'))) {
-                            $output .= $rule->test->key.' = '.$rule->test->value."\n";   
+                            $ini .= $rule->test->key.' = '.$rule->test->value."\n";   
                         }
                     } else if (is_string($rule->test)) {
                         // no test object defined, this is a custom test
@@ -71,15 +82,14 @@ class FixCommand extends Command
                         if (class_exists($testPath)) {
                             $test = new $testPath($config, $section);
                             if (method_exists($test, '__toString')) {
-                                $output .= $test;
+                                $ini .= $test;
                             }
                         }
                     }
                 }
             }
         }
-        $output .= "\n";
-        echo $output;
-
+        $ini .= "\n";
+        return $ini;
     }
 }
