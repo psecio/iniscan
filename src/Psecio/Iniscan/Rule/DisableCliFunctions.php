@@ -24,6 +24,16 @@ class DisableCliFunctions extends \Psecio\Iniscan\Rule
 	}
 
 	/**
+	 * Convert the current check into a string
+	 * 
+	 * @return string INI formatted setting string
+	 */
+	public function __toString()
+	{
+		return 'disable_functions = '.implode(', ', $this->functions);
+	}
+
+	/**
 	 * Evaluate the operation
 	 *
 	 * @param array $ini
