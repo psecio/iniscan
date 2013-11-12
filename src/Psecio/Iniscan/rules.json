@@ -271,7 +271,8 @@
 				"register_globals": "5.4.0",
 				"magic_quotes_gpc": "5.4.0",
 				"safe_mode": "5.4.0",
-				"magic_quotes_runtime": "5.4.0"
+				"magic_quotes_runtime": "5.4.0",
+				"register_long_arrays": "5.3.0"
 			}
 		}
 	]
