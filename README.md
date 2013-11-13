@@ -21,6 +21,14 @@ Using Composer:
 
 The only current dependency is the Symfony console.
 
+Additionally, you can install it outside of a project with the `global` functionality Composer provides. From
+any directory you can use:
+
+```
+$ ./composer.phar global require "psecio/iniscan=dev-master"
+$ ~/.composer/vendor/bin/iniscan
+```
+
 *Example usage:*
 
 ```
