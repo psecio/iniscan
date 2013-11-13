@@ -123,3 +123,7 @@ This is default behavior and does not need to be enabled.
 In this case, we're told it we're running in dev, so anything that specifically mentions "prod" isn't executed.
 
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/psecio/iniscan/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
