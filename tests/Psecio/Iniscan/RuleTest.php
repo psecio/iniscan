@@ -106,7 +106,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Testing the setting of the config with an array
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::setConfig
      */
     public function testSetConfigArray()
@@ -121,7 +121,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Testing the setting of the configuration with an object
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::setConfig
      */
     public function testSetConfigObject()
@@ -137,7 +137,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test that an exception is thrown when a non-boolean
      *     status is set
-     * 
+     *
      * @expectedException \InvalidArgumentException
      * @covers \Psecio\Iniscan\Rule::setStatus
      */
@@ -149,7 +149,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the getter/setter for level
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getLevel
      */
     public function testGetSetLevel()
@@ -163,7 +163,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the getter/setter for status
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getStatus
      */
     public function testGetSetStatus()
@@ -177,7 +177,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the getter for the rule's test key
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getTestKey
      */
     public function testGetTestKey()
@@ -193,7 +193,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that an exception is thrown when no test key is defined
-     * 
+     *
      * @expectedException \InvalidArgumentException
      */
     public function testGetTestKeyNoKey()
@@ -206,7 +206,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the result of the values method to
      *     make an array from the object
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::values
      */
     public function testGetRuleValues()
@@ -223,7 +223,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the getter/setter for the name property
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getName
      * @covers \Psecio\Iniscan\Rule::setName
      */
@@ -238,7 +238,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the evaluation of a passing rule
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::evaluate
      */
     public function testEvaluationValid()
@@ -262,7 +262,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the evluation of a failing rule
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::evaluate
      */
     public function testEvaluationInvalid()
@@ -286,7 +286,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the evlauation with a bad operation
-     * 
+     *
      * @expectedException \InvalidArgumentException
      * @covers \Psecio\Iniscan\Rule::evaluate
      */
@@ -300,5 +300,35 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         ));
         $ini = array();
         $result = $rule->evaluate($ini);
+    }
+
+    /**
+     * Data for the threshold tests
+     */
+    public function thresholdDataProvider() {
+        return array(
+            array('WARNING', null, true),
+            array('WARNING', 'ERROR', false),
+            array('ERROR', 'ERROR', true),
+            array('FATAL', 'ERROR', true),
+        );
+    }
+
+    /**
+     * Test that the rules is above or on the wanted threshold
+     *
+     * @covers \Psecio\Iniscan\Rule::respectThreshold
+     * @dataProvider thresholdDataProvider
+     * @param string $level The rule level
+     * @param string $threshold The wanted threshold
+     * @param bool $expectedResult The expected function result
+     */
+    public function testRespectThreshold($level, $threshold, $expectedResult) {
+        $config = array(
+            'level' => $level
+        );
+        $rule = new Rule($config, 'testing123');
+
+        $this->assertSame($expectedResult, $rule->respectThreshold($threshold));
     }
 }

@@ -22,18 +22,25 @@ class Scan
 	 */
 	private $marked = array();
 
+    /**
+	 * The threshold to use for the rules. Only use the rules that are on
+	 * or above this threshold.
+	 */
+	private $threshold;
+
 	/**
 	 * Init the object with the given ini path
 	 *
 	 * @param string $path PHP.ini path to evaluate [optional]
 	 * @param array $context Set of context environments to run in (ex. "prod" or "dev") [optional]
 	 */
-	public function __construct($path = null, array $context = array())
+	public function __construct($path = null, array $context = array(), $threshold = null)
 	{
 		if ($path !== null) {
 			$this->setPath($path);
 		}
 		$this->setContext($context);
+		$this->setThreshold($threshold);
 	}
 
 	/**
@@ -80,6 +87,24 @@ class Scan
 	}
 
 	/**
+	 * Set the threshold for rules that should be displayed
+	 *
+	 * @param string $threshold The threshold to use
+	 */
+	public function setThreshold($threshold) {
+		$this->threshold = $threshold;
+	}
+
+	/**
+	 * Returns the current threshold
+	 *
+	 * @return string The Threshold for rules
+	 */
+	public function getThreshold() {
+		return $this->threshold;
+	}
+
+	/**
 	 * Get the current rules to evaluate
 	 *
 	 * @return array Set of rules
@@ -117,7 +142,7 @@ class Scan
 
 	/**
 	 * Mark a found key as a deprecated item
-	 * 
+	 *
 	 * @param string $key PHP.ini key
 	 */
 	public function markKey($key)
@@ -127,7 +152,7 @@ class Scan
 
 	/**
 	 * Get the current set of keys marked as deprecated
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getMarked()
@@ -205,6 +230,10 @@ class Scan
 
 				$key = $rule->getTestKey();
 				if ($this->isDeprecated($key) === true) {
+					continue;
+				}
+
+				if (!$rule->respectThreshold($this->threshold)) {
 					continue;
 				}
 
