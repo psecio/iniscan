@@ -74,6 +74,8 @@ The `scan` command will return an exit code based on the results:
 - 0: No errors
 - 1: Failures found
 
+
+###### Scan Level Threshold
 You can request the only scan for rules that are on or above a threshold:
 
 ```
