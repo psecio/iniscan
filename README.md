@@ -74,6 +74,20 @@ The `scan` command will return an exit code based on the results:
 - 0: No errors
 - 1: Failures found
 
+
+###### Scan Level Threshold
+You can request the only scan for rules that are on or above a threshold:
+
+```
+vendor/bin/iniscan scan --path=/path/to/php.ini --threshold=ERROR
+```
+
+There are 3 levels you can use:
+* WARNING
+* ERROR
+* FATAL (No rules uses that level at the moment)
+
+
 ##### Show
 
 The `show` command lists out the contents of your `php.ini` file with a bit of extra formatting.
