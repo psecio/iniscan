@@ -1,0 +1,16 @@
+{
+    "algorithm": "SHA1",
+    "alias": "iniscan.phar",
+    "chmod": "0755",
+    "directories": ["src", "bin"],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests", "Test", "test", ".git"],
+            "in": "vendor"
+        }
+    ],
+    "main": "bin/iniscan",
+    "output": "iniscan.phar",
+    "stub": true
+}
