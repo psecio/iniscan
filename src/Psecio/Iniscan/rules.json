@@ -96,7 +96,7 @@
 						"level": "WARNING",
 						"test": {
 							"key": "display_errors",
-							"operation": "notequals",
+							"operation": "equals",
 							"value": "0",
 							"context": ["prod"]
 						}
