@@ -29,6 +29,16 @@ $ ./composer.phar global require "psecio/iniscan=dev-master"
 $ ~/.composer/vendor/bin/iniscan
 ```
 
+Using a single Phar file:
+
+First make sure you ran composer.phar install
+```
+curl -s http://box-project.org/installer.php | php
+php box.phar build
+```
+This should result in a iniscan.phar file being created in the root folder.
+Instead of using `vendor/bin/iniscan` in the examples use `./iniscan.phar` instead.
+
 *Example usage:*
 
 ```
