@@ -50,4 +50,27 @@ class DisableCliFunctionsTest extends \PHPUnit_Framework_TestCase
         $result = $rule->evaluate($ini);
         $this->assertFalse($result);
     }
+
+    /**
+     * Test that the remaining non-disabled method list is correct
+     * 
+     * @covers \Psecio\Iniscan\Rule\DisableCliFunctions::evaluate
+     * @covers \Psecio\Iniscan\Rule\DisableCliFunctions::__toString
+     */
+    public function testStringOutputDisabled()
+    {
+        $functionList = array('exec','passthru','system');
+        $output = 'disable_functions = shell_exec, proc_open, popen, curl_exec, curl_multi_exec';
+
+        $rule = new DisableCliFunctions(array(), 'PHP');
+        $ini = array(
+            'PHP' => array(
+                'disable_functions' => implode(',', $functionList)
+            )
+        );
+
+        $result = $rule->evaluate($ini);
+        $this->assertEquals((string)$rule, $output);
+
+    }
 }
