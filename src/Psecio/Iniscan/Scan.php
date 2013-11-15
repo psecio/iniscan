@@ -25,8 +25,15 @@ class Scan
     /**
 	 * The threshold to use for the rules. Only use the rules that are on
 	 * or above this threshold.
+	 * @var string
 	 */
 	private $threshold;
+
+	/**
+	 * Current INI configuration settings
+	 * @var array
+	 */
+	private $config = array();
 
 	/**
 	 * Init the object with the given ini path
@@ -161,22 +168,45 @@ class Scan
 	}
 
 	/**
+	 * Set the current configuration (INI values)
+	 *
+	 * @param array $config Set of INI configuration values
+	 */
+	public function setConfig(array $config)
+	{
+		$this->config = $config;
+	}
+
+	/**
+	 * Get current INI configuration
+	 *
+	 * @return array Set of INI configuration values
+	 */
+	public function getConfig()
+	{
+		return $this->config;
+	}
+
+	/**
 	 * See if a setting is listing as deprecated in the PHP version given
 	 *
 	 * @param string $key PHP.ini settings key
 	 * @param string $phpVersion Current PHP version [optional]
 	 * @return boolean Key is deprecated/not deprecated
 	 */
-	public function isDeprecated($key, $phpVersion = PHP_VERSION)
+	public function isDeprecated($key, $section, $phpVersion = PHP_VERSION)
 	{
 		$deprecated = $this->getDeprecated();
+		$ini = $this->getConfig();
 
 		// loop through the versions and see if our key is in there
 		foreach ($deprecated as $index => $value) {
 			if ($index === $key) {
 				$compare = version_compare($phpVersion, $value);
 				if ($compare >= 0) {
-					$this->markKey($key);
+					if (isset($ini[$section][$key])) {
+						$this->markKey($key);
+					}
 					return true;
 				}
 			}
@@ -202,6 +232,7 @@ class Scan
 				$ini = array_merge($ini, $scannedIni);
 			}
 		}
+		$this->setConfig($ini);
 		return $ini;
 	}
 
@@ -218,18 +249,18 @@ class Scan
 		$context = $this->getContext();
 
 		$ruleList = array();
-		foreach ($rules as $index => $ruleSet) {
+		foreach ($rules as $section => $ruleSet) {
 			foreach ($ruleSet as $type => $rule) {
 				if (is_string($rule->test)) {
 					$ruleClass = "\\Psecio\\Iniscan\\Rule\\".$rule->test;
-					$rule = new $ruleClass($rule, $index);
+					$rule = new $ruleClass($rule, $section);
 				} else {
 					// make a rule
-					$rule = new \Psecio\Iniscan\Rule($rule, $index);
+					$rule = new \Psecio\Iniscan\Rule($rule, $section);
 				}
 
 				$key = $rule->getTestKey();
-				if ($this->isDeprecated($key) === true) {
+				if ($this->isDeprecated($key, $section) === true) {
 					continue;
 				}
 
