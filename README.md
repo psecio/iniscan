@@ -98,10 +98,10 @@ vendor/bin/iniscan show --path=/path/to/php.ini
 
 ##### List
 
-The `list` command shows a listing of the current rules being checked and their related php.ini key.
+The `list-tests` command shows a listing of the current rules being checked and their related php.ini key.
 
 ```
-vendor/bin/iniscan list
+vendor/bin/iniscan list-tests
 ```
 
 #### Output formats
@@ -112,10 +112,10 @@ By default *iniscan* will output information directly to the console in a human-
 vendor/bin/iniscan show --path=/path/to/php.ini --format=json
 ```
 
-the `list` command also supports JSON output:
+the `list-tests` command also supports JSON output:
 
 ```
-vendor/bin/iniscan list --path=/path/to/php.ini --format=json
+vendor/bin/iniscan list-tests --path=/path/to/php.ini --format=json
 ```
 
 **NOTE:** Currently, only the `scan` command supports alternate output formats - and only three: console, JSON and XML.

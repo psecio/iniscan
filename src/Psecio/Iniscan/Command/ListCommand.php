@@ -10,7 +10,7 @@ class ListCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('list')
+        $this->setName('list-tests')
             ->setDescription('Output information about the current rule checks')
             ->setDefinition(array(
                 new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
@@ -23,8 +23,9 @@ class ListCommand extends Command
     /**
      * Execute the "list" command
      *
-     * @param  InputInterface  $input  Input object
+     * @param  InputInterface $input Input object
      * @param  OutputInterface $output Output object
+     * @throws \Psecio\Iniscan\Exceptions\FormatNotFoundException
      * @return null
      */
     protected function execute(InputInterface $input, OutputInterface $output)
