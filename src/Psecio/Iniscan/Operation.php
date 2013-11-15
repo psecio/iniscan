@@ -100,7 +100,7 @@ abstract class Operation
 	 * @param $value
 	 * @return mixed "Casted" result
 	 */
-	private function castPowers ($casted) {
+	public function castPowers ($casted) {
 		$postfixes = array(
 			'K' => 1024,
 			'M' => 1024 * 1024,
