@@ -38,6 +38,18 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Data provider for the cast "powers" test
+     */
+    public function powersDataProvider()
+    {
+        return array(
+            array('1K', 1024),
+            array('1M', (1024*1024*1)),
+            array('1G', (1024*1024*1024*1))
+        );
+    }
+
+    /**
      * Test the locating of a value in the given INI settings
      * @covers \Psecio\Iniscan\Operation::findValue
      */
@@ -82,5 +94,19 @@ class OperationTest extends \PHPUnit_Framework_TestCase
         );
         $operation = new OperationStub('BAR');
         $operation->findValue('foo.bar', $ini);
+    }
+
+    /**
+     * Test the "casting" of the size measurements (ex. MB, G, etc)
+     *
+     * @covers \Psecio\Iniscan\Operation::castPowers
+     * @dataProvider powersDataProvider
+     */
+    public function testCastPowers($input, $expectedValue)
+    {
+        $operation = new OperationStub('test');
+        $result = $operation->castPowers($input);
+
+        $this->assertEquals($result, $expectedValue);
     }
 }
