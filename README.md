@@ -7,9 +7,10 @@ The Iniscan is a tool designed to scan the given php.ini file for common securit
 and report back results. Currently it is only for use on the command line and reports the
 results back to the display for both Pass and Fail on each test.
 
-*Installation*
+Installation
+------------
 
-Using Composer:
+### Using Composer
 
 ```
 {
@@ -21,6 +22,7 @@ Using Composer:
 
 The only current dependency is the Symfony console.
 
+### Global Composer installation
 Additionally, you can install it outside of a project with the `global` functionality Composer provides. From
 any directory you can use:
 
@@ -29,7 +31,7 @@ $ ./composer.phar global require "psecio/iniscan=dev-master"
 $ ~/.composer/vendor/bin/iniscan
 ```
 
-Using a single Phar file:
+### Using a single Phar file
 
 First make sure you ran composer.phar install
 ```
@@ -39,15 +41,11 @@ php box.phar build
 This should result in a iniscan.phar file being created in the root folder.
 Instead of using `vendor/bin/iniscan` in the examples use `./iniscan.phar` instead.
 
-*Example usage:*
-
+Example
+-------
 ```
 vendor/bin/iniscan scan --path=/path/to/php.ini
 ```
-
-
-*Example results:*
-
 ```
 Results for /private/etc/php.ini:
 ============
@@ -61,11 +59,12 @@ FAIL   | WARNING  |                          : Path /tmp is world writeable
 2 failure(s)
 ```
 
-#### Command line usage
+Command line usage
+------------------
 
 *Iniscan* offers a few commands for both checking and showing the contents of your php.ini.
 
-##### Scan
+### Scan
 
 The `scan` command will be the most used - it runs the rules checks against the given ini file and reports back the results. For example:
 
@@ -85,7 +84,7 @@ The `scan` command will return an exit code based on the results:
 - 1: Failures found
 
 
-###### Scan Level Threshold
+#### Scan Level Threshold
 You can request the only scan for rules that are on or above a threshold:
 
 ```
@@ -98,7 +97,7 @@ There are 3 levels you can use:
 * FATAL (No rules uses that level at the moment)
 
 
-##### Show
+### Show
 
 The `show` command lists out the contents of your `php.ini` file with a bit of extra formatting.
 
@@ -106,7 +105,7 @@ The `show` command lists out the contents of your `php.ini` file with a bit of e
 vendor/bin/iniscan show --path=/path/to/php.ini
 ```
 
-##### List
+### List
 
 The `list` command shows a listing of the current rules being checked and their related php.ini key.
 
@@ -114,7 +113,7 @@ The `list` command shows a listing of the current rules being checked and their 
 vendor/bin/iniscan list
 ```
 
-#### Output formats
+### Output formats
 
 By default *iniscan* will output information directly to the console in a human-readable result. You can also specify other output formats that may be easier to parse programatically (like JSON). Use the `--format` option to change the output:
 
@@ -131,7 +130,8 @@ vendor/bin/iniscan list --path=/path/to/php.ini --format=json
 **NOTE:** Currently, only the `scan` command supports alternate output formats - and only three: console, JSON and XML.
 
 
-#### Contexts
+Contexts
+--------
 
 The scanner also supports the concept of "contexts" - environments you may be executing the scanner in. For example, in your development environment, it may be okay to have `display_errors` on. In production, however, this is a bad idea. The scanner's default assumes you're using it in prod, so it uses the strictest checks unless you tell it otherwise. To do so, use the `context` command line option:
 
@@ -139,7 +139,8 @@ The scanner also supports the concept of "contexts" - environments you may be ex
 vendor/bin/iniscan show --path=/path/to/php.ini --context=dev
 ```
 
-#### Deprecated reporting
+Deprecated reporting
+--------------------
 
 As the scanner runs, it will compare the configuration key to a list of deprecated items. If the version is at or later than the version defined in the rules, an error will be shown in the output. For example, in the console, you'd see:
 
