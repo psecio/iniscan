@@ -10,6 +10,7 @@ class Console extends \Psecio\Iniscan\Command\Output
         $path = $this->getOption('path');
         $failOnly = $this->getOption('failOnly');
         $deprecated = $this->getOption('deprecated');
+        $verbose = $this->getOption('verbose');
 
         $output->writeLn("<fg=cyan>== Executing INI Scan [".date('m.d.Y H:i:s')."] ==</fg=cyan>");
 
@@ -50,6 +51,10 @@ class Console extends \Psecio\Iniscan\Command\Output
                 .'| '.$result->getDescription()
                 .'</fg='.$color.'>'
                 );
+
+            if ($verbose === true && isset($result->info)) {
+                $output->writeLn('INFO: '.$result->info."\n");
+            }
         }
         $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
 

@@ -17,7 +17,8 @@ class ScanCommand extends Command
                 new InputOption('fail-only', 'fail-only', InputOption::VALUE_NONE, 'Show only failing checks'),
                 new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
                 new InputOption('context', 'context', InputOption::VALUE_OPTIONAL, 'Environment context (ex. "prod")'),
-                new InputOption('threshold', 'threshold', InputOption::VALUE_OPTIONAL, 'Allows to show only things at or above this theshold')
+                new InputOption('threshold', 'threshold', InputOption::VALUE_OPTIONAL, 'Allows to show only things at or above this theshold'),
+                // new InputOption('verbose', 'verbose', InputOption::VALUE_OPTIONAL, 'Show more information about settings')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -38,6 +39,7 @@ class ScanCommand extends Command
         $format = $input->getOption('format');
         $context = $input->getOption('context');
         $threshold = $input->getOption('threshold');
+        $verbose = $input->getOption('verbose');
 
         $context = ($context !== null)
             ? explode(', ', $context) : array();
@@ -58,7 +60,8 @@ class ScanCommand extends Command
         $options = array(
             'path' => $path,
             'failOnly' => $failOnly,
-            'deprecated' => $deprecated
+            'deprecated' => $deprecated,
+            'verbose' => $verbose
         );
 
         $format = ($format === null) ? 'console' : $format;
