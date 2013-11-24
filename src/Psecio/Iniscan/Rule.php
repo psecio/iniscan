@@ -41,6 +41,12 @@ class Rule
 	private $section;
 
 	/**
+	 * The version of PHP being tested for
+	 * @var string
+	 */
+	private $version;
+
+	/**
 	 * Init the object with the given config and section
 	 *
 	 * @param array $config Configuration settings
@@ -115,6 +121,30 @@ class Rule
 	public function getLevel()
 	{
 		return $this->level;
+	}
+
+	/**
+	 * Get the current "version" value
+	 *
+	 * @return string Version value
+	 */
+	public function getVersion()
+	{
+		if (empty($this->version))
+		{
+			return PHP_VERSION;
+		}
+		return $this->version;
+	}
+
+	/**
+	 * Set the current "version" value
+	 *
+	 * @param string $version
+	 */
+	public function setVersion($version)
+	{
+		$this->version = $version;
 	}
 
 	/**
