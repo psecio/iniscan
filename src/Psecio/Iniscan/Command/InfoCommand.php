@@ -24,8 +24,9 @@ class InfoCommand extends Command
     /**
      * Execute the "info" command
      *
-     * @param  InputInterface  $input  Input object
+     * @param  InputInterface $input Input object
      * @param  OutputInterface $output Output object
+     * @throws \Exception
      * @return null
      */
     protected function execute(InputInterface $input, OutputInterface $output)

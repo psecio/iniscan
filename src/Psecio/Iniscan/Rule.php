@@ -117,11 +117,12 @@ class Rule
 		return $this->level;
 	}
 
-	/**
-	 * Set the pass/fail status for the rule
-	 *
-	 * @param boolean $flag Pass/fail status
-	 */
+    /**
+     * Set the pass/fail status for the rule
+     *
+     * @param boolean $flag Pass/fail status
+     * @throws \InvalidArgumentException
+     */
 	public function setStatus($flag)
 	{
 		if (!is_bool($flag)) {
@@ -166,11 +167,12 @@ class Rule
 		return $this->test;
 	}
 
-	/**
-	 * Get the PHP.ini setting key from the test
-	 *
-	 * @return string Test key
-	 */
+    /**
+     * Get the PHP.ini setting key from the test
+     *
+     * @throws \InvalidArgumentException
+     * @return string Test key
+     */
 	public function getTestKey()
 	{
 		$test = $this->getTest();
@@ -239,12 +241,13 @@ class Rule
 		);
 	}
 
-	/**
-	 * Evaluate the rule and its test
-	 *
-	 * @param array $ini Current php.ini configuration
-	 * @return null
-	 */
+    /**
+     * Evaluate the rule and its test
+     *
+     * @param array $ini Current php.ini configuration
+     * @throws \InvalidArgumentException
+     * @return null
+     */
 	public function evaluate(array $ini)
 	{
 		$test = $this->getTest();
@@ -260,13 +263,14 @@ class Rule
 			? $this->fail() : $this->pass();
 	}
 
-	/**
-	 * Check that the rule matches the wanted security leve
-	 *
-	 * @param string $wantedLevel The minimum level to display
-	 */
+    /**
+     * Check that the rule matches the wanted security level
+     *
+     * @param string $wantedLevel The minimum level to display
+     * @return bool
+     */
 	public function respectThreshold($wantedLevel) {
-		// If not threshold is given, alway display the rule
+		// If not threshold is given, always display the rule
 		if (is_null($wantedLevel)) {
 			return true;
 		}

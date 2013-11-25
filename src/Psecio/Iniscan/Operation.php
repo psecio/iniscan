@@ -94,12 +94,13 @@ abstract class Operation
 		return $casted;
 	}
 
-	/**
-	 * Cast the byte values ending with G, M or K to full integer values
-	 *
-	 * @param $value
-	 * @return mixed "Casted" result
-	 */
+    /**
+     * Cast the byte values ending with G, M or K to full integer values
+     *
+     * @param $casted
+     * @internal param $value
+     * @return mixed "Casted" result
+     */
 	public function castPowers ($casted) {
 		$postfixes = array(
 			'K' => 1024,
