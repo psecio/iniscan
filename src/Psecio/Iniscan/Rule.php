@@ -264,13 +264,13 @@ class Rule
 	}
 
     /**
-     * Check that the rule matches the wanted security leve
+     * Check that the rule matches the wanted security level
      *
      * @param string $wantedLevel The minimum level to display
      * @return bool
      */
 	public function respectThreshold($wantedLevel) {
-		// If not threshold is given, alway display the rule
+		// If not threshold is given, always display the rule
 		if (is_null($wantedLevel)) {
 			return true;
 		}

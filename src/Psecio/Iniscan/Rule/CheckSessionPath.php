@@ -3,7 +3,7 @@ namespace Psecio\Iniscan\Rule;
 
 /**
  * Custom operation - Checks to see if the session path
- * 	is world writeable
+ * 	is world writable
  */
 class CheckSessionPath extends \Psecio\Iniscan\Rule
 {
@@ -14,7 +14,7 @@ class CheckSessionPath extends \Psecio\Iniscan\Rule
 	}
 
 	/**
-	 * Perform the evluation of the rule
+	 * Perform the evaluation of the rule
 	 *
 	 * @param array $ini Configuration settings (from php.ini)
 	 * @return boolean Pass/fail of evaluation
