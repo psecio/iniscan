@@ -23,8 +23,9 @@ class ShowCommand extends Command
     /**
      * Execute the "show" command
      *
-     * @param  InputInterface  $input  Input object
+     * @param  InputInterface $input Input object
      * @param  OutputInterface $output Output object
+     * @throws \Exception
      * @return null
      */
     protected function execute(InputInterface $input, OutputInterface $output)
