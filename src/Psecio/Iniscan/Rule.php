@@ -130,10 +130,6 @@ class Rule
 	 */
 	public function getVersion()
 	{
-		if (empty($this->version))
-		{
-			return PHP_VERSION;
-		}
 		return $this->version;
 	}
 

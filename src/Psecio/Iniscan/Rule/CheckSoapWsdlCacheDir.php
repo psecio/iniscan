@@ -25,7 +25,7 @@ class CheckSoapWsdlCacheDir extends \Psecio\Iniscan\Rule
 	 * @param array $ini Configuration settings (from php.ini)
 	 * @return boolean Pass/fail of evaluation
 	 */
-	public function evaluate(array $ini, $phpVersion = PHP_VERSION)
+	public function evaluate(array $ini)
 	{
 		// We only care about PHP before 5.3.22 and 5.4.x before 5.4.13
 		if (version_compare($this->getVersion(), '5.3.22', '>=') || version_compare($this->getVersion(), '5.4.13', '>='))
