@@ -35,20 +35,28 @@ class Scan
 	 */
 	private $config = array();
 
-    /**
-     * Init the object with the given ini path
-     *
-     * @param string $path PHP.ini path to evaluate [optional]
-     * @param array $context Set of context environments to run in (ex. "prod" or "dev") [optional]
-     * @param null $threshold
-     */
-	public function __construct($path = null, array $context = array(), $threshold = null)
+	/**
+	 * The version of PHP being tested for
+	 * @var string
+	 */
+	private $version;
+
+	/**
+	 * Init the object with the given ini path
+	 *
+	 * @param string $path PHP.ini path to evaluate [optional]
+	 * @param array $context Set of context environments to run in (ex. "prod" or "dev") [optional]
+	 * @param string $threshold Show only things at or above this theshold
+	 * @param string $version Which version of PHP to scan against
+	 */
+	public function __construct($path = null, array $context = array(), $threshold = null, $version = null)
 	{
 		if ($path !== null) {
 			$this->setPath($path);
 		}
 		$this->setContext($context);
 		$this->setThreshold($threshold);
+		$this->setVersion($version);
 	}
 
     /**
@@ -113,12 +121,31 @@ class Scan
 		return $this->threshold;
 	}
 
-    /**
-     * Get the current rules to evaluate
-     *
-     * @throws \Exception
-     * @return array Set of rules
-     */
+	/**
+	 * Get the current "version" value
+	 *
+	 * @return string Version value
+	 */
+	public function getVersion()
+	{
+		return $this->version;
+	}
+
+	/**
+	 * Set the current "version" value
+	 *
+	 * @param string $version
+	 */
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+
+	/**
+	 * Get the current rules to evaluate
+	 *
+	 * @return array Set of rules
+	 */
 	public function getRules()
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
@@ -252,6 +279,7 @@ class Scan
 		$ini = $this->parseConfig($path);
 		$rules = $this->getRules();
 		$context = $this->getContext();
+		$version = $this->getVersion();
 
 		$ruleList = array();
 		foreach ($rules as $section => $ruleSet) {
@@ -263,6 +291,7 @@ class Scan
 					// make a rule
 					$rule = new \Psecio\Iniscan\Rule($rule, $section);
 				}
+				$rule->setVersion($version);
 
 				$key = $rule->getTestKey();
 				if ($this->isDeprecated($key, $section) === true) {

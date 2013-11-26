@@ -18,7 +18,7 @@ class ScanCommand extends Command
                 new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
                 new InputOption('context', 'context', InputOption::VALUE_OPTIONAL, 'Environment context (ex. "prod")'),
                 new InputOption('threshold', 'threshold', InputOption::VALUE_OPTIONAL, 'Allows to show only things at or above this theshold'),
-                // new InputOption('verbose', 'verbose', InputOption::VALUE_OPTIONAL, 'Show more information about settings')
+                new InputOption('php', 'php-version', InputOption::VALUE_OPTIONAL, 'Which version of PHP to evaulate')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -41,10 +41,15 @@ class ScanCommand extends Command
         $format = $input->getOption('format');
         $context = $input->getOption('context');
         $threshold = $input->getOption('threshold');
-        $verbose = $input->getOption('verbose');
+        $version = $input->getOption('php');
 
         $context = ($context !== null)
             ? explode(', ', $context) : array();
+
+        // If we're not given a version, assume the current version
+        if ($version === null) {
+            $version = PHP_VERSION;
+        }
 
         // if we're not given a path at all, try to figure it out
         if ($path === null) {
@@ -55,7 +60,7 @@ class ScanCommand extends Command
             throw new \Exception('Path is null or not accessible: "'.$path.'"');
         }
 
-        $scan = new \Psecio\Iniscan\Scan($path, $context, $threshold);
+        $scan = new \Psecio\Iniscan\Scan($path, $context, $threshold, $version);
         $results = $scan->execute();
         $deprecated = $scan->getMarked();
 

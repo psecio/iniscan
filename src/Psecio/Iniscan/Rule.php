@@ -41,6 +41,12 @@ class Rule
 	private $section;
 
 	/**
+	 * The version of PHP being tested for
+	 * @var string
+	 */
+	private $version;
+
+	/**
 	 * Init the object with the given config and section
 	 *
 	 * @param array $config Configuration settings
@@ -117,12 +123,31 @@ class Rule
 		return $this->level;
 	}
 
-    /**
-     * Set the pass/fail status for the rule
-     *
-     * @param boolean $flag Pass/fail status
-     * @throws \InvalidArgumentException
-     */
+	/**
+	 * Get the current "version" value
+	 *
+	 * @return string Version value
+	 */
+	public function getVersion()
+	{
+		return $this->version;
+	}
+
+	/**
+	 * Set the current "version" value
+	 *
+	 * @param string $version
+	 */
+	public function setVersion($version)
+	{
+		$this->version = $version;
+	}
+
+	/**
+	 * Set the pass/fail status for the rule
+	 *
+	 * @param boolean $flag Pass/fail status
+	 */
 	public function setStatus($flag)
 	{
 		if (!is_bool($flag)) {
