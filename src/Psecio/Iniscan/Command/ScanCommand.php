@@ -18,7 +18,8 @@ class ScanCommand extends Command
                 new InputOption('format', 'format', InputOption::VALUE_OPTIONAL, 'Output format'),
                 new InputOption('context', 'context', InputOption::VALUE_OPTIONAL, 'Environment context (ex. "prod")'),
                 new InputOption('threshold', 'threshold', InputOption::VALUE_OPTIONAL, 'Allows to show only things at or above this theshold'),
-                new InputOption('php', 'php-version', InputOption::VALUE_OPTIONAL, 'Which version of PHP to evaulate')
+                new InputOption('php', 'php-version', InputOption::VALUE_OPTIONAL, 'Which version of PHP to evaulate'),
+                new InputOption('output', 'output', InputOption::VALUE_OPTIONAL, 'Directory for file output types')
             ))
             ->setHelp(
                 'Execute the scan on the php.ini for security best practices'
@@ -42,6 +43,11 @@ class ScanCommand extends Command
         $context = $input->getOption('context');
         $threshold = $input->getOption('threshold');
         $version = $input->getOption('php');
+        $outputPath = $input->getOption('output');
+
+        if ($format === 'html' && $outputPath === null) {
+            throw new \InvalidArgumentException('Output path must be set for format "HTML"');
+        }
 
         $context = ($context !== null)
             ? explode(', ', $context) : array();
@@ -68,7 +74,8 @@ class ScanCommand extends Command
             'path' => $path,
             'failOnly' => $failOnly,
             'deprecated' => $deprecated,
-            'verbose' => $verbose
+            'verbose' => $input->getOption('verbose'),
+            'output' => $outputPath
         );
 
         $format = ($format === null) ? 'console' : $format;
