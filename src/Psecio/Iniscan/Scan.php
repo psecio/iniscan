@@ -35,12 +35,13 @@ class Scan
 	 */
 	private $config = array();
 
-	/**
-	 * Init the object with the given ini path
-	 *
-	 * @param string $path PHP.ini path to evaluate [optional]
-	 * @param array $context Set of context environments to run in (ex. "prod" or "dev") [optional]
-	 */
+    /**
+     * Init the object with the given ini path
+     *
+     * @param string $path PHP.ini path to evaluate [optional]
+     * @param array $context Set of context environments to run in (ex. "prod" or "dev") [optional]
+     * @param null $threshold
+     */
 	public function __construct($path = null, array $context = array(), $threshold = null)
 	{
 		if ($path !== null) {
@@ -50,11 +51,12 @@ class Scan
 		$this->setThreshold($threshold);
 	}
 
-	/**
-	 * Set the ini path to evaluate
-	 *
-	 * @param string $path Path to php.ini
-	 */
+    /**
+     * Set the ini path to evaluate
+     *
+     * @param string $path Path to php.ini
+     * @throws \InvalidArgumentException
+     */
 	public function setPath($path)
 	{
 		if (!is_file($path)) {
@@ -111,11 +113,12 @@ class Scan
 		return $this->threshold;
 	}
 
-	/**
-	 * Get the current rules to evaluate
-	 *
-	 * @return array Set of rules
-	 */
+    /**
+     * Get the current rules to evaluate
+     *
+     * @throws \Exception
+     * @return array Set of rules
+     */
 	public function getRules()
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
@@ -129,11 +132,12 @@ class Scan
 		return $rules->settings[0]->rules;
 	}
 
-	/**
-	 * Get the current set of deprecated settings from the config
-	 *
-	 * @return array Set of deprecated settings
-	 */
+    /**
+     * Get the current set of deprecated settings from the config
+     *
+     * @throws \Exception
+     * @return array Set of deprecated settings
+     */
 	public function getDeprecated()
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
@@ -187,13 +191,14 @@ class Scan
 		return $this->config;
 	}
 
-	/**
-	 * See if a setting is listing as deprecated in the PHP version given
-	 *
-	 * @param string $key PHP.ini settings key
-	 * @param string $phpVersion Current PHP version [optional]
-	 * @return boolean Key is deprecated/not deprecated
-	 */
+    /**
+     * See if a setting is listing as deprecated in the PHP version given
+     *
+     * @param string $key PHP.ini settings key
+     * @param $section
+     * @param string $phpVersion Current PHP version [optional]
+     * @return boolean Key is deprecated/not deprecated
+     */
 	public function isDeprecated($key, $section, $phpVersion = PHP_VERSION)
 	{
 		$deprecated = $this->getDeprecated();

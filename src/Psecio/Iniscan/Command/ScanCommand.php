@@ -28,8 +28,10 @@ class ScanCommand extends Command
     /**
      * Execute the "scan" command
      *
-     * @param  InputInterface  $input  Input object
+     * @param  InputInterface $input Input object
      * @param  OutputInterface $output Output object
+     * @throws \Psecio\Iniscan\Exceptions\FormatNotFoundException
+     * @throws \Exception
      * @return null
      */
     protected function execute(InputInterface $input, OutputInterface $output)
