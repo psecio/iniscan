@@ -99,7 +99,8 @@
 							"operation": "equals",
 							"value": "0",
 							"context": ["prod"]
-						}
+						},
+						"info": "This determines whether errors should be printed to the screen as part of the output or if they should be hidden from the user. Value \"stderr\" sends the errors to stderr instead of stdout. The value is available as of PHP 5.2.4. In earlier versions, this directive was of type boolean."
 					},
 					{
 						"name": "Log errors",
@@ -110,7 +111,8 @@
 							"operation": "equals",
 							"value": "1",
 							"context": ["prod"]
-						}
+						},
+						"info": "Tells whether script error messages should be logged to the server's error log or error_log. This option is thus server-specific."
 					},
 					{
 						"name": "Disable PHP signature",
