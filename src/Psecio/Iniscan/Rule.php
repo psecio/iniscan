@@ -312,7 +312,7 @@ class Rule
 	 * @param string $level The level to convert to a number
 	 * @return int A numerical value representing the level
 	 */
-	protected function getLevelNumericalValue($level) {
+	public function getLevelNumericalValue($level) {
 		$level = strtolower($level);
 		if (isset($this->levelValues[$level])) {
 			return $this->levelValues[$level];
