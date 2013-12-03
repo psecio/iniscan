@@ -344,4 +344,15 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($rule->getLevelNumericalValue('error'), 20);
         $this->assertEquals($rule->getLevelNumericalValue('fatal'), 30);
     }
+
+    /**
+     * Test that an invalid level returns a zero
+     * 
+     * @covers \Psecio\Iniscan\Rule::getLevelNumericalValue
+     */
+    public function testGetInvalidNumericalValue()
+    {
+        $rule = new Rule(array(), 'testing123');
+        $this->assertEquals($rule->getLevelNumericalValue('bad-level'), 0);
+    }
 }
