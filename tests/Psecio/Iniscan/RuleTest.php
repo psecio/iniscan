@@ -331,4 +331,17 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expectedResult, $rule->respectThreshold($threshold));
     }
+
+    /**
+     * Test that the level numeric values are correct
+     * 
+     * @covers \Psecio\Iniscan\Rule::getLevelNumericalValue
+     */
+    public function testGetValidNumericalValue()
+    {
+        $rule = new Rule(array(), 'testing123');
+        $this->assertEquals($rule->getLevelNumericalValue('warning'), 10);
+        $this->assertEquals($rule->getLevelNumericalValue('error'), 20);
+        $this->assertEquals($rule->getLevelNumericalValue('fatal'), 30);
+    }
 }
