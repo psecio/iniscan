@@ -67,6 +67,12 @@
 							"operation": "equals",
 							"value": "1"
 						}
+					},
+					{
+						"name": "Entropy file should be defined",
+						"description": "A file should be provided to help provide session entropy",
+						"level": "WARNING",
+						"test": "CheckSessionEntropyPath"
 					}
 				],
 				"PHP": [
