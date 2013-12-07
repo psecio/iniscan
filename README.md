@@ -59,6 +59,8 @@ FAIL   | WARNING  |                          : Path /tmp is world writeable
 2 failure(s)
 ```
 
+> *NOTE:* When the scan runs, if it cannot find a setting in the `php.ini` given, it will use [ini_get](http://php.net/ini_get) to pull the current setting (possibly the default).
+
 Command line usage
 ------------------
 
