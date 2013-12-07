@@ -61,16 +61,22 @@ abstract class Operation
 	 * @throws \InvalidArgumentException If the path is not found
 	 * @return string Found INI value
 	 */
-	public function findValue($path, $ini)
+	public function findValue($path, &$ini)
 	{
+		$value = false;
 		$section = $this->getSection();
-		if (!array_key_exists($section, $ini)) {
-			throw new \InvalidArgumentException('Unknown section '.$section);
+
+		if (array_key_exists($section, $ini)) {
+			if (array_key_exists($path, $ini[$section])) {
+				$value = $ini[$section][$path];
+			}
+		} else {
+			// not in the file, pull out the default
+			$value = ini_get($path);
+			$ini[$section][$path] = $value;
 		}
-		if (!array_key_exists($path, $ini[$section])) {
-			return false;
-		}
-		return $ini[$section][$path];
+
+		return $value;
 	}
 
 	/**
