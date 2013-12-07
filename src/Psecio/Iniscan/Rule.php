@@ -266,6 +266,36 @@ class Rule
 		);
 	}
 
+	/**
+	 * Find the given value in the INI array
+	 *   If not found, returns the currently set value
+	 *
+	 * @param string $path "Path" to the value
+	 * @param array $ini Current INI settings
+	 * @return string Found INI value
+	 */
+	public function findValue($path, &$ini)
+	{
+		$value = false;
+		$section = $this->getSection();
+
+		if (array_key_exists($section, $ini)) {
+			if (array_key_exists($path, $ini[$section])) {
+				$value = $ini[$section][$path];
+			} else {
+				// not in the file, pull out the default
+				$value = ini_get($path);
+				$ini[$section][$path] = $value;
+			}
+		} else {
+			// not in the file, pull out the default
+			$value = ini_get($path);
+			$ini[$section][$path] = $value;
+		}
+
+		return $value;
+	}
+
     /**
      * Evaluate the rule and its test
      *
