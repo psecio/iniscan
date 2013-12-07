@@ -54,11 +54,10 @@ abstract class Operation
 
 	/**
 	 * Find the given value in the INI array
+	 *   If not found, returns the currently set value
 	 *
 	 * @param string $path "Path" to the value
 	 * @param array $ini Current INI settings
-	 * @throws \InvalidArgumentException If the section is unknown
-	 * @throws \InvalidArgumentException If the path is not found
 	 * @return string Found INI value
 	 */
 	public function findValue($path, &$ini)
