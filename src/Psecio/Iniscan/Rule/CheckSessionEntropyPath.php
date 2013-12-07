@@ -15,7 +15,8 @@ class CheckSessionEntropyPath extends \Psecio\Iniscan\Rule
 
 	public function evaluate(array $ini)
 	{
-		$entropyFile = $ini['Session']['session.entropy_file'];
+		// $entropyFile = $ini['Session']['session.entropy_file'];
+		$entropyFile = $this->findValue('session.entropy_file', $ini);
 
 		// If the version is less than 5.4.0
 		if (version_compare(PHP_VERSION, '5.4.0', '<') === true) {
