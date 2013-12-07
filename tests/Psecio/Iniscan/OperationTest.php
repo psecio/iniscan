@@ -82,9 +82,9 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that exception is thrown when the section isn't found
+     * Test that false is returned when the section isn't found
+     *   (and doesn't exist in the default PHP config)
      * 
-     * @expectedException \InvalidArgumentException
      * @covers \Psecio\Iniscan\Operation::findValue
      */
     public function testSectionNotFound()
@@ -93,7 +93,9 @@ class OperationTest extends \PHPUnit_Framework_TestCase
             'PHP' => array()
         );
         $operation = new OperationStub('BAR');
-        $operation->findValue('foo.bar', $ini);
+        $this->assertFalse(
+            $operation->findValue('foo.bar', $ini)
+        );
     }
 
     /**
