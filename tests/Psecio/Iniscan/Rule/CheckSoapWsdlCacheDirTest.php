@@ -5,7 +5,7 @@ namespace Psecio\Iniscan\Rule;
 class CheckSoapWsdlCacheDirTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test that a SOAP WSDL cache dir is not set inside the open_basedir path
+     * Test that a SOAP WSDL cache dir is invalid
      *
      * @covers \Psecio\Iniscan\Rule\CheckSoapWsdlCacheDir::evaluate
      */
@@ -21,7 +21,7 @@ class CheckSoapWsdlCacheDirTest extends \PHPUnit_Framework_TestCase
             ),
             'soap' => array(
                 'soap.wsdl_cache_enabled' => '1',
-                'soap.wsdl_cache_dir' => '/'
+                'soap.wsdl_cache_dir' => '/foo'
             )
         );
 
