@@ -37,9 +37,10 @@ abstract class Operation
 	 *
 	 * @return string
 	 */
-	public function getSection()
+	public function getSection($path)
 	{
-		return $this->section;
+		$parts = explode('.', $path);
+		return (count($parts) === 1) ? 'PHP' : $parts[0];
 	}
 
 	/**
@@ -63,7 +64,7 @@ abstract class Operation
 	public function findValue($path, &$ini)
 	{
 		$value = false;
-		$section = $this->getSection();
+		$section = $this->getSection($path);
 
 		if (array_key_exists($section, $ini)) {
 			if (array_key_exists($path, $ini[$section])) {
