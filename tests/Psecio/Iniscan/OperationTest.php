@@ -58,11 +58,11 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     	$value = 'baz';
     	$ini = array(
     		'PHP' => array(
-    			'foo.bar' => $value
+                'bar' => $value
     		)
     	);
-    	$operation = new OperationStub('PHP');
-    	$result = $operation->findValue('foo.bar', $ini);
+        $operation = new OperationStub('PHP');
+        $result = $operation->findValue('bar', $ini);
     	$this->assertEquals($result, $value);
     }
 
