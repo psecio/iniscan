@@ -11,12 +11,12 @@ class FixCommand extends Command
     protected function configure()
     {
         $this->setName('fix')
-            ->setDescription('Try to fix the settings in the specificed PHP.ini file')
+                ->setDescription('Try to fix the settings in the specified PHP.ini file')
             ->setDefinition(array(
                 new InputOption('path', 'path', InputOption::VALUE_OPTIONAL, 'Path to the php.ini'),
             ))
             ->setHelp(
-                'Try to fix the settings in the specificed PHP.ini file'
+                'Try to fix the settings in the specified PHP.ini file'
             );
     }
 
@@ -61,7 +61,7 @@ class FixCommand extends Command
 
     /**
      * Generate the output string of the more secure ini settings
-     * 
+     *
      * @param array $rules Set of current rules
      * @return string INI string
      */
@@ -75,7 +75,7 @@ class FixCommand extends Command
                 if (isset($rule->test)) {
                     if (is_object($rule->test)) {
                         if (!in_array($rule->test->operation, array('isset'))) {
-                            $ini .= $rule->test->key.' = '.$rule->test->value."\n";   
+                            $ini .= $rule->test->key.' = '.$rule->test->value."\n";
                         }
                     } else if (is_string($rule->test)) {
                         // no test object defined, this is a custom test
