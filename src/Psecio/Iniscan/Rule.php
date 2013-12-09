@@ -106,11 +106,17 @@ class Rule
 	/**
 	 * Get the current section setting
 	 *
+	 * @param string $path INI "path" to setting [optional]
 	 * @return string Section name
 	 */
-	public function getSection()
+	public function getSection($path = null)
 	{
-		return $this->section;
+		if ($path !== null) {
+			$parts = explode('.', $path);
+			return (count($parts) == 1) ? 'PHP' : $parts[0];
+		} else {
+			return $this->section;
+		}
 	}
 
 	/**
@@ -277,7 +283,7 @@ class Rule
 	public function findValue($path, &$ini)
 	{
 		$value = false;
-		$section = $this->getSection();
+		$section = $this->getSection($path);
 
 		if (array_key_exists($section, $ini)) {
 			if (array_key_exists($path, $ini[$section])) {
