@@ -35,13 +35,14 @@ abstract class Operation
 	/**
 	 * Get the current section name
 	 *
-	 * @param string $path INI "path" for setting
+	 * @param string $path INI "path" for settings
 	 * @return string
 	 */
 	public function getSection($path)
 	{
 		$parts = explode('.', $path);
-		return (count($parts) === 1) ? 'PHP' : $parts[0];
+		return (count($parts) === 1) 
+			? 'PHP' : ucwords(strtolower($parts[0]));
 	}
 
 	/**
