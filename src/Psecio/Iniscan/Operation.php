@@ -35,6 +35,7 @@ abstract class Operation
 	/**
 	 * Get the current section name
 	 *
+	 * @param string $path INI "path" for setting
 	 * @return string
 	 */
 	public function getSection($path)
