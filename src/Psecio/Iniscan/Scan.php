@@ -279,7 +279,6 @@ class Scan
 		$path = $this->getPath();
 		$ini = $this->parseConfig($path);
 		$rules = $this->getRules();
-		$context = $this->getContext();
 		$version = $this->getVersion();
 
 		$ruleList = array();
