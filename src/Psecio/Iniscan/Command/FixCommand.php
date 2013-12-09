@@ -43,9 +43,9 @@ class FixCommand extends Command
         }
 
         $scan = new \Psecio\Iniscan\Scan($path, $context);
-        $results = $scan->execute();
+        $scan->execute();
 
-        $deprecated = $scan->getMarked();
+        $scan->getMarked();
         $result = pathinfo($path);
 
         // to start, we need a backup of the file (overwrite if there)
