@@ -33,7 +33,7 @@ $ ~/.composer/vendor/bin/iniscan
 
 ### Using a single Phar file
 
-First make sure you ran composer.phar install
+First make sure you run composer.phar install
 ```
 curl -s http://box-project.org/installer.php | php
 php box.phar build
