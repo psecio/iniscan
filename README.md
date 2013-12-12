@@ -129,7 +129,15 @@ the `list-tests` command also supports JSON output:
 vendor/bin/iniscan list-tests --path=/path/to/php.ini --format=json
 ```
 
-**NOTE:** Currently, only the `scan` command supports alternate output formats - and only three: console, JSON and XML.
+**NOTE:** Currently, only the `scan` command supports alternate output formats - console, JSON, XML and HTML.
+
+The HTML output option requires an `--output` option of the directory to write the file:
+
+```
+vendor/bin/iniscan scan --format=html --output=/var/www/output
+```
+
+The result will be written to a file named something like `iniscan-output-20131212.html`
 
 
 Contexts
