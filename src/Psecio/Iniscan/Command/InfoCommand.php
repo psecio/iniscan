@@ -11,7 +11,7 @@ class InfoCommand extends Command
     protected function configure()
     {
         $this->setName('info')
-            ->setDescription('Provde more detail on the requested setting')
+            ->setDescription('Provide more detail on the requested setting')
             ->setDefinition(array(
                 new InputOption('setting', 'setting', InputOption::VALUE_REQUIRED, 'INI Setting name'),
             ))
