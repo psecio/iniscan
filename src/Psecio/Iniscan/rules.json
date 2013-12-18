@@ -73,6 +73,17 @@
 						"description": "A file should be provided to help provide session entropy",
 						"level": "WARNING",
 						"test": "CheckSessionEntropyPath"
+					},
+					{
+						"name": "Enable strict mode for session fixation prevention",
+						"description": "Strict mode prevents uninitialized session IDs in the built-in session handling.",
+						"level": "WARNING",
+						"test": {
+							"key": "session.use_strict_mode",
+							"operation": "equals",
+							"value": "1",
+							"version": "5.5.2"
+						}
 					}
 				],
 				"PHP": [
