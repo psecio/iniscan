@@ -135,19 +135,6 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that an exception is thrown when a non-boolean
-     *     status is set
-     *
-     * @expectedException \InvalidArgumentException
-     * @covers \Psecio\Iniscan\Rule::setStatus
-     */
-    public function testSetNonBooleanStatus()
-    {
-        $rule = new Rule(array(), 'testing123');
-        $rule->setStatus('badvalue');
-    }
-
-    /**
      * Test the getter/setter for level
      *
      * @covers \Psecio\Iniscan\Rule::getLevel
