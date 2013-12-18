@@ -32,6 +32,9 @@ class Console extends \Psecio\Iniscan\Command\Output
                 $severity = $result->getLevel();
                 $color = ($severity == 'WARNING') ? 'yellow' : 'red';
                 $status = 'FAIL';
+            } elseif ($result->getStatus() === null) {
+                $color = 'magenta';
+                $status = 'N/A';
             } else {
                 $pass++;
                 $status = 'PASS';
