@@ -156,9 +156,6 @@ class Rule
 	 */
 	public function setStatus($flag)
 	{
-		if (!is_bool($flag)) {
-			throw new \InvalidArgumentException('Value must be boolean!');
-		}
 		$this->status = $flag;
 	}
 
@@ -186,6 +183,14 @@ class Rule
 	public function pass()
 	{
 		$this->setStatus(true);
+	}
+
+	/**
+	 * Set the status for "not applicable" (null)
+	 */
+	public function na()
+	{
+		$this->setStatus(null);
 	}
 
 	/**
@@ -360,8 +365,24 @@ class Rule
 		$value = (isset($test->value)) ? $test->value : null;
 		$evalInstance = new $evalClass($this->getSection());
 
-		($evalInstance->execute($test->key, $value, $ini) == false)
-			? $this->fail() : $this->pass();
+		if (isset($test->version) && !$this->isVersion($test->version)) {
+			$this->na();
+		} else {
+			($evalInstance->execute($test->key, $value, $ini) == false)
+				? $this->fail() : $this->pass();
+		}
+	}
+
+	/**
+	 * Checks to see if the current version is above or the same as the one given
+	 *
+	 * @param  string $phpVersion PHP version string
+	 * @return boolean Valid/invalid match
+	 */
+	public function isVersion($phpVersion)
+	{
+		$compare = version_compare(PHP_VERSION, $phpVersion);
+		return ($compare === 1 || $compare === 0) ? true : false;
 	}
 
     /**
