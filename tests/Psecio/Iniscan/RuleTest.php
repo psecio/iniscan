@@ -342,4 +342,42 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $rule = new Rule(array(), 'testing123');
         $this->assertEquals($rule->getLevelNumericalValue('bad-level'), 0);
     }
+
+    /**
+     * Test that the "find" works as expected
+     * 
+     * @covers \Psecio\Iniscan\Rule::findValue
+     */
+    public function testFindValueValid()
+    {
+        $rule = new Rule(array(), 'testing');
+        $path = 'testing.foo.bar';
+        $ini = array(
+            'testing' => array(
+                'foo.bar' => 'test'
+            )
+        );
+        $value = $rule->findValue($path, $ini);
+
+        // In this case, the config is made up, so it returns false
+        // and sets the value to the array
+        $this->assertFalse($value);
+        $this->assertTrue(isset($ini['testing']['testing.foo.bar']));
+    }
+
+    /**
+     * Test the version evaluation
+     * 
+     * @covers \Psecio\Iniscan\Rule::isVersion
+     */
+    public function testAboveVersion()
+    {
+        // a very old PHP release...please tell me you're not using it
+        $phpVersion = '3.0';
+
+        $rule = new Rule(array(), 'testing');
+        $this->assertTrue(
+            $rule->isVersion($phpVersion)
+        );
+    }
 }
