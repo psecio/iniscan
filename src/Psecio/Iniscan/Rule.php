@@ -288,20 +288,13 @@ class Rule
 	public function findValue($path, &$ini)
 	{
 		$value = false;
-		$section = $this->getSection($path);
 
-		if (array_key_exists($section, $ini)) {
-			if (array_key_exists($path, $ini[$section])) {
-				$value = $ini[$section][$path];
-			} else {
-				// not in the file, pull out the default
-				$value = ini_get($path);
-				$ini[$section][$path] = $value;
-			}
+		if (array_key_exists($path, $ini)) {
+			$value = $ini[$path];
 		} else {
 			// not in the file, pull out the default
 			$value = ini_get($path);
-			$ini[$section][$path] = $value;
+			$ini[$path] = $value;
 		}
 		return $value;
 	}
