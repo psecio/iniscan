@@ -236,9 +236,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'value' => '1'
         );
         $ini = array(
-            'PHP' => array(
-                'foo' => '1'
-            )
+            'foo' => '1'
         );
         $rule = new Rule(array(), 'PHP');
         $rule->setTest($test);
@@ -321,7 +319,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that the level numeric values are correct
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getLevelNumericalValue
      */
     public function testGetValidNumericalValue()
@@ -334,7 +332,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that an invalid level returns a zero
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getLevelNumericalValue
      */
     public function testGetInvalidNumericalValue()

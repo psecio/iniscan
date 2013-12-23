@@ -16,13 +16,9 @@ class CheckSoapWsdlCacheDirTest extends \PHPUnit_Framework_TestCase
         $rule = new CheckSoapWsdlCacheDir($config, $section);
 
         $ini = array(
-            'PHP' => array(
-                'open_basedir' => '/tmp',
-            ),
-            'soap' => array(
-                'soap.wsdl_cache_enabled' => '1',
-                'soap.wsdl_cache_dir' => '/foo'
-            )
+            'open_basedir' => '/tmp',
+            'soap.wsdl_cache_enabled' => '1',
+            'soap.wsdl_cache_dir' => '/foo'
         );
 
         $rule->setVersion('5.3.21');
@@ -42,13 +38,9 @@ class CheckSoapWsdlCacheDirTest extends \PHPUnit_Framework_TestCase
         $rule = new CheckSoapWsdlCacheDir($config, $section);
 
         $ini = array(
-            'PHP' => array(
-                'open_basedir' => '/tmp',
-            ),
-            'soap' => array(
-                'soap.wsdl_cache_enabled' => '1',
-                'soap.wsdl_cache_dir' => '/tmp'
-            )
+            'open_basedir' => '/tmp',
+            'soap.wsdl_cache_enabled' => '1',
+            'soap.wsdl_cache_dir' => '/tmp'
         );
 
         $rule->setVersion('5.3.21');

@@ -16,9 +16,7 @@ class MaximumPostSizeTest extends \PHPUnit_Framework_TestCase
         $rule = new MaximumPostSize($config, $section);
 
         $ini = array(
-            'PHP' => array(
-                'post_max_size' => '12M'
-            )
+            'post_max_size' => '12M'
         );
 
         $result = $rule->evaluate($ini);
@@ -37,9 +35,7 @@ class MaximumPostSizeTest extends \PHPUnit_Framework_TestCase
         $rule = new MaximumPostSize($config, $section);
 
         $ini = array(
-            'PHP' => array(
-                'post_max_size' => '8M'
-            )
+            'post_max_size' => '8M'
         );
 
         $result = $rule->evaluate($ini);
