@@ -41,7 +41,7 @@ abstract class Operation
 	public function getSection($path)
 	{
 		$parts = explode('.', $path);
-		return (count($parts) === 1) 
+		return (count($parts) === 1)
 			? 'PHP' : ucwords(strtolower($parts[0]));
 	}
 
@@ -66,16 +66,13 @@ abstract class Operation
 	public function findValue($path, &$ini)
 	{
 		$value = false;
-		$section = $this->getSection($path);
 
-		if (array_key_exists($section, $ini)) {
-			if (array_key_exists($path, $ini[$section])) {
-				$value = $ini[$section][$path];
-			}
+		if (array_key_exists($path, $ini)) {
+			$value = $ini[$path];
 		} else {
 			// not in the file, pull out the default
 			$value = ini_get($path);
-			$ini[$section][$path] = $value;
+			$ini[$path] = $value;
 		}
 
 		return $value;

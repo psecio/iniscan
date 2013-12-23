@@ -6,10 +6,8 @@ class OperationNotequalsTest extends \PHPUnit_Framework_TestCase
 {
     private $operation;
     private $ini = array(
-        'Session' => array(
-            'session.save_path' => '/tmp',
-            'session.empty_path' => ''
-        )
+        'session.save_path' => '/tmp',
+        'session.empty_path' => ''
     );
 
     public function setUp()

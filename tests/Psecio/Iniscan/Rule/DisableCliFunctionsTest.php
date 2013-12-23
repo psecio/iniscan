@@ -21,9 +21,7 @@ class DisableCliFunctionsTest extends \PHPUnit_Framework_TestCase
         $rule = new DisableCliFunctions($config, $section);
 
         $ini = array(
-            'PHP' => array(
-                'disable_functions' => implode(',', $this->functions)
-            )
+            'disable_functions' => implode(',', $this->functions)
         );
 
         $result = $rule->evaluate($ini);
@@ -42,9 +40,7 @@ class DisableCliFunctionsTest extends \PHPUnit_Framework_TestCase
         $rule = new DisableCliFunctions($config, $section);
 
         $ini = array(
-            'PHP' => array(
-                'disable_functions' => 'exec,passthru,system'
-            )
+            'disable_functions' => 'exec,passthru,system'
         );
 
         $result = $rule->evaluate($ini);
@@ -53,7 +49,7 @@ class DisableCliFunctionsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that the remaining non-disabled method list is correct
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule\DisableCliFunctions::evaluate
      * @covers \Psecio\Iniscan\Rule\DisableCliFunctions::__toString
      */
@@ -64,9 +60,7 @@ class DisableCliFunctionsTest extends \PHPUnit_Framework_TestCase
 
         $rule = new DisableCliFunctions(array(), 'PHP');
         $ini = array(
-            'PHP' => array(
-                'disable_functions' => implode(',', $functionList)
-            )
+            'disable_functions' => implode(',', $functionList)
         );
 
         $result = $rule->evaluate($ini);
