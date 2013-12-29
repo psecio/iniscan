@@ -351,16 +351,14 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $rule = new Rule(array(), 'testing');
         $path = 'testing.foo.bar';
         $ini = array(
-            'testing' => array(
-                'foo.bar' => 'test'
-            )
+            'testing.foo.bar' => 'test'
         );
         $value = $rule->findValue($path, $ini);
 
         // In this case, the config is made up, so it returns false
         // and sets the value to the array
-        $this->assertFalse($value);
-        $this->assertTrue(isset($ini['testing']['testing.foo.bar']));
+        $this->assertTrue($value === 'test');
+        $this->assertTrue(isset($ini['testing.foo.bar']));
     }
 
     /**
