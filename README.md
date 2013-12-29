@@ -49,11 +49,10 @@ vendor/bin/iniscan scan --path=/path/to/php.ini
 ```
 Results for /private/etc/php.ini:
 ============
-Status | Severity | Key                      | Description
+Status | Severity | PHP Version | Key                      | Description
 ----------------------------------------------------------------------
-PASS   | ERROR    | session.use_cookies      : Must use cookies to manage sessions
-FAIL   | WARNING  | session.cookie_domain    : It is recommended that you set the default domain for cookies.
-FAIL   | WARNING  |                          : Path /tmp is world writeable
+PASS   | ERROR    |             | session.use_cookies      | Accepts cookies to manage sessions
+PASS   | ERROR    | 4.3.0       | session.use_only_cookies | Must use cookies to manage sessions, don't accept session-ids in a link
 
 1 passing
 2 failure(s)
