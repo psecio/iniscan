@@ -57,7 +57,8 @@
 						"test": {
 							"key": "session.use_trans_sid",
 							"operation": "equals",
-							"value": "0"
+							"value": "0",
+							"version": "4.0.3"
 						}
 					},
 					{
@@ -97,7 +98,8 @@
 						"test": {
 							"key": "allow_url_fopen",
 							"operation": "equals",
-							"value": "0"
+							"value": "0",
+							"version": "4.0.3"
 						}
 					},
 					{
@@ -107,7 +109,8 @@
 						"test": {
 							"key": "allow_url_include",
 							"operation": "equals",
-							"value": "0"
+							"value": "0",
+							"version": "5.2.0"
 						}
 					},
 					{
@@ -275,6 +278,16 @@
 							"key": "memory_limit",
 							"operation": "smaller",
 							"value": "128M"
+						}
+					},
+					{
+						"name": "Turn off 'ASP tag' handling",
+						"description": "Old versions of PHP allowed for ASP-style tags (<% %>) instead of <?php. This should be disabled.",
+						"level": "WARNING",
+						"test": {
+							"key": "asp_tags",
+							"operation": "equals",
+							"value": "0"
 						}
 					}
 				],
