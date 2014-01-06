@@ -262,6 +262,25 @@
 						}
 					},
 					{
+						"name": "Define a reasonable max post size",
+						"description": "A maximum post size should be defined to prevent server overload from large requests",
+						"level": "WARNING",
+						"test": {
+							"key": "post_max_size",
+							"operation": "isset"
+						}
+					},
+					{
+						"name": "Reduce max post size",
+						"description": "The max upload size should not be too high, to prevent server overload from large requests",
+						"level": "WARNING",
+						"test": {
+						"key": "post_max_size",
+							"operation": "smaller",
+							"value": "8M"
+						}
+					},
+					{
 						"name": "Define a reasonable memory limit",
 						"description": "A memory limit should be defined to prevent server overload from large processes",
 						"level": "WARNING",
@@ -303,6 +322,12 @@
 						"description": "Checks to see if the SOAP WSDL cache directory is inside open_basedir for PHP before 5.3.22 and 5.4.x before 5.4.13",
 						"level": "WARNING",
 						"test": "CheckSoapWsdlCacheDir"
+					},
+					{
+						"name": "Ensure file uploads work",
+						"description": "Checks to see if the upload_tmp_dir is inside the open_basedir folder",
+						"level": "WARNING",
+						"test": "CheckUploadTmpDir"
 					}
 				]
 			}

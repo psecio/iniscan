@@ -65,7 +65,7 @@ class CheckSoapWsdlCacheDir extends \Psecio\Iniscan\Rule
 		}
 
 		// Ensure that the WSDL cache directory is inside the base directory
-		if (strpos($wsdlCacheDir, $openBasedir) === false)
+		if (strpos($wsdlCacheDir, $openBasedir) !== 0)
 		{
 			$this->setDescription('soap.wsdl_cache_dir is not inside of open_basedir which allows the creation of cached SOAP WSDL files in an arbitrary directory');
 			$this->fail();
