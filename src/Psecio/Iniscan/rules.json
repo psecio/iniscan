@@ -322,6 +322,12 @@
 						"description": "Checks to see if the SOAP WSDL cache directory is inside open_basedir for PHP before 5.3.22 and 5.4.x before 5.4.13",
 						"level": "WARNING",
 						"test": "CheckSoapWsdlCacheDir"
+					},
+					{
+						"name": "Ensure file uploads work",
+						"description": "Checks to see if the upload_tmp_dir is inside the open_basedir folder",
+						"level": "WARNING",
+						"test": "CheckUploadTmpDir"
 					}
 				]
 			}
