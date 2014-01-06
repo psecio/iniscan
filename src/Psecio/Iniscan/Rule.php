@@ -106,11 +106,17 @@ class Rule
 	/**
 	 * Get the current section setting
 	 *
+	 * @param string $path INI "path" to setting [optional]
 	 * @return string Section name
 	 */
-	public function getSection()
+	public function getSection($path = null)
 	{
-		return $this->section;
+		if ($path !== null) {
+			$parts = explode('.', $path);
+			return (count($parts) == 1) ? 'PHP' : $parts[0];
+		} else {
+			return $this->section;
+		}
 	}
 
 	/**
@@ -150,9 +156,6 @@ class Rule
 	 */
 	public function setStatus($flag)
 	{
-		if (!is_bool($flag)) {
-			throw new \InvalidArgumentException('Value must be boolean!');
-		}
 		$this->status = $flag;
 	}
 
@@ -180,6 +183,14 @@ class Rule
 	public function pass()
 	{
 		$this->setStatus(true);
+	}
+
+	/**
+	 * Set the status for "not applicable" (null)
+	 */
+	public function na()
+	{
+		$this->setStatus(null);
 	}
 
 	/**
@@ -266,6 +277,69 @@ class Rule
 		);
 	}
 
+	/**
+	 * Find the given value in the INI array
+	 *   If not found, returns the currently set value
+	 *
+	 * @param string $path "Path" to the value
+	 * @param array $ini Current INI settings
+	 * @return string Found INI value
+	 */
+	public function findValue($path, &$ini)
+	{
+		$value = false;
+
+		if (array_key_exists($path, $ini)) {
+			$value = $ini[$path];
+		} else {
+			// not in the file, pull out the default
+			$value = ini_get($path);
+			$ini[$path] = $value;
+		}
+		return $value;
+	}
+
+	/**
+	 * Cast the values from php.ini to a standard format
+	 *
+	 * @param mixed $value php.ini setting value
+	 * @return mixed "Casted" result
+	 */
+	public function castValue($value)
+	{
+		if ($value === 'Off' || $value === '' || $value === 0 || $value === '0') {
+			$casted = 0;
+		} elseif ($value === 'On' || $value === '1' || $value === 1) {
+			$casted = 1;
+		} else {
+			$casted = $value;
+		}
+
+		$casted = $this->castPowers($casted);
+
+		return $casted;
+	}
+
+	/**
+     * Cast the byte values ending with G, M or K to full integer values
+     *
+     * @param $casted
+     * @internal param $value
+     * @return mixed "Casted" result
+     */
+	public function castPowers ($casted) {
+		$postfixes = array(
+			'K' => 1024,
+			'M' => 1024 * 1024,
+			'G' => 1024 * 1024 * 1024,
+		);
+		$matches = array();
+		if (preg_match('/^([0-9]+)([' . implode('', array_keys($postfixes)) . '])$/', $casted, $matches)) {
+			$casted = $matches[1] * $postfixes[$matches[2]];
+		}
+		return $casted;
+	}
+
     /**
      * Evaluate the rule and its test
      *
@@ -284,8 +358,24 @@ class Rule
 		$value = (isset($test->value)) ? $test->value : null;
 		$evalInstance = new $evalClass($this->getSection());
 
-		($evalInstance->execute($test->key, $value, $ini) == false)
-			? $this->fail() : $this->pass();
+		if (isset($test->version) && !$this->isVersion($test->version)) {
+			$this->na();
+		} else {
+			($evalInstance->execute($test->key, $value, $ini) == false)
+				? $this->fail() : $this->pass();
+		}
+	}
+
+	/**
+	 * Checks to see if the current version is above or the same as the one given
+	 *
+	 * @param  string $phpVersion PHP version string
+	 * @return boolean Valid/invalid match
+	 */
+	public function isVersion($phpVersion)
+	{
+		$compare = version_compare(PHP_VERSION, $phpVersion);
+		return ($compare === 1 || $compare === 0) ? true : false;
 	}
 
     /**

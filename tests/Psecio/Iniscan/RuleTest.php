@@ -135,19 +135,6 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that an exception is thrown when a non-boolean
-     *     status is set
-     *
-     * @expectedException \InvalidArgumentException
-     * @covers \Psecio\Iniscan\Rule::setStatus
-     */
-    public function testSetNonBooleanStatus()
-    {
-        $rule = new Rule(array(), 'testing123');
-        $rule->setStatus('badvalue');
-    }
-
-    /**
      * Test the getter/setter for level
      *
      * @covers \Psecio\Iniscan\Rule::getLevel
@@ -249,9 +236,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'value' => '1'
         );
         $ini = array(
-            'PHP' => array(
-                'foo' => '1'
-            )
+            'foo' => '1'
         );
         $rule = new Rule(array(), 'PHP');
         $rule->setTest($test);
@@ -334,7 +319,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that the level numeric values are correct
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getLevelNumericalValue
      */
     public function testGetValidNumericalValue()
@@ -347,12 +332,48 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that an invalid level returns a zero
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::getLevelNumericalValue
      */
     public function testGetInvalidNumericalValue()
     {
         $rule = new Rule(array(), 'testing123');
         $this->assertEquals($rule->getLevelNumericalValue('bad-level'), 0);
+    }
+
+    /**
+     * Test that the "find" works as expected
+     * 
+     * @covers \Psecio\Iniscan\Rule::findValue
+     */
+    public function testFindValueValid()
+    {
+        $rule = new Rule(array(), 'testing');
+        $path = 'testing.foo.bar';
+        $ini = array(
+            'testing.foo.bar' => 'test'
+        );
+        $value = $rule->findValue($path, $ini);
+
+        // In this case, the config is made up, so it returns false
+        // and sets the value to the array
+        $this->assertTrue($value === 'test');
+        $this->assertTrue(isset($ini['testing.foo.bar']));
+    }
+
+    /**
+     * Test the version evaluation
+     * 
+     * @covers \Psecio\Iniscan\Rule::isVersion
+     */
+    public function testAboveVersion()
+    {
+        // a very old PHP release...please tell me you're not using it
+        $phpVersion = '3.0';
+
+        $rule = new Rule(array(), 'testing');
+        $this->assertTrue(
+            $rule->isVersion($phpVersion)
+        );
     }
 }

@@ -7,7 +7,6 @@ class Json extends \Psecio\Iniscan\Command\Output
     public function render($rules)
     {
     	$output = $this->getOutput();
-    	$ruleCount = 0;
 
         $data = array();
         foreach ($rules as $section => $ruleSet) {
@@ -19,6 +18,7 @@ class Json extends \Psecio\Iniscan\Command\Output
                 );
             }
         }
-        echo json_encode($data);
+
+        $output->writeLn(json_encode($data));
     }
 }

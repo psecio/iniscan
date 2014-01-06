@@ -33,7 +33,7 @@ $ ~/.composer/vendor/bin/iniscan
 
 ### Using a single Phar file
 
-First make sure you ran composer.phar install
+First make sure you run composer.phar install
 ```
 curl -s http://box-project.org/installer.php | php
 php box.phar build
@@ -49,15 +49,16 @@ vendor/bin/iniscan scan --path=/path/to/php.ini
 ```
 Results for /private/etc/php.ini:
 ============
-Status | Severity | Key                      | Description
+Status | Severity | PHP Version | Key                      | Description
 ----------------------------------------------------------------------
-PASS   | ERROR    | session.use_cookies      : Must use cookies to manage sessions
-FAIL   | WARNING  | session.cookie_domain    : It is recommended that you set the default domain for cookies.
-FAIL   | WARNING  |                          : Path /tmp is world writeable
+PASS   | ERROR    |             | session.use_cookies      | Accepts cookies to manage sessions
+PASS   | ERROR    | 4.3.0       | session.use_only_cookies | Must use cookies to manage sessions, don't accept session-ids in a link
 
 1 passing
 2 failure(s)
 ```
+
+> *NOTE:* When the scan runs, if it cannot find a setting in the `php.ini` given, it will use [ini_get](http://php.net/ini_get) to pull the current setting (possibly the default).
 
 Command line usage
 ------------------
@@ -127,7 +128,15 @@ the `list-tests` command also supports JSON output:
 vendor/bin/iniscan list-tests --path=/path/to/php.ini --format=json
 ```
 
-**NOTE:** Currently, only the `scan` command supports alternate output formats - and only three: console, JSON and XML.
+**NOTE:** Currently, only the `scan` command supports alternate output formats - console, JSON, XML and HTML.
+
+The HTML output option requires an `--output` option of the directory to write the file:
+
+```
+vendor/bin/iniscan scan --format=html --output=/var/www/output
+```
+
+The result will be written to a file named something like `iniscan-output-20131212.html`
 
 
 Contexts

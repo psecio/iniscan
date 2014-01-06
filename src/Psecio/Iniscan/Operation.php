@@ -35,11 +35,14 @@ abstract class Operation
 	/**
 	 * Get the current section name
 	 *
+	 * @param string $path INI "path" for settings
 	 * @return string
 	 */
-	public function getSection()
+	public function getSection($path)
 	{
-		return $this->section;
+		$parts = explode('.', $path);
+		return (count($parts) === 1)
+			? 'PHP' : ucwords(strtolower($parts[0]));
 	}
 
 	/**
@@ -54,23 +57,25 @@ abstract class Operation
 
 	/**
 	 * Find the given value in the INI array
+	 *   If not found, returns the currently set value
 	 *
 	 * @param string $path "Path" to the value
 	 * @param array $ini Current INI settings
-	 * @throws \InvalidArgumentException If the section is unknown
-	 * @throws \InvalidArgumentException If the path is not found
 	 * @return string Found INI value
 	 */
-	public function findValue($path, $ini)
+	public function findValue($path, &$ini)
 	{
-		$section = $this->getSection();
-		if (!array_key_exists($section, $ini)) {
-			throw new \InvalidArgumentException('Unknown section '.$section);
+		$value = false;
+
+		if (array_key_exists($path, $ini)) {
+			$value = $ini[$path];
+		} else {
+			// not in the file, pull out the default
+			$value = ini_get($path);
+			$ini[$path] = $value;
 		}
-		if (!array_key_exists($path, $ini[$section])) {
-			return false;
-		}
-		return $ini[$section][$path];
+
+		return $value;
 	}
 
 	/**
@@ -81,7 +86,7 @@ abstract class Operation
 	 */
 	public function castValue($value)
 	{
-		if ($value === 'Off' || $value === '' || $value === 0 || $value === '0') {
+		if ($value === 'Off' || $value === '' || $value === 0 || $value === '0' || $value === false) {
 			$casted = 0;
 		} elseif ($value === 'On' || $value === '1' || $value === 1) {
 			$casted = 1;

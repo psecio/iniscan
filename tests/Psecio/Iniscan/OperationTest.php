@@ -57,34 +57,30 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     {
     	$value = 'baz';
     	$ini = array(
-    		'PHP' => array(
-    			'foo.bar' => $value
-    		)
+            'bar' => $value
     	);
-    	$operation = new OperationStub('PHP');
-    	$result = $operation->findValue('foo.bar', $ini);
+        $operation = new OperationStub('PHP');
+        $result = $operation->findValue('bar', $ini);
     	$this->assertEquals($result, $value);
     }
 
     /**
      * Test that false is returned when a key is not found
-     * 
+     *
      * @covers \Psecio\Iniscan\Operation::findValue
      */
     public function testKeyNotFound()
     {
-        $ini = array(
-            'PHP' => array()
-        );
+        $ini = array();
         $operation = new OperationStub('PHP');
         $result = $operation->findValue('foo.bar', $ini);
         $this->assertFalse($result);
     }
 
     /**
-     * Test that exception is thrown when the section isn't found
-     * 
-     * @expectedException \InvalidArgumentException
+     * Test that false is returned when the section isn't found
+     *   (and doesn't exist in the default PHP config)
+     *
      * @covers \Psecio\Iniscan\Operation::findValue
      */
     public function testSectionNotFound()
@@ -93,7 +89,9 @@ class OperationTest extends \PHPUnit_Framework_TestCase
             'PHP' => array()
         );
         $operation = new OperationStub('BAR');
-        $operation->findValue('foo.bar', $ini);
+        $this->assertFalse(
+            $operation->findValue('foo.bar', $ini)
+        );
     }
 
     /**

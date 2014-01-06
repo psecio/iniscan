@@ -19,6 +19,7 @@ class Console extends \Psecio\Iniscan\Command\Output
         $output->writeLn(
             str_pad("Status", 7, ' ').'| '
             .str_pad("Severity", 9, ' ').'| '
+            .str_pad("PHP Version", 12, ' ').'| '
             .str_pad("Key", 25, ' ').'| Description'
         );
         $output->writeLn(str_repeat('-', 70));
@@ -32,6 +33,9 @@ class Console extends \Psecio\Iniscan\Command\Output
                 $severity = $result->getLevel();
                 $color = ($severity == 'WARNING') ? 'yellow' : 'red';
                 $status = 'FAIL';
+            } elseif ($result->getStatus() === null) {
+                $color = 'magenta';
+                $status = 'N/A';
             } else {
                 $pass++;
                 $status = 'PASS';
@@ -41,12 +45,14 @@ class Console extends \Psecio\Iniscan\Command\Output
                 continue;
             }
             $test = $result->getTest();
+            $version = (isset($test->version)) ? $test->version : '';
             $test = (isset($test->key)) ? $test->key : '';
-
+            
             $output->writeLn(
                 '<fg='.$color.'>'
                 .str_pad($status, 7, ' ')
                 .'| '.str_pad($result->getLevel(), 9, ' ')
+                .'| '.str_pad($version, 12, ' ')
                 .'| '.str_pad($test, 25, ' ')
                 .'| '.$result->getDescription()
                 .'</fg='.$color.'>'

@@ -20,7 +20,8 @@
 						"test": {
 							"key": "session.use_only_cookies",
 							"operation": "equals",
-							"value": "1"
+							"value": "1",
+							"version": "4.3.0"
 						}
 					},
 					{
@@ -39,7 +40,8 @@
 						"test": {
 							"key": "session.cookie_httponly",
 							"operation": "equals",
-							"value": "1"
+							"value": "1",
+							"version": "5.2.0"
 						}
 					},
 					{
@@ -55,7 +57,8 @@
 						"test": {
 							"key": "session.use_trans_sid",
 							"operation": "equals",
-							"value": "0"
+							"value": "0",
+							"version": "4.0.3"
 						}
 					},
 					{
@@ -65,7 +68,8 @@
 						"test": {
 							"key": "session.cookie_secure",
 							"operation": "equals",
-							"value": "1"
+							"value": "1",
+							"version": "4.0.4"
 						}
 					},
 					{
@@ -73,6 +77,17 @@
 						"description": "A file should be provided to help provide session entropy",
 						"level": "WARNING",
 						"test": "CheckSessionEntropyPath"
+					},
+					{
+						"name": "Enable strict mode for session fixation prevention",
+						"description": "Strict mode prevents uninitialized session IDs in the built-in session handling.",
+						"level": "WARNING",
+						"test": {
+							"key": "session.use_strict_mode",
+							"operation": "equals",
+							"value": "1",
+							"version": "5.5.2"
+						}
 					}
 				],
 				"PHP": [
@@ -83,7 +98,8 @@
 						"test": {
 							"key": "allow_url_fopen",
 							"operation": "equals",
-							"value": "0"
+							"value": "0",
+							"version": "4.0.3"
 						}
 					},
 					{
@@ -93,7 +109,8 @@
 						"test": {
 							"key": "allow_url_include",
 							"operation": "equals",
-							"value": "0"
+							"value": "0",
+							"version": "5.2.0"
 						}
 					},
 					{
@@ -261,6 +278,16 @@
 							"key": "memory_limit",
 							"operation": "smaller",
 							"value": "128M"
+						}
+					},
+					{
+						"name": "Turn off 'ASP tag' handling",
+						"description": "Old versions of PHP allowed for ASP-style tags (<% %>) instead of <?php. This should be disabled.",
+						"level": "WARNING",
+						"test": {
+							"key": "asp_tags",
+							"operation": "equals",
+							"value": "0"
 						}
 					}
 				],

@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>IniScan Results - {{date}}</title>
+		<style>
+			body {
+				font-family: verdana, arial;
+				font-size: 12px;
+				background-color: #EEEEEE;
+			}
+			.container {
+				text-align: center;
+			}
+			.result {
+				width: 500px;
+			}
+			.result tr td {
+				border: 0px solid #000000;
+				color: #FFFFFF;
+				padding: 7px;
+				font-size: 11px;
+				vertical-align: top;
+			}
+			.result tr td.key {
+				width: 170px;
+			}
+			.header tr td {
+				background-color: #838383;
+			}
+			.fail {
+				background-color: #830000;
+			}
+			.pass {
+				background-color: #1E8A00;
+			}
+			.warn {
+				background-color: #FB9700;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<center>
+				<h2>IniScan Results - {{date}}</h2>
+				<table class="result header">
+					<tr><td class="key">Key</td><td>Detail</td>
+				</table>
+				{{results}}
+			</center>
+		</div>
+	</body>
+</html>

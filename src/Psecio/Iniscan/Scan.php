@@ -254,7 +254,7 @@ class Scan
 	 */
 	public function parseConfig($path = null)
 	{
-		$ini = parse_ini_file( (!is_null($path) ? $path : $this->path), true);
+		$ini = parse_ini_file( (!is_null($path) ? $path : $this->path));
 
 		// pull in settings from other scanned INI files
 		$scannedIniList = php_ini_scanned_files();
@@ -264,6 +264,7 @@ class Scan
 				$ini = array_merge($ini, $scannedIni);
 			}
 		}
+
 		$this->setConfig($ini);
 		return $ini;
 	}
@@ -278,7 +279,6 @@ class Scan
 		$path = $this->getPath();
 		$ini = $this->parseConfig($path);
 		$rules = $this->getRules();
-		$context = $this->getContext();
 		$version = $this->getVersion();
 
 		$ruleList = array();

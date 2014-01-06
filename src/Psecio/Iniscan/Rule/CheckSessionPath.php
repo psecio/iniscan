@@ -22,8 +22,10 @@ class CheckSessionPath extends \Psecio\Iniscan\Rule
 	public function evaluate(array $ini)
 	{
 		// See which type we're working with
-		switch(strtolower($ini['Session']['session.save_handler'])) {
+		$handler = $this->findValue('session.save_handler', $ini);
+		switch(strtolower($handler)) {
 			case 'file':
+			case 'files':
 				return $this->evaluateFile($ini);
 				break;
 			case 'memcache':
@@ -41,12 +43,14 @@ class CheckSessionPath extends \Psecio\Iniscan\Rule
 	 */
 	protected function evaluateFile(array $ini)
 	{
-		if (!isset($ini['Session']['session.save_path'])) {
-			$this->setDescription('Path not set, default (/tmp) is world writeable');
+		$savePath = $this->findValue('session.save_path', $ini);
+
+		if ($savePath === '/tmp') {
+			$this->setDescription('Custom path not set, default (/tmp) is world writeable');
 			$this->fail();
 			return false;
 		}
-		$savePath = $ini['Session']['session.save_path'];
+
 		$perms = substr(sprintf('%o', fileperms($savePath)), - 3);
 		if ($perms == 777) {
 			$this->fail();

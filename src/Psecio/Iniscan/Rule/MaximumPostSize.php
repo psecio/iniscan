@@ -17,7 +17,7 @@ class MaximumPostSize extends \Psecio\Iniscan\Rule
 
 	public function evaluate(array $ini)
 	{
-		$postSize = $ini['PHP']['post_max_size'];
+		$postSize = $this->findValue('post_max_size', $ini);
 
 		// find the number(s)
 		preg_match('/[0-9]+/', $postSize, $match);
