@@ -45,6 +45,34 @@
 						}
 					},
 					{
+						"name": "Ensure bug compatability is disabled",
+						"description": "An undocumented feature/bug that allows initialize of a session in the global scope even if register_globals is disabled for PHP up to 5.3.22",
+						"level": "ERROR",
+						"test": {
+							"key": "session.bug_compat_42",
+							"operation": "equals",
+							"value": "0",
+							"version": "4.3.0"
+						}
+					},
+					{
+						"name": "Ensure bug compatability warning is disabled",
+						"description": "Disable warnings for session.bug_compat_42",
+						"level": "WARNING",
+						"test": {
+							"key": "session.bug_compat_warn",
+							"operation": "equals",
+							"value": "0",
+							"version": "4.3.0"
+						}
+					},
+					{
+						"name": "Recommend session hashing functions",
+						"description": "Check against a list of recommended session hashing functions",
+						"level": "WARNING",
+						"test": "CheckSessionHashFunction"
+					},
+					{
 						"name": "Session save path not set or world writeable",
 						"description": "Session save path should be set and writeable by only the web user",
 						"level": "WARNING",
