@@ -232,15 +232,12 @@ class Scan
 		$ini = $this->getConfig();
 
 		// loop through the versions and see if our key is in there
-		foreach ($deprecated as $index => $value) {
-			if ($index === $key) {
-				$compare = version_compare($phpVersion, $value);
-				if ($compare >= 0) {
-					if (isset($ini[$section][$key])) {
-						$this->markKey($key);
-					}
-					return true;
-				}
+		if (property_exists($deprecated, $key))
+		{
+			$compare = version_compare($phpVersion, $deprecated->$key);
+			if ($compare >= 0 && isset($ini[$key])) {
+				$this->markKey($key);
+				return true;
 			}
 		}
 		return false;
