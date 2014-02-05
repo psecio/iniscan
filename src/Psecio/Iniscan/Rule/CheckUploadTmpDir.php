@@ -54,7 +54,7 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 		}
 
 		// Ensure that the upload_tmp_dir is inside the base directory
-		if (strpos($openBasedir, $uploadTmpDir) !== 0) {
+		if (strpos($uploadTmpDir, $openBasedir) !== 0) {
 			$this->setDescription('upload_tmp_dir is not inside of open_basedir which will prevent files from being uploaded');
 			$this->fail();
 			return false;
