@@ -3,6 +3,8 @@ Scanner for PHP.ini
 
 [![Build Status](https://secure.travis-ci.org/psecio/iniscan.png?branch=master)](http://travis-ci.org/psecio/iniscan)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87/big.png)](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87)
+
 The Iniscan is a tool designed to scan the given php.ini file for common security practices
 and report back results. Currently it is only for use on the command line and reports the
 results back to the display for both Pass and Fail on each test.
