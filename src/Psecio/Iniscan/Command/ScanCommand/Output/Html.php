@@ -7,10 +7,6 @@ class Html extends \Psecio\Iniscan\Command\Output
     public function render($results)
     {
         $output = $this->getOutput();
-        $path = $this->getOption('path');
-        $failOnly = $this->getOption('failOnly');
-        $deprecated = $this->getOption('deprecated');
-		$verbose = $this->getOption('verbose');
 		$output = $this->getOption('output');
 
 		// read in the template file
@@ -22,7 +18,6 @@ class Html extends \Psecio\Iniscan\Command\Output
 		);
 
 		foreach ($results as $result) {
-			// print_r($result);
 			$pass = ($result->getStatus() === true) ? 'pass' : 'fail';
 
 			$resultHtml = '<div class="result '.$pass.'">';
@@ -35,7 +30,6 @@ class Html extends \Psecio\Iniscan\Command\Output
 		}
 
 		if (is_writable($output)) {
-			// $output .= '/iniscan-output-'.date('Ymd-His').'.html';
 			$output .= '/iniscan-output-'.date('Ymd').'.html';
 			foreach ($values as $key => $value) {
 				$template = str_replace('{{'.$key.'}}', $value, $template);
