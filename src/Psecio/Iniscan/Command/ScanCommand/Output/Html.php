@@ -7,10 +7,6 @@ class Html extends \Psecio\Iniscan\Command\Output
     public function render($results)
     {
         $output = $this->getOutput();
-        $path = $this->getOption('path');
-        $failOnly = $this->getOption('failOnly');
-        $deprecated = $this->getOption('deprecated');
-		$verbose = $this->getOption('verbose');
 		$output = $this->getOption('output');
 
 		// read in the template file
