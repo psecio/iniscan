@@ -22,7 +22,6 @@ class Html extends \Psecio\Iniscan\Command\Output
 		);
 
 		foreach ($results as $result) {
-			// print_r($result);
 			$pass = ($result->getStatus() === true) ? 'pass' : 'fail';
 
 			$resultHtml = '<div class="result '.$pass.'">';
@@ -35,7 +34,6 @@ class Html extends \Psecio\Iniscan\Command\Output
 		}
 
 		if (is_writable($output)) {
-			// $output .= '/iniscan-output-'.date('Ymd-His').'.html';
 			$output .= '/iniscan-output-'.date('Ymd').'.html';
 			foreach ($values as $key => $value) {
 				$template = str_replace('{{'.$key.'}}', $value, $template);
