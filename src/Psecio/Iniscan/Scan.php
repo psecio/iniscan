@@ -222,11 +222,10 @@ class Scan
      * See if a setting is listing as deprecated in the PHP version given
      *
      * @param string $key PHP.ini settings key
-     * @param $section
      * @param string $phpVersion Current PHP version [optional]
      * @return boolean Key is deprecated/not deprecated
      */
-	public function isDeprecated($key, $section, $phpVersion = PHP_VERSION)
+	public function isDeprecated($key, $phpVersion = PHP_VERSION)
 	{
 		$deprecated = $this->getDeprecated();
 		$ini = $this->getConfig();
@@ -291,7 +290,7 @@ class Scan
 				$rule->setVersion($version);
 
 				$key = $rule->getTestKey();
-				if ($this->isDeprecated($key, $section) === true) {
+				if ($this->isDeprecated($key) === true) {
 					continue;
 				}
 
