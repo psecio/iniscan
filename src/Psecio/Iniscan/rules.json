@@ -338,6 +338,14 @@
 						}
 					}
 				],
+				"SSL": [
+					{
+						"name": "SSL CA file specified",
+						"description": "A CA file should be specified",
+						"level": "ERROR",
+						"test": "CheckCertPath"
+					}
+				],
 				"Custom": [
 					{
 						"name": "Disable harmful CLI functions",
