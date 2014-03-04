@@ -20,20 +20,29 @@ class CheckCertPath extends \Psecio\Iniscan\Rule
 	 * @return boolean Pass/fail of evaluation
 	 */
 	public function evaluate(array $ini)
-	{	
-		if (function_exists('openssl_get_cert_locations')) {
-			$config = openssl_get_cert_locations();
+	{
+		if (version_compare($this->getVersion(), '5.6', '>='))
+		{
+			$defaultCertFile = $this->findValue('openssl.cafile', $ini);
+			$defaultCertDir = $this->findValue('openssl.capath', $ini);
 			
-			$isCertFileSet = (empty($config['default_cert_file'])) ? false : true;
-			$isCertFileValid = false;
-			if ($isCertFileSet) {
-				$isCertFileValid = is_readable($config['default_cert_file']);
+			// Check for default if no custom values are set
+			if (function_exists('openssl_get_cert_locations')) {
+				$config = openssl_get_cert_locations();
+				$defaultCertFile = $defaultCertFile ? $defaultCertFile : $config['default_cert_file'];
+				$defaultCertDir = $defaultCertDir ? $defaultCertDir : $config['default_cert_dir'];
 			}
 			
-			$isCertDirSet = (empty($config['default_cert_dir'])) ? false : true;
+			$isCertFileSet = (empty($defaultCertFile)) ? false : true;
+			$isCertFileValid = false;
+			if ($isCertFileSet) {
+				$isCertFileValid = is_readable($defaultCertFile);
+			}
+			
+			$isCertDirSet = (empty($defaultCertDir)) ? false : true;
 			$isCertDirValid = false;
 			if ($isCertDirSet) {
-				$isCertDirValid = is_dir($config['default_cert_dir']) && is_executable($config['default_cert_dir']);
+				$isCertDirValid = is_dir($defaultCertDir) && is_executable($defaultCertDir);
 			}
 			
 			if ($isCertFileValid || $isCertDirValid) {
@@ -42,14 +51,14 @@ class CheckCertPath extends \Psecio\Iniscan\Rule
 			
 			// File is set but not valid
 			if (!$isCertFileValid) {
-				$this->setDescription('Default certificate specified `' . $config['default_cert_file'] . '` does not exists. Please set with openssl.cafile parameter.');
+				$this->setDescription('Default certificate specified `' . $defaultCertFile . '` does not exists. Please set with openssl.cafile parameter.');
 				$this->fail();
 				return false;
 			}
 			
 			// Director is set but not valid
 			if (!$isCertDirValid) {
-				$this->setDescription('Default certificate directory specified `' . $config['default_cert_dir'] . '` not not exists or is not accessible. Please set with openssl.capath parameter.');
+				$this->setDescription('Default certificate directory specified `' . $defaultCertDir . '` not not exists or is not accessible. Please set with openssl.capath parameter.');
 				$this->fail();
 				return false;
 			}
