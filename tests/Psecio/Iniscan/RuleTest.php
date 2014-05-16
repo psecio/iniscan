@@ -502,4 +502,19 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($rule->getCast()->castPowers('1M'), 1024 * 1024);
         $this->assertEquals($rule->getCast()->castPowers('1G'), 1024 * 1024 * 1024);
     }
+
+    /**
+     * Test the getter/setter for the Cast instance
+     *
+     * @covers \Psecio\Iniscan\Rule::getCast
+     * @covers \Psecio\Iniscan\Rule::setCast
+     */
+    public function testGetSetCast()
+    {
+        $cast = new \Psecio\Iniscan\Cast();
+        $rule = new Rule(array(), 'testing');
+        $rule->setCast($cast);
+
+        $this->assertInstanceOf('\Psecio\Iniscan\Cast', $rule->getCast());
+    }
 }
