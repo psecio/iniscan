@@ -11,6 +11,12 @@ abstract class Operation
 	public $section;
 
 	/**
+	 * Current Cast instance
+	 * @var \Psecio\Iniscan\Cast
+	 */
+	private $cast;
+
+	/**
 	 * Init the Operation and set the section
 	 *
 	 * @param string $section Section name
@@ -18,6 +24,29 @@ abstract class Operation
 	public function __construct($section)
 	{
 		$this->setSection($section);
+		$this->setCast(new \Psecio\Iniscan\Cast());
+	}
+
+	/**
+	 * Set the current Cast instance
+	 *
+	 * @param \Psecio\Iniscan\Cast $cast Cast object instance
+	 * @return \Psecio\Iniscan\Operation instance
+	 */
+	public function setCast(\Psecio\Iniscan\Cast $cast)
+	{
+		$this->cast = $cast;
+		return $this;
+	}
+
+	/**
+	 * Get the current Cast instance
+	 *
+	 * @return \Psecio\Iniscan\Cast instance
+	 */
+	public function getCast()
+	{
+		return $this->cast;
 	}
 
 	/**
@@ -76,46 +105,5 @@ abstract class Operation
 		}
 
 		return $value;
-	}
-
-	/**
-	 * Cast the values from php.ini to a standard format
-	 *
-	 * @param mixed $value php.ini setting value
-	 * @return mixed "Casted" result
-	 */
-	public function castValue($value)
-	{
-		if ($value === 'Off' || $value === '' || $value === 0 || $value === '0' || $value === false) {
-			$casted = 0;
-		} elseif ($value === 'On' || $value === '1' || $value === 1) {
-			$casted = 1;
-		} else {
-			$casted = $value;
-		}
-
-		$casted = $this->castPowers($casted);
-
-		return $casted;
-	}
-
-    /**
-     * Cast the byte values ending with G, M or K to full integer values
-     *
-     * @param $casted
-     * @internal param $value
-     * @return mixed "Casted" result
-     */
-	public function castPowers ($casted) {
-		$postfixes = array(
-			'K' => 1024,
-			'M' => 1024 * 1024,
-			'G' => 1024 * 1024 * 1024,
-		);
-		$matches = array();
-		if (preg_match('/^([0-9]+)([' . implode('', array_keys($postfixes)) . '])$/', $casted, $matches)) {
-			$casted = $matches[1] * $postfixes[$matches[2]];
-		}
-		return $casted;
 	}
 }
