@@ -451,7 +451,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the translation of casting values of "Off"
      *
-     * @covers \Psecio\Iniscan\Rule::castValue
+     * @covers \Psecio\Iniscan\Cast::castValue
      */
     public function testCastValuesOff()
     {
@@ -466,7 +466,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the translation of casting values of "On"
      *
-     * @covers \Psecio\Iniscan\Rule::castValue
+     * @covers \Psecio\Iniscan\Cast::castValue
      */
     public function testCastValuesOn()
     {
@@ -480,7 +480,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the translation of casting values neither "On" or "Off"
      *
-     * @covers \Psecio\Iniscan\Rule::castValue
+     * @covers \Psecio\Iniscan\Cast::castValue
      */
     public function testCastValueOther()
     {
@@ -492,7 +492,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the casting of powers from a string
      *
-     * @covers \Psecio\Iniscan\Rule::castPowers
+     * @covers \Psecio\Iniscan\Cast::castPowers
      */
     public function testCastPowers()
     {

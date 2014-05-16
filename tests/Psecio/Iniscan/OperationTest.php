@@ -10,7 +10,7 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the "casting of a value to a consistent output.
      *
-	 * @covers \Psecio\Iniscan\Operation::castValue
+	 * @covers \Psecio\Iniscan\Cast::castValue
      * @dataProvider castDataProvider
      */
     public function testCastValue($input, $expectedValue, $expectedType)
@@ -97,7 +97,7 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the "casting" of the size measurements (ex. MB, G, etc)
      *
-     * @covers \Psecio\Iniscan\Operation::castPowers
+     * @covers \Psecio\Iniscan\Cast::castPowers
      * @dataProvider powersDataProvider
      */
     public function testCastPowers($input, $expectedValue)
