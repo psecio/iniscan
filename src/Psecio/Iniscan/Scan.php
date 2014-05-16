@@ -142,21 +142,34 @@ class Scan
 	}
 
 	/**
-	 * Get the current rules to evaluate
+	 * Get the settings from the rules.json related to
+	 * 	the given index
 	 *
-	 * @return array Set of rules
+	 * @param integer $index Index to locate
+	 * @return object|boolean False if configuration not found
 	 */
-	public function getRules()
+	public function getSettings($index)
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
 
 		if ($rules === null) {
 			throw new \Exception('Cannot parse rule configuration');
 		}
-		if (!isset($rules->settings[0]->rules)) {
+		return (isset($rules->settings[$index])) ? $rules->settings[$index] : false;
+	}
+
+	/**
+	 * Get the current rules to evaluate
+	 *
+	 * @return array Set of rules
+	 */
+	public function getRules()
+	{
+		$settings = $this->getSettings(0);
+		if ($settings !== false || !isset($settings->rules)) {
 			throw new \Exception('Rule configuration not found');
 		}
-		return $rules->settings[0]->rules;
+		return $settings->rules;
 	}
 
     /**
@@ -167,15 +180,11 @@ class Scan
      */
 	public function getDeprecated()
 	{
-		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
-
-		if ($rules === null) {
-			throw new \Exception('Cannot parse rule configuration');
-		}
-		if (!isset($rules->settings[1]->deprecated)) {
+		$settings = $this->getSettings(1);
+		if ($settings == false || !isset($settings->deprecated)) {
 			throw new \Exception('Deprecated configuration not found');
 		}
-		return $rules->settings[1]->deprecated;
+		return $settings->deprecated;
 	}
 
 	/**
