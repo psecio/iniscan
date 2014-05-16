@@ -166,7 +166,7 @@ class Scan
 	public function getRules()
 	{
 		$settings = $this->getSettings(0);
-		if ($settings !== false || !isset($settings->rules)) {
+		if ($settings == false || !isset($settings->rules)) {
 			throw new \Exception('Rule configuration not found');
 		}
 		return $settings->rules;
