@@ -102,6 +102,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
         $rule->setSection('foobar');
         $this->assertEquals('foobar', $rule->getSection());
+
+        $this->assertEquals('foo', $rule->getSection('foo.bar'));
     }
 
     /**
@@ -152,6 +154,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
      * Test the getter/setter for status
      *
      * @covers \Psecio\Iniscan\Rule::getStatus
+     * @covers \Psecio\Iniscan\Rule::setStatus
      */
     public function testGetSetStatus()
     {
@@ -160,6 +163,22 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         );
         $rule = new Rule($config, 'testing123');
         $this->assertEquals($rule->getStatus(), true);
+
+        $rule->setStatus(false);
+        $this->assertEquals($rule->getStatus(), false);
+    }
+
+    /**
+     * Test the setting of the status to N/A (null)
+     *
+     * @covers \Psecio\Iniscan\Rule::na
+     */
+    public function testSetStatusNa()
+    {
+        $rule = new Rule(array(), 'testing123');
+
+        $rule->na();
+        $this->assertEquals($rule->getStatus(), null);
     }
 
     /**
@@ -270,7 +289,33 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test the evlauation with a bad operation
+     * Test that the evaluation is null when the test is
+     *     not applicable
+     *
+     * @covers \Psecio\Iniscan\Rule::evaluate
+     */
+    public function testEvaluationNa()
+    {
+        $test = array(
+            'key' => 'foo',
+            'operation' => 'equals',
+            'value' => '1',
+            'version' => '5.6'
+        );
+        $ini = array(
+            'PHP' => array(
+                'foo' => 'test'
+            )
+        );
+        $rule = new Rule(array(), 'PHP');
+        $rule->setTest($test);
+
+        $result = $rule->evaluate($ini);
+        $this->assertNull($rule->getStatus());
+    }
+
+    /**
+     * Test the evaluation with a bad operation
      *
      * @expectedException \InvalidArgumentException
      * @covers \Psecio\Iniscan\Rule::evaluate
@@ -343,7 +388,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that the "find" works as expected
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::findValue
      */
     public function testFindValueValid()
@@ -361,9 +406,21 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($ini['testing.foo.bar']));
     }
 
+    public function testFindValueDefault()
+    {
+        $savePath = ini_get('session.save_path');
+
+        $rule = new Rule(array(), 'testing');
+        $path = 'session.save_path';
+        $ini = array();
+        $value = $rule->findValue($path, $ini);
+        $this->assertEquals($value, $savePath);
+
+    }
+
     /**
      * Test the version evaluation
-     * 
+     *
      * @covers \Psecio\Iniscan\Rule::isVersion
      */
     public function testAboveVersion()
@@ -375,5 +432,74 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(
             $rule->isVersion($phpVersion)
         );
+    }
+
+    /**
+     * Test the version getter/setter
+     *
+     * @covers \Psecio\Iniscan\Rule::getVersion
+     * @covers \Psecio\Iniscan\Rule::setVersion
+     */
+    public function testGetSetVersion()
+    {
+        $version = 1;
+        $rule = new Rule(array(), 'testing');
+        $rule->setVersion($version);
+        $this->assertEquals($rule->getVersion(), $version);
+    }
+
+    /**
+     * Test the translation of casting values of "Off"
+     *
+     * @covers \Psecio\Iniscan\Rule::castValue
+     */
+    public function testCastValuesOff()
+    {
+        $rule = new Rule(array(), 'testing');
+
+        $this->assertEquals($rule->castValue('Off'), 0);
+        $this->assertEquals($rule->castValue(''), 0);
+        $this->assertEquals($rule->castValue(0), 0);
+        $this->assertEquals($rule->castValue('0'), 0);
+    }
+
+    /**
+     * Test the translation of casting values of "On"
+     *
+     * @covers \Psecio\Iniscan\Rule::castValue
+     */
+    public function testCastValuesOn()
+    {
+        $rule = new Rule(array(), 'testing');
+
+        $this->assertEquals($rule->castValue('On'), 1);
+        $this->assertEquals($rule->castValue('1'), 1);
+        $this->assertEquals($rule->castValue(1), 1);
+    }
+
+    /**
+     * Test the translation of casting values neither "On" or "Off"
+     *
+     * @covers \Psecio\Iniscan\Rule::castValue
+     */
+    public function testCastValueOther()
+    {
+        $rule = new Rule(array(), 'testing');
+
+        $this->assertEquals($rule->castValue('foo'), 'foo');
+    }
+
+    /**
+     * Test the casting of powers from a string
+     *
+     * @covers \Psecio\Iniscan\Rule::castPowers
+     */
+    public function testCastPowers()
+    {
+        $rule = new Rule(array(), 'testing');
+
+        $this->assertEquals($rule->castPowers('1K'), 1024);
+        $this->assertEquals($rule->castPowers('1M'), 1024 * 1024);
+        $this->assertEquals($rule->castPowers('1G'), 1024 * 1024 * 1024);
     }
 }
