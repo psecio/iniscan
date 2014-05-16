@@ -457,10 +457,10 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $rule = new Rule(array(), 'testing');
 
-        $this->assertEquals($rule->castValue('Off'), 0);
-        $this->assertEquals($rule->castValue(''), 0);
-        $this->assertEquals($rule->castValue(0), 0);
-        $this->assertEquals($rule->castValue('0'), 0);
+        $this->assertEquals($rule->getCast()->castValue('Off'), 0);
+        $this->assertEquals($rule->getCast()->castValue(''), 0);
+        $this->assertEquals($rule->getCast()->castValue(0), 0);
+        $this->assertEquals($rule->getCast()->castValue('0'), 0);
     }
 
     /**
@@ -472,9 +472,9 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $rule = new Rule(array(), 'testing');
 
-        $this->assertEquals($rule->castValue('On'), 1);
-        $this->assertEquals($rule->castValue('1'), 1);
-        $this->assertEquals($rule->castValue(1), 1);
+        $this->assertEquals($rule->getCast()->castValue('On'), 1);
+        $this->assertEquals($rule->getCast()->castValue('1'), 1);
+        $this->assertEquals($rule->getCast()->castValue(1), 1);
     }
 
     /**
@@ -486,7 +486,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $rule = new Rule(array(), 'testing');
 
-        $this->assertEquals($rule->castValue('foo'), 'foo');
+        $this->assertEquals($rule->getCast()->castValue('foo'), 'foo');
     }
 
     /**
@@ -498,8 +498,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $rule = new Rule(array(), 'testing');
 
-        $this->assertEquals($rule->castPowers('1K'), 1024);
-        $this->assertEquals($rule->castPowers('1M'), 1024 * 1024);
-        $this->assertEquals($rule->castPowers('1G'), 1024 * 1024 * 1024);
+        $this->assertEquals($rule->getCast()->castPowers('1K'), 1024);
+        $this->assertEquals($rule->getCast()->castPowers('1M'), 1024 * 1024);
+        $this->assertEquals($rule->getCast()->castPowers('1G'), 1024 * 1024 * 1024);
     }
 }

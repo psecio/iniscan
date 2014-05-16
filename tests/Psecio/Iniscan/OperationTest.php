@@ -16,7 +16,7 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     public function testCastValue($input, $expectedValue, $expectedType)
     {
         $operation = new OperationStub('test');
-        $result = $operation->castValue($input);
+        $result = $operation->getCast()->castValue($input);
 
         $this->assertEquals($result, $expectedValue);
         $this->assertEquals(gettype($result), $expectedType);
@@ -103,7 +103,7 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     public function testCastPowers($input, $expectedValue)
     {
         $operation = new OperationStub('test');
-        $result = $operation->castPowers($input);
+        $result = $operation->getCast()->castPowers($input);
 
         $this->assertEquals($result, $expectedValue);
     }
