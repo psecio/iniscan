@@ -5,7 +5,7 @@
          convertNoticesToExceptions="true"
          mapTestClassNameToCoveredClassName="true"
          bootstrap="vendor/autoload.php"
-         strict="true"
+         strict="false"
          verbose="true"
          colors="true">
     <testsuites>
