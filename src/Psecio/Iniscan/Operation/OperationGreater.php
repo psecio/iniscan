@@ -16,7 +16,7 @@ class OperationGreater extends \Psecio\Iniscan\Operation
 	public function execute($key, $value, $ini)
 	{
 		$found = $this->findValue($key, $ini);
-		if ($this->castValue($found) <= $this->castValue($value)) {
+		if ($this->getCast()->castValue($found) <= $this->getCast()->castValue($value)) {
 			return false;
 		}
 		return true;
