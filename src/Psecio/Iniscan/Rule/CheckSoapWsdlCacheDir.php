@@ -27,7 +27,7 @@ class CheckSoapWsdlCacheDir extends \Psecio\Iniscan\Rule
 	 */
 	public function evaluate(array $ini)
 	{
-		$openBasedir = $this->castValue($this->findValue('open_basedir', $ini));
+		$openBasedir = $this->getCast()->castValue($this->findValue('open_basedir', $ini));
 
 		if ($openBasedir === 0) {
 			return true;
@@ -36,7 +36,7 @@ class CheckSoapWsdlCacheDir extends \Psecio\Iniscan\Rule
 		}
 
 		$wsdlCacheDir = realpath($this->findValue('soap.wsdl_cache_dir', $ini));
-		$wsdlCacheEnabled = $this->castValue($this->findValue('soap.wsdl_cache_enabled', $ini));
+		$wsdlCacheEnabled = $this->getCast()->castValue($this->findValue('soap.wsdl_cache_enabled', $ini));
 
 		// We only care about PHP before 5.3.22 and 5.4.x before 5.4.13
 		if (version_compare($this->getVersion(), '5.3.22', '>=') || version_compare($this->getVersion(), '5.4.13', '>='))

@@ -23,7 +23,7 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 	 */
 	public function evaluate(array $ini)
 	{
-		$openBasedir = $this->castValue($this->findValue('open_basedir', $ini));
+		$openBasedir = $this->getCast()->castValue($this->findValue('open_basedir', $ini));
 
 		// This only matters if an open_basedir is set
 		if ($openBasedir === 0) {
@@ -32,7 +32,7 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 			$openBasedir = realpath($openBasedir);
 		}
 
-		$uploadTmpDir = $this->castValue($this->findValue('upload_tmp_dir', $ini));
+		$uploadTmpDir = $this->getCast()->castValue($this->findValue('upload_tmp_dir', $ini));
 
 		// If we have no upload_tmp_dir, get the system default
 		if ($uploadTmpDir === 0) {
