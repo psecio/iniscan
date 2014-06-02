@@ -25,12 +25,15 @@ class Console extends \Psecio\Iniscan\Command\Output
         $output->writeLn(str_repeat('-', 70));
         $fail = 0;
         $pass = 0;
+        $warn = 0;
 
         foreach ($results as $result) {
             if ($result->getStatus() === false) {
-                $fail++;
+                // $fail++;
                 // if we failed, see how bad it is
                 $severity = $result->getLevel();
+                ($severity == 'WARNING') ? $warn++ : $fail++;
+
                 $fgcolor = 'black';
                 $bgcolor = ($severity == 'WARNING') ? 'yellow' : 'red';
                 $status = 'FAIL';
@@ -65,7 +68,9 @@ class Console extends \Psecio\Iniscan\Command\Output
                 $output->writeLn('INFO: '.$result->info."\n");
             }
         }
-        $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
+        $output->writeLn("\n<info>".$pass." passing</info>\n"
+            ."<error>".$fail." failure(s)</error> and <fg=yellow>".$warn." warnings</fg=yellow>"
+        );
 
         if (!empty($deprecated)) {
             $output->writeLn("\n<error>WARNING: deprecated configuration items found:</error>");
