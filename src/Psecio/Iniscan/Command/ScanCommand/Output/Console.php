@@ -25,21 +25,27 @@ class Console extends \Psecio\Iniscan\Command\Output
         $output->writeLn(str_repeat('-', 70));
         $fail = 0;
         $pass = 0;
+        $warn = 0;
 
         foreach ($results as $result) {
             if ($result->getStatus() === false) {
-                $fail++;
+                // $fail++;
                 // if we failed, see how bad it is
                 $severity = $result->getLevel();
-                $color = ($severity == 'WARNING') ? 'yellow' : 'red';
+                ($severity == 'WARNING') ? $warn++ : $fail++;
+
+                $fgcolor = 'black';
+                $bgcolor = ($severity == 'WARNING') ? 'yellow' : 'red';
                 $status = 'FAIL';
             } elseif ($result->getStatus() === null) {
-                $color = 'magenta';
+                $fgcolor = 'magenta';
                 $status = 'N/A';
+                $bgcolor = 'black';
             } else {
                 $pass++;
                 $status = 'PASS';
-                $color = 'green';
+                $fgcolor = 'green';
+                $bgcolor = 'black';
             }
             if ($failOnly === true && $status !== 'FAIL') {
                 continue;
@@ -47,22 +53,24 @@ class Console extends \Psecio\Iniscan\Command\Output
             $test = $result->getTest();
             $version = (isset($test->version)) ? $test->version : '';
             $test = (isset($test->key)) ? $test->key : '';
-            
+
             $output->writeLn(
-                '<fg='.$color.'>'
+                '<fg='.$fgcolor.';bg='.$bgcolor.'>'
                 .str_pad($status, 7, ' ')
                 .'| '.str_pad($result->getLevel(), 9, ' ')
                 .'| '.str_pad($version, 12, ' ')
                 .'| '.str_pad($test, 25, ' ')
                 .'| '.$result->getDescription()
-                .'</fg='.$color.'>'
+                .'</fg='.$fgcolor.';bg='.$bgcolor.'>'
                 );
 
             if ($verbose === true && isset($result->info)) {
                 $output->writeLn('INFO: '.$result->info."\n");
             }
         }
-        $output->writeLn("\n<info>".$pass." passing</info>\n<error>".$fail." failure(s)</error>");
+        $output->writeLn("\n<info>".$pass." passing</info>\n"
+            ."<error>".$fail." failure(s)</error> and <fg=yellow>".$warn." warnings</fg=yellow>"
+        );
 
         if (!empty($deprecated)) {
             $output->writeLn("\n<error>WARNING: deprecated configuration items found:</error>");

@@ -47,7 +47,7 @@ class CheckSessionHashFunction extends \Psecio\Iniscan\Rule
 			return false;
 		}
 
-		if (!$hashFunction || $this->castValue($hashFunction) === 1 || !in_array($hashFunction, $safeHashes)) {
+		if (!$hashFunction || $this->getCast()->castValue($hashFunction) === 1 || !in_array($hashFunction, $safeHashes)) {
 			$this->setDescription('Weak hashing algorithms in use. Rather use one of these: ' . implode(', ', $safeHashes));
 			$this->fail();
 			return false;

@@ -16,7 +16,7 @@ class OperationSmaller extends \Psecio\Iniscan\Operation
 	public function execute($key, $value, $ini)
 	{
 		$found = $this->findValue($key, $ini);
-		if ($this->castValue($value) < $this->castValue($found)) {
+		if ($this->getCast()->castValue($value) < $this->getCast()->castValue($found)) {
 			return false;
 		}
 		return true;

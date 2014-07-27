@@ -10,13 +10,13 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the "casting of a value to a consistent output.
      *
-	 * @covers \Psecio\Iniscan\Operation::castValue
+	 * @covers \Psecio\Iniscan\Cast::castValue
      * @dataProvider castDataProvider
      */
     public function testCastValue($input, $expectedValue, $expectedType)
     {
         $operation = new OperationStub('test');
-        $result = $operation->castValue($input);
+        $result = $operation->getCast()->castValue($input);
 
         $this->assertEquals($result, $expectedValue);
         $this->assertEquals(gettype($result), $expectedType);
@@ -97,13 +97,13 @@ class OperationTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the "casting" of the size measurements (ex. MB, G, etc)
      *
-     * @covers \Psecio\Iniscan\Operation::castPowers
+     * @covers \Psecio\Iniscan\Cast::castPowers
      * @dataProvider powersDataProvider
      */
     public function testCastPowers($input, $expectedValue)
     {
         $operation = new OperationStub('test');
-        $result = $operation->castPowers($input);
+        $result = $operation->getCast()->castPowers($input);
 
         $this->assertEquals($result, $expectedValue);
     }
