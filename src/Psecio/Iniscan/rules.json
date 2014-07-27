@@ -341,8 +341,8 @@
 				"SSL": [
 					{
 						"name": "SSL CA file specified",
-						"description": "A CA file should be specified",
-						"level": "ERROR",
+						"description": "If a custom CA file or path has been specified, ensure it's valid.",
+						"level": "WARNING",
 						"test": "CheckCertPath"
 					}
 				],

@@ -10,7 +10,7 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
             array(
                 '5.6.0alpha3',
                 array('openssl.cafile' => ''),
-                false
+                true
             ),
             array(
                 '5.6.0alpha3',
@@ -25,7 +25,7 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
             array(
                 '5.5.0',
                 array('openssl.cafile' => ''),
-                true,
+                false,
             ),
             array(
                 '5.5.0',
@@ -35,12 +35,12 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
             array(
                 '5.5.0',
                 array('openssl.cafile' => __FILE__),
-                true,
+                false,
             ),
             array(
                 '5.6.0alpha3',
                 array('openssl.capath' => ''),
-                false
+                true
             ),
             array(
                 '5.6.0alpha3',
@@ -55,7 +55,7 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
             array(
                 '5.5.0',
                 array('openssl.capath' => ''),
-                true,
+                false,
             ),
             array(
                 '5.5.0',
@@ -65,13 +65,13 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
             array(
                 '5.5.0',
                 array('openssl.capath' => __DIR__),
-                true,
+                false,
             ),
             // No capath and cafile
             array(
                 '5.6.0alpha3',
                 array('openssl.cafile' => '', 'openssl.capath' => ''),
-                false
+                true
             ),
             // Invalid capath and cafile
             array(
@@ -83,13 +83,13 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
             array(
                 '5.6.0alpha3',
                 array('openssl.cafile' => '/not/a/valid/file', 'openssl.capath' => __DIR__),
-                true,
+                false,
             ),
             // Valid cafile, invalid capath
             array(
                 '5.6.0alpha3',
                 array('openssl.cafile' => __FILE__, 'openssl.capath' => '/not/a/valid/dir'),
-                true,
+                false,
             ),
         );
     }
@@ -107,7 +107,24 @@ class CheckCertPathTest extends \PHPUnit_Framework_TestCase
         $rule = new CheckCertPath($config, $section);
         $rule->setVersion($version);
         
-        $result = $rule->evaluate($test);
-        $this->assertEquals($result, $result);
+        $actual_result = $rule->evaluate($test);
+        $this->assertEquals($result, $actual_result);
     }
+
+    /**
+     * Test permutations of openssl.cafile
+     */
+/*    public function testCheckCert1()
+    {
+        $version = '5.5.0';
+        $test = array('openssl.cafile' => '');
+        $result = false;
+        $config = array();
+        $section = 'OpenSSL';
+        $rule = new CheckCertPath($config, $section);
+        $rule->setVersion($version);
+        
+        $actual_result = $rule->evaluate($test);
+        $this->assertEquals($result, $actual_result);
+    }*/
 }
