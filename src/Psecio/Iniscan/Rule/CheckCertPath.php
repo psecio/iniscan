@@ -22,7 +22,6 @@ class CheckCertPath extends \Psecio\Iniscan\Rule
 	 */
 	public function evaluate(array $ini)
 	{
-		var_dump($this->getVersion());
 		if (version_compare($this->getVersion(), '5.6', '>='))
 		{
 			$customCertFile = $this->findValue('openssl.cafile', $ini);
