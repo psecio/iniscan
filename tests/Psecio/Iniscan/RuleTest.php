@@ -308,6 +308,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             )
         );
         $rule = new Rule(array(), 'PHP');
+        $rule->setVersion('5.5');
         $rule->setTest($test);
 
         $result = $rule->evaluate($ini);

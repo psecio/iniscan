@@ -362,7 +362,8 @@ class Rule
 	 */
 	public function isVersion($phpVersion)
 	{
-		$compare = version_compare(PHP_VERSION, $phpVersion);
+		$version = $this->getVersion() ?: PHP_VERSION;
+		$compare = version_compare($version, $phpVersion);
 		return ($compare === 1 || $compare === 0) ? true : false;
 	}
 
