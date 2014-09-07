@@ -29,7 +29,6 @@ class Console extends \Psecio\Iniscan\Command\Output
 
         foreach ($results as $result) {
             if ($result->getStatus() === false) {
-                // $fail++;
                 // if we failed, see how bad it is
                 $severity = $result->getLevel();
                 ($severity == 'WARNING') ? $warn++ : $fail++;
