@@ -338,6 +338,30 @@
 						}
 					}
 				],
+				"Extensions": [
+                    {
+                        "name": "Ensure that Xdebug is disabled",
+                        "description": "Xdebug should be disabled in production",
+                        "level": "WARNING",
+                        "test": {
+                            "key": "xdebug.default_enable",
+                            "operation": "equals",
+                            "value": "0",
+                            "context": ["prod"]
+                        }
+                    },
+                    {
+                        "name": "Ensure that Xdebug is not waiting for a debug client",
+                        "description": "Xdebug should not be trying to contact debug clients",
+                        "level": "WARNING",
+                        "test": {
+                            "key": "xdebug.remote_enable",
+                            "operation": "equals",
+                            "value": "0",
+                            "context": ["prod"]
+                        }
+                    }
+                ],
 				"Custom": [
 					{
 						"name": "Disable harmful CLI functions",
