@@ -151,11 +151,10 @@ class Scan
 	public function getSettings($index)
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
-
 		if ($rules === null) {
 			throw new \Exception('Cannot parse rule configuration');
 		}
-		return (isset($rules->settings[$index])) ? $rules->settings[$index] : false;
+		return $rules;
 	}
 
 	/**
