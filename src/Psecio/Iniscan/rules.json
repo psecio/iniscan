@@ -1,399 +1,393 @@
 {
-	"settings": [
-		{
-			"rules": {
-				"Session": [
-					{
-						"name": "Cookies for sessions",
-						"description": "Accepts cookies to manage sessions",
-						"level": "ERROR",
-						"test": {
-							"key": "session.use_cookies",
-							"operation": "equals",
-							"value": "1"
-						}
-					},
-					{
-						"name": "Only cookies for sessions",
-						"description": "Must use cookies to manage sessions, don't accept session-ids in a link",
-						"level": "ERROR",
-						"test": {
-							"key": "session.use_only_cookies",
-							"operation": "equals",
-							"value": "1",
-							"version": "4.3.0"
-						}
-					},
-					{
-						"name": "Cookie domain set",
-						"description": "It is recommended that you set the default domain for cookies.",
-						"level": "WARNING",
-						"test": {
-							"key": "session.cookie_domain",
-							"operation": "isset"
-						}
-					},
-					{
-						"name": "Cookie set to HTTP only",
-						"description": "Setting session cookies to 'http only' makes them only readable by the browser",
-						"level": "ERROR",
-						"test": {
-							"key": "session.cookie_httponly",
-							"operation": "equals",
-							"value": "1",
-							"version": "5.2.0"
-						}
-					},
-					{
-						"name": "Ensure bug compatability is disabled",
-						"description": "An undocumented feature/bug that allows initialize of a session in the global scope even if register_globals is disabled for PHP up to 5.3.22",
-						"level": "ERROR",
-						"test": {
-							"key": "session.bug_compat_42",
-							"operation": "equals",
-							"value": "0",
-							"version": "4.3.0"
-						}
-					},
-					{
-						"name": "Ensure bug compatability warning is disabled",
-						"description": "Disable warnings for session.bug_compat_42",
-						"level": "WARNING",
-						"test": {
-							"key": "session.bug_compat_warn",
-							"operation": "equals",
-							"value": "0",
-							"version": "4.3.0"
-						}
-					},
-					{
-						"name": "Recommend session hashing functions",
-						"description": "Check against a list of recommended session hashing functions",
-						"level": "WARNING",
-						"test": "CheckSessionHashFunction"
-					},
-					{
-						"name": "Session save path not set or world writeable",
-						"description": "Session save path should be set and writeable by only the web user",
-						"level": "WARNING",
-						"test": "CheckSessionPath"
-					},
-					{
-						"name": "Use of 'use_trans_sid' considered harmful",
-						"description": "If used 'use_trans_sid' setting puts the session ID on the URL, making it easier to hijack",
-						"level": "ERROR",
-						"test": {
-							"key": "session.use_trans_sid",
-							"operation": "equals",
-							"value": "0",
-							"version": "4.0.3"
-						}
-					},
-					{
-						"name": "Cookie set to secure connection",
-						"description": "Cookie secure specifies whether cookies should only be sent over secure connections.",
-						"level": "ERROR",
-						"test": {
-							"key": "session.cookie_secure",
-							"operation": "equals",
-							"value": "1",
-							"version": "4.0.4"
-						}
-					},
-					{
-						"name": "Entropy file should be defined",
-						"description": "A file should be provided to help provide session entropy",
-						"level": "WARNING",
-						"test": "CheckSessionEntropyPath"
-					},
-					{
-						"name": "Enable strict mode for session fixation prevention",
-						"description": "Strict mode prevents uninitialized session IDs in the built-in session handling.",
-						"level": "WARNING",
-						"test": {
-							"key": "session.use_strict_mode",
-							"operation": "equals",
-							"value": "1",
-							"version": "5.5.2"
-						}
-					}
-				],
-				"PHP": [
-					{
-						"name": "Disallow remote file open",
-						"description": "Do not allow the opening of remote file resources ('Off' recommended)",
-						"level": "ERROR",
-						"test": {
-							"key": "allow_url_fopen",
-							"operation": "equals",
-							"value": "0",
-							"version": "4.0.3"
-						}
-					},
-					{
-						"name": "Disallow remote file include",
-						"description": "Do not allow the inclusion of remote file resources ('Off' recommended)",
-						"level": "ERROR",
-						"test": {
-							"key": "allow_url_include",
-							"operation": "equals",
-							"value": "0",
-							"version": "5.2.0"
-						}
-					},
-					{
-						"name": "Displaying errors",
-						"description": "Don't show errors in production ('Off' recommended)",
-						"level": "WARNING",
-						"test": {
-							"key": "display_errors",
-							"operation": "equals",
-							"value": "0",
-							"context": ["prod"]
-						},
-						"info": "This determines whether errors should be printed to the screen as part of the output or if they should be hidden from the user. Value \"stderr\" sends the errors to stderr instead of stdout. The value is available as of PHP 5.2.4. In earlier versions, this directive was of type boolean."
-					},
-					{
-						"name": "Log errors",
-						"description": "Log errors in production ('On' recommended)",
-						"level": "WARNING",
-						"test": {
-							"key": "log_errors",
-							"operation": "equals",
-							"value": "1",
-							"context": ["prod"]
-						},
-						"info": "Tells whether script error messages should be logged to the server's error log or error_log. This option is thus server-specific."
-					},
-					{
-						"name": "Disable PHP signature",
-						"description": "Showing the PHP signature exposes additional information",
-						"level": "WARNING",
-						"test": {
-							"key": "expose_php",
-							"operation": "notequals",
-							"value": "1"
-						}
-					},
-					{
-						"name": "Disable register globals",
-						"description": "The register globals setting is dangerous and has been deprecated ('Off' recommended)",
-						"level": "ERROR",
-						"test": {
-							"key": "register_globals",
-							"operation": "notequals",
-							"value": "1"
-						}
-					},
-					{
-						"name": "Disable magic quotes",
-						"description": "Magic quotes automatically adds quotes to incoming data ('Off' recommended)",
-						"level": "ERROR",
-						"test": {
-							"key": "magic_quotes_gpc",
-							"operation": "equals",
-							"value": "0"
-						}
-					},
-					{
-						"name": "Disable magic quotes at runtime",
-						"description": "Magic quotes should be disabled at runtime in addition to being off for incoming data",
-						"level": "ERROR",
-						"test": {
-							"key": "magic_quotes_runtime",
-							"operation": "equals",
-							"value": "0"
-						}
-					},
-					{
-						"name": "Maximum post size too large",
-						"description": "A too large value for the maximum post size could allow for DoS against your application",
-						"level": "WARNING",
-						"test": "MaximumPostSize"
-					},
-					{
-						"name": "Safe mode should be disabled",
-						"description": "It's not actually 'safe' ('Off' recommended)",
-						"level": "ERROR",
-						"test": {
-							"key": "safe_mode",
-							"operation": "equals",
-							"value": "0"
-						}
-					},
-					{
-						"name": "Register long arrays is disabled",
-						"description": "Registering long arrays turns on the HTTP_*_VARS (Recommended Off)",
-						"level": "WARNING",
-						"test": {
-							"key": "register_long_arrays",
-							"operation": "equals",
-							"value": "0"
-						}
-					},
-					{
-						"name": "Maximum input variables",
-						"description": "A maximum number of input variables should be defined to prevent performance issues",
-						"level": "WARNING",
-						"test": {
-							"key": "max_input_vars",
-							"operation": "isset"
-						}
-					},
-					{
-						"name": "Do not display startup errors",
-						"description": "Showing startup errors could provide extra information to potential attackers",
-						"level": "WARNING",
-						"test": {
-							"key": "display_startup_errors",
-							"operation": "equals",
-							"value": "0"
-						}
-					},
-					{
-						"name": "Restrict PHP's file system access (basedir)",
-						"description": "Restricting PHP's access to the file system to a certain directory prevents file-based attacks in unauthorized areas.",
-						"level": "WARNING",
-						"test": {
-							"key": "open_basedir",
-							"operation": "isset"
-						}
-					},
-					{
-						"name": "Ensure proper error output",
-						"description": "Error reporting should be different based on context, off in production",
-						"level": "WARNING",
-						"test": {
-							"key": "error_reporting",
-							"operation": "greater",
-							"value": "0",
-							"context": ["prod"]
-						}
-					},
-					{
-						"name": "Define a reasonable max upload size",
-						"description": "A maximum upload size should be defined to prevent server overload from large requests",
-						"level": "WARNING",
-						"test": {
-							"key": "upload_max_filesize",
-							"operation": "isset"
-						}
-					},
-					{
-						"name": "Reduce max upload size",
-						"description": "The max upload size should not be too high, to prevent server overload from large requests",
-						"level": "WARNING",
-						"test": {
-							"key": "upload_max_filesize",
-							"operation": "smaller",
-							"value": "2M"
-						}
-					},
-					{
-						"name": "Define a reasonable max post size",
-						"description": "A maximum post size should be defined to prevent server overload from large requests",
-						"level": "WARNING",
-						"test": {
-							"key": "post_max_size",
-							"operation": "isset"
-						}
-					},
-					{
-						"name": "Reduce max post size",
-						"description": "The max upload size should not be too high, to prevent server overload from large requests",
-						"level": "WARNING",
-						"test": {
-						"key": "post_max_size",
-							"operation": "smaller",
-							"value": "8M"
-						}
-					},
-					{
-						"name": "Define a reasonable memory limit",
-						"description": "A memory limit should be defined to prevent server overload from large processes",
-						"level": "WARNING",
-						"test": {
-							"key": "memory_limit",
-							"operation": "isset"
-						}
-					},
-					{
-						"name": "Reduce memory limit",
-						"description": "The standard memory limit should not be too high, if you need more memory for a single script you can adjust that during runtime using ini_set()",
-						"level": "WARNING",
-						"test": {
-							"key": "memory_limit",
-							"operation": "smaller",
-							"value": "128M"
-						}
-					},
-					{
-						"name": "Turn off 'ASP tag' handling",
-						"description": "Old versions of PHP allowed for ASP-style tags (<% %>) instead of <?php. This should be disabled.",
-						"level": "WARNING",
-						"test": {
-							"key": "asp_tags",
-							"operation": "equals",
-							"value": "0"
-						}
-					}
-				],
-				"Extensions": [
-                    {
-                        "name": "Ensure that Xdebug is disabled",
-                        "description": "Xdebug should be disabled in production",
-                        "level": "WARNING",
-                        "test": {
-                            "key": "xdebug.default_enable",
-                            "operation": "equals",
-                            "value": "0",
-                            "context": ["prod"]
-                        }
-                    },
-                    {
-                        "name": "Ensure that Xdebug is not waiting for a debug client",
-                        "description": "Xdebug should not be trying to contact debug clients",
-                        "level": "WARNING",
-                        "test": {
-                            "key": "xdebug.remote_enable",
-                            "operation": "equals",
-                            "value": "0",
-                            "context": ["prod"]
-                        }
-                    }
-                ],
-				"Custom": [
-					{
-						"name": "Disable harmful CLI functions",
-						"description": "Several functions, if enabled, can be used for remote command injection",
-						"level": "WARNING",
-						"test": "DisableCliFunctions"
-					},
-					{
-						"name": "CVE-2013-1635",
-						"description": "Checks to see if the SOAP WSDL cache directory is inside open_basedir for PHP before 5.3.22 and 5.4.x before 5.4.13",
-						"level": "WARNING",
-						"test": "CheckSoapWsdlCacheDir"
-					},
-					{
-						"name": "Ensure file uploads work",
-						"description": "Checks to see if the upload_tmp_dir is inside the open_basedir folder",
-						"level": "WARNING",
-						"test": "CheckUploadTmpDir"
-					}
-				]
+	"rules": {
+		"Session": [
+			{
+				"name": "Cookies for sessions",
+				"description": "Accepts cookies to manage sessions",
+				"level": "ERROR",
+				"test": {
+					"key": "session.use_cookies",
+					"operation": "equals",
+					"value": "1"
+				}
+			},
+			{
+				"name": "Only cookies for sessions",
+				"description": "Must use cookies to manage sessions, don't accept session-ids in a link",
+				"level": "ERROR",
+				"test": {
+					"key": "session.use_only_cookies",
+					"operation": "equals",
+					"value": "1",
+					"version": "4.3.0"
+				}
+			},
+			{
+				"name": "Cookie domain set",
+				"description": "It is recommended that you set the default domain for cookies.",
+				"level": "WARNING",
+				"test": {
+					"key": "session.cookie_domain",
+					"operation": "isset"
+				}
+			},
+			{
+				"name": "Cookie set to HTTP only",
+				"description": "Setting session cookies to 'http only' makes them only readable by the browser",
+				"level": "ERROR",
+				"test": {
+					"key": "session.cookie_httponly",
+					"operation": "equals",
+					"value": "1",
+					"version": "5.2.0"
+				}
+			},
+			{
+				"name": "Ensure bug compatability is disabled",
+				"description": "An undocumented feature/bug that allows initialize of a session in the global scope even if register_globals is disabled for PHP up to 5.3.22",
+				"level": "ERROR",
+				"test": {
+					"key": "session.bug_compat_42",
+					"operation": "equals",
+					"value": "0",
+					"version": "4.3.0"
+				}
+			},
+			{
+				"name": "Ensure bug compatability warning is disabled",
+				"description": "Disable warnings for session.bug_compat_42",
+				"level": "WARNING",
+				"test": {
+					"key": "session.bug_compat_warn",
+					"operation": "equals",
+					"value": "0",
+					"version": "4.3.0"
+				}
+			},
+			{
+				"name": "Recommend session hashing functions",
+				"description": "Check against a list of recommended session hashing functions",
+				"level": "WARNING",
+				"test": "CheckSessionHashFunction"
+			},
+			{
+				"name": "Session save path not set or world writeable",
+				"description": "Session save path should be set and writeable by only the web user",
+				"level": "WARNING",
+				"test": "CheckSessionPath"
+			},
+			{
+				"name": "Use of 'use_trans_sid' considered harmful",
+				"description": "If used 'use_trans_sid' setting puts the session ID on the URL, making it easier to hijack",
+				"level": "ERROR",
+				"test": {
+					"key": "session.use_trans_sid",
+					"operation": "equals",
+					"value": "0",
+					"version": "4.0.3"
+				}
+			},
+			{
+				"name": "Cookie set to secure connection",
+				"description": "Cookie secure specifies whether cookies should only be sent over secure connections.",
+				"level": "ERROR",
+				"test": {
+					"key": "session.cookie_secure",
+					"operation": "equals",
+					"value": "1",
+					"version": "4.0.4"
+				}
+			},
+			{
+				"name": "Entropy file should be defined",
+				"description": "A file should be provided to help provide session entropy",
+				"level": "WARNING",
+				"test": "CheckSessionEntropyPath"
+			},
+			{
+				"name": "Enable strict mode for session fixation prevention",
+				"description": "Strict mode prevents uninitialized session IDs in the built-in session handling.",
+				"level": "WARNING",
+				"test": {
+					"key": "session.use_strict_mode",
+					"operation": "equals",
+					"value": "1",
+					"version": "5.5.2"
+				}
 			}
-		},
-		{
-			"deprecated": {
-				"register_globals": "5.4.0",
-				"magic_quotes_gpc": "5.4.0",
-				"safe_mode": "5.4.0",
-				"magic_quotes_runtime": "5.4.0",
-				"register_long_arrays": "5.3.0",
-				"session.bug_compat_42": "5.4.0",
-				"session.bug_compat_warn": "5.4.0"
+		],
+		"PHP": [
+			{
+				"name": "Disallow remote file open",
+				"description": "Do not allow the opening of remote file resources ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "allow_url_fopen",
+					"operation": "equals",
+					"value": "0",
+					"version": "4.0.3"
+				}
+			},
+			{
+				"name": "Disallow remote file include",
+				"description": "Do not allow the inclusion of remote file resources ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "allow_url_include",
+					"operation": "equals",
+					"value": "0",
+					"version": "5.2.0"
+				}
+			},
+			{
+				"name": "Displaying errors",
+				"description": "Don't show errors in production ('Off' recommended)",
+				"level": "WARNING",
+				"test": {
+					"key": "display_errors",
+					"operation": "equals",
+					"value": "0",
+					"context": ["prod"]
+				},
+				"info": "This determines whether errors should be printed to the screen as part of the output or if they should be hidden from the user. Value \"stderr\" sends the errors to stderr instead of stdout. The value is available as of PHP 5.2.4. In earlier versions, this directive was of type boolean."
+			},
+			{
+				"name": "Log errors",
+				"description": "Log errors in production ('On' recommended)",
+				"level": "WARNING",
+				"test": {
+					"key": "log_errors",
+					"operation": "equals",
+					"value": "1",
+					"context": ["prod"]
+				},
+				"info": "Tells whether script error messages should be logged to the server's error log or error_log. This option is thus server-specific."
+			},
+			{
+				"name": "Disable PHP signature",
+				"description": "Showing the PHP signature exposes additional information",
+				"level": "WARNING",
+				"test": {
+					"key": "expose_php",
+					"operation": "notequals",
+					"value": "1"
+				}
+			},
+			{
+				"name": "Disable register globals",
+				"description": "The register globals setting is dangerous and has been deprecated ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "register_globals",
+					"operation": "notequals",
+					"value": "1"
+				}
+			},
+			{
+				"name": "Disable magic quotes",
+				"description": "Magic quotes automatically adds quotes to incoming data ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "magic_quotes_gpc",
+					"operation": "equals",
+					"value": "0"
+				}
+			},
+			{
+				"name": "Disable magic quotes at runtime",
+				"description": "Magic quotes should be disabled at runtime in addition to being off for incoming data",
+				"level": "ERROR",
+				"test": {
+					"key": "magic_quotes_runtime",
+					"operation": "equals",
+					"value": "0"
+				}
+			},
+			{
+				"name": "Maximum post size too large",
+				"description": "A too large value for the maximum post size could allow for DoS against your application",
+				"level": "WARNING",
+				"test": "MaximumPostSize"
+			},
+			{
+				"name": "Safe mode should be disabled",
+				"description": "It's not actually 'safe' ('Off' recommended)",
+				"level": "ERROR",
+				"test": {
+					"key": "safe_mode",
+					"operation": "equals",
+					"value": "0"
+				}
+			},
+			{
+				"name": "Register long arrays is disabled",
+				"description": "Registering long arrays turns on the HTTP_*_VARS (Recommended Off)",
+				"level": "WARNING",
+				"test": {
+					"key": "register_long_arrays",
+					"operation": "equals",
+					"value": "0"
+				}
+			},
+			{
+				"name": "Maximum input variables",
+				"description": "A maximum number of input variables should be defined to prevent performance issues",
+				"level": "WARNING",
+				"test": {
+					"key": "max_input_vars",
+					"operation": "isset"
+				}
+			},
+			{
+				"name": "Do not display startup errors",
+				"description": "Showing startup errors could provide extra information to potential attackers",
+				"level": "WARNING",
+				"test": {
+					"key": "display_startup_errors",
+					"operation": "equals",
+					"value": "0"
+				}
+			},
+			{
+				"name": "Restrict PHP's file system access (basedir)",
+				"description": "Restricting PHP's access to the file system to a certain directory prevents file-based attacks in unauthorized areas.",
+				"level": "WARNING",
+				"test": {
+					"key": "open_basedir",
+					"operation": "isset"
+				}
+			},
+			{
+				"name": "Ensure proper error output",
+				"description": "Error reporting should be different based on context, off in production",
+				"level": "WARNING",
+				"test": {
+					"key": "error_reporting",
+					"operation": "greater",
+					"value": "0",
+					"context": ["prod"]
+				}
+			},
+			{
+				"name": "Define a reasonable max upload size",
+				"description": "A maximum upload size should be defined to prevent server overload from large requests",
+				"level": "WARNING",
+				"test": {
+					"key": "upload_max_filesize",
+					"operation": "isset"
+				}
+			},
+			{
+				"name": "Reduce max upload size",
+				"description": "The max upload size should not be too high, to prevent server overload from large requests",
+				"level": "WARNING",
+				"test": {
+					"key": "upload_max_filesize",
+					"operation": "smaller",
+					"value": "2M"
+				}
+			},
+			{
+				"name": "Define a reasonable max post size",
+				"description": "A maximum post size should be defined to prevent server overload from large requests",
+				"level": "WARNING",
+				"test": {
+					"key": "post_max_size",
+					"operation": "isset"
+				}
+			},
+			{
+				"name": "Reduce max post size",
+				"description": "The max upload size should not be too high, to prevent server overload from large requests",
+				"level": "WARNING",
+				"test": {
+				"key": "post_max_size",
+					"operation": "smaller",
+					"value": "8M"
+				}
+			},
+			{
+				"name": "Define a reasonable memory limit",
+				"description": "A memory limit should be defined to prevent server overload from large processes",
+				"level": "WARNING",
+				"test": {
+					"key": "memory_limit",
+					"operation": "isset"
+				}
+			},
+			{
+				"name": "Reduce memory limit",
+				"description": "The standard memory limit should not be too high, if you need more memory for a single script you can adjust that during runtime using ini_set()",
+				"level": "WARNING",
+				"test": {
+					"key": "memory_limit",
+					"operation": "smaller",
+					"value": "128M"
+				}
+			},
+			{
+				"name": "Turn off 'ASP tag' handling",
+				"description": "Old versions of PHP allowed for ASP-style tags (<% %>) instead of <?php. This should be disabled.",
+				"level": "WARNING",
+				"test": {
+					"key": "asp_tags",
+					"operation": "equals",
+					"value": "0"
+				}
 			}
-		}
-	]
+		],
+		"Extensions": [
+	        {
+	            "name": "Ensure that Xdebug is disabled",
+	            "description": "Xdebug should be disabled in production",
+	            "level": "WARNING",
+	            "test": {
+	                "key": "xdebug.default_enable",
+	                "operation": "equals",
+	                "value": "0",
+	                "context": ["prod"]
+	            }
+	        },
+	        {
+	            "name": "Ensure that Xdebug is not waiting for a debug client",
+	            "description": "Xdebug should not be trying to contact debug clients",
+	            "level": "WARNING",
+	            "test": {
+	                "key": "xdebug.remote_enable",
+	                "operation": "equals",
+	                "value": "0",
+	                "context": ["prod"]
+	            }
+	        }
+	    ],
+		"Custom": [
+			{
+				"name": "Disable harmful CLI functions",
+				"description": "Several functions, if enabled, can be used for remote command injection",
+				"level": "WARNING",
+				"test": "DisableCliFunctions"
+			},
+			{
+				"name": "CVE-2013-1635",
+				"description": "Checks to see if the SOAP WSDL cache directory is inside open_basedir for PHP before 5.3.22 and 5.4.x before 5.4.13",
+				"level": "WARNING",
+				"test": "CheckSoapWsdlCacheDir"
+			},
+			{
+				"name": "Ensure file uploads work",
+				"description": "Checks to see if the upload_tmp_dir is inside the open_basedir folder",
+				"level": "WARNING",
+				"test": "CheckUploadTmpDir"
+			}
+		]
+	},
+	"deprecated": {
+		"register_globals": "5.4.0",
+		"magic_quotes_gpc": "5.4.0",
+		"safe_mode": "5.4.0",
+		"magic_quotes_runtime": "5.4.0",
+		"register_long_arrays": "5.3.0",
+		"session.bug_compat_42": "5.4.0",
+		"session.bug_compat_warn": "5.4.0"
+	}
 }
