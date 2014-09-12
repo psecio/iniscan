@@ -18,7 +18,7 @@ class OperationIssetTest extends \PHPUnit_Framework_TestCase
     /**
      * Test that the return is true when the path is currently set
      *
-     * @covers \Psecio\Iniscan\Operation\OperationEquals::execute
+     * @covers \Psecio\Iniscan\Operation\OperationIsset::execute
      */
     public function testExecuteValueSet()
     {
@@ -32,7 +32,7 @@ class OperationIssetTest extends \PHPUnit_Framework_TestCase
     /**
      * Test that the return is false when the path given is empty
      *
-     * @covers \Psecio\Iniscan\Operation\OperationEquals::execute
+     * @covers \Psecio\Iniscan\Operation\OperationIsset::execute
      */
     public function testExecuteNotValueNotSet()
     {
