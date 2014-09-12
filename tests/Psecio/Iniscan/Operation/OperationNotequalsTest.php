@@ -18,7 +18,7 @@ class OperationNotequalsTest extends \PHPUnit_Framework_TestCase
     /**
      * Test that the return is true when the path doesn't equal the value
      *
-     * @covers \Psecio\Iniscan\Operation\OperationEquals::execute
+     * @covers \Psecio\Iniscan\Operation\OperationNotEquals::execute
      */
     public function testExecuteValueNotEqual()
     {
@@ -32,7 +32,7 @@ class OperationNotequalsTest extends \PHPUnit_Framework_TestCase
     /**
      * Test that the return is false when the path is equal to the value
      *
-     * @covers \Psecio\Iniscan\Operation\OperationEquals::execute
+     * @covers \Psecio\Iniscan\Operation\OperationNotEquals::execute
      */
     public function testExecuteNotValueIsEqual()
     {
