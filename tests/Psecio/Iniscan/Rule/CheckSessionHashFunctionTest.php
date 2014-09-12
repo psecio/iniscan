@@ -68,4 +68,18 @@ class CheckSessionHashFunctionTest extends \PHPUnit_Framework_TestCase
         $result = $rule->evaluate($ini);
         $this->assertTrue($result);
     }
+
+    /**
+     * Test that the object is created correctly
+     *
+     * @covers \Psecio\Iniscan\Rule\CheckSessionHashFunction::__construct
+     */
+    public function testCheckSessionHashFunctionInit()
+    {
+        $config = array('bar' => 'foo');
+        $section = 'PHP';
+        $rule = new CheckSessionHashFunction($config, $section);
+
+        $this->assertEquals($rule->bar, 'foo');
+    }
 }
