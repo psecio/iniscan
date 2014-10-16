@@ -163,7 +163,7 @@ class Scan
 	 */
 	public function getRules()
 	{
-		$settings = $this->getSettings(0);
+		$settings = $this->getSettings();
 		if ($settings === false || !isset($settings->rules)) {
 			throw new \Exception('Rule configuration not found');
 		}
@@ -178,7 +178,7 @@ class Scan
      */
 	public function getDeprecated()
 	{
-		$settings = $this->getSettings(1);
+		$settings = $this->getSettings();
 		if ($settings === false || !isset($settings->deprecated)) {
 			throw new \Exception('Deprecated configuration not found');
 		}
