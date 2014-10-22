@@ -14,13 +14,10 @@ Installation
 
 ### Using Composer
 
+```shell
+composer require psecio/iniscan
 ```
-{
-    "require": {
-        "psecio/iniscan": "dev-master"
-    }
-}
-```
+
 
 The only current dependency is the Symfony console.
 
@@ -29,7 +26,7 @@ Additionally, you can install it outside of a project with the `global` function
 any directory you can use:
 
 ```
-$ ./composer.phar global require "psecio/iniscan=dev-master"
+$ ./composer.phar global require psecio/iniscan
 $ ~/.composer/vendor/bin/iniscan
 ```
 
