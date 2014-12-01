@@ -34,7 +34,7 @@ $ ~/.composer/vendor/bin/iniscan
 
 First make sure you run composer.phar install
 ```
-curl -s http://box-project.org/installer.php | php
+curl -LSs http://box-project.org/installer.php | php
 php box.phar build
 ```
 This should result in a iniscan.phar file being created in the root folder.
