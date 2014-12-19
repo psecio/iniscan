@@ -53,7 +53,7 @@ class CheckSessionPath extends \Psecio\Iniscan\Rule
 
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$this->na();
-			$this->setDescription('Cannot check Windows permissions');
+			$this->setDescription('Cannot check Windows permissions. Please verify them manually');
 			return true;
 		}
 
