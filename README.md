@@ -147,6 +147,9 @@ The scanner also supports the concept of "contexts" - environments you may be ex
 vendor/bin/iniscan show --path=/path/to/php.ini --context=dev
 ```
 
+In this case, we've told it we're running in dev, so anything that specifically mentions "prod" isn't executed.
+
+
 Deprecated reporting
 --------------------
 
@@ -161,7 +164,6 @@ It's recommended that these settings be removed as they will be removed from fut
 This is default behavior and does not need to be enabled.
 
 
-In this case, we're told it we're running in dev, so anything that specifically mentions "prod" isn't executed.
 
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
 
