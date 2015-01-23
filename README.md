@@ -2,7 +2,7 @@ Scanner for PHP.ini
 ===========================
 
 [![Build Status](https://secure.travis-ci.org/psecio/iniscan.png?branch=master)](http://travis-ci.org/psecio/iniscan)
-[![Total Downloads](https://img.shields.io/packagist/dt/psecio/versionscan.svg?style=flat-square)](https://packagist.org/packages/psecio/versionscan)
+[![Total Downloads](https://img.shields.io/packagist/dt/psecio/iniscan.svg?style=flat-square)](https://packagist.org/packages/psecio/iniscan)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87/small.png)](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87)
 
