@@ -47,4 +47,16 @@ class CheckSoapWsdlCacheDirTest extends \PHPUnit_Framework_TestCase
         $result = $rule->evaluate($ini);
         $this->assertTrue($result);
     }
+
+    /**
+     * Validate that the test config (key) is set correctly on
+     *     object init
+     */
+    public function testValidateTestConfig()
+    {
+        $rule = new CheckSoapWsdlCacheDir(array(), 'PHP');
+        $test = $rule->getTest();
+
+        $this->assertEquals($test->key, 'soap.wsdl_cache_dir');
+    }
 }

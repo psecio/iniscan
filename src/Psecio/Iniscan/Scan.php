@@ -145,17 +145,15 @@ class Scan
 	 * Get the settings from the rules.json related to
 	 * 	the given index
 	 *
-	 * @param integer $index Index to locate
 	 * @return object|boolean False if configuration not found
 	 */
-	public function getSettings($index)
+	public function getSettings()
 	{
 		$rules = json_decode(file_get_contents(__DIR__.'/rules.json'));
-
 		if ($rules === null) {
 			throw new \Exception('Cannot parse rule configuration');
 		}
-		return (isset($rules->settings[$index])) ? $rules->settings[$index] : false;
+		return $rules;
 	}
 
 	/**
@@ -165,8 +163,8 @@ class Scan
 	 */
 	public function getRules()
 	{
-		$settings = $this->getSettings(0);
-		if ($settings == false || !isset($settings->rules)) {
+		$settings = $this->getSettings();
+		if ($settings === false || !isset($settings->rules)) {
 			throw new \Exception('Rule configuration not found');
 		}
 		return $settings->rules;
@@ -180,8 +178,8 @@ class Scan
      */
 	public function getDeprecated()
 	{
-		$settings = $this->getSettings(1);
-		if ($settings == false || !isset($settings->deprecated)) {
+		$settings = $this->getSettings();
+		if ($settings === false || !isset($settings->deprecated)) {
 			throw new \Exception('Deprecated configuration not found');
 		}
 		return $settings->deprecated;

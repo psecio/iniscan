@@ -107,4 +107,49 @@ class OperationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($result, $expectedValue);
     }
+
+    /**
+     * Test the getter/setter for casting
+     */
+    public function testGetSetCast()
+    {
+        $cast = new \Psecio\Iniscan\Cast();
+        $operation = new OperationStub('test');
+        $operation->setCast($cast);
+
+        $this->assertEquals(
+            $operation->getCast(),
+            $cast
+        );
+    }
+
+    /**
+     * Test the getting of a section returns "PHP"
+     *     as it assumes it's the top level
+     */
+    public function testGetSectionSingle()
+    {
+        $path = 'testing';
+        $operation = new OperationStub('test');
+
+        $this->assertEquals(
+            $operation->getSection($path),
+            'PHP'
+        );
+    }
+
+    /**
+     * Get the section when a path is given in a section
+     *     ex. "session.save_path"
+     */
+    public function testGetSectionMultiple()
+    {
+        $path = 'session.save_path';
+        $operation = new OperationStub('test');
+
+        $this->assertEquals(
+            $operation->getSection($path),
+            'Session'
+        );
+    }
 }

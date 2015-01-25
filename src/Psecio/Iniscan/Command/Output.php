@@ -87,7 +87,6 @@ abstract class Output
      * Render the results of the scan
      *
      * @param array $results Set of scan results
-     * @return [type]          [description]
      */
     public abstract function render($results);
 }

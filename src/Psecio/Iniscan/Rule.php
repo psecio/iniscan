@@ -349,7 +349,7 @@ class Rule
 		if (isset($test->version) && !$this->isVersion($test->version)) {
 			$this->na();
 		} else {
-			($evalInstance->execute($test->key, $value, $ini) == false)
+			($evalInstance->execute($test->key, $value, $ini) === false)
 				? $this->fail() : $this->pass();
 		}
 	}

@@ -25,7 +25,7 @@ class DisableCliFunctions extends \Psecio\Iniscan\Rule
 
 	/**
 	 * Convert the current check into a string
-	 * 
+	 *
 	 * @return string INI formatted setting string
 	 */
 	public function __toString()

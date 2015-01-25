@@ -51,6 +51,12 @@ class CheckSessionPath extends \Psecio\Iniscan\Rule
 			return false;
 		}
 
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			$this->na();
+			$this->setDescription('Cannot check Windows permissions. Please verify them manually');
+			return true;
+		}
+
 		$perms = substr(sprintf('%o', fileperms($savePath)), - 3);
 		if ($perms == 777) {
 			$this->fail();

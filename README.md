@@ -2,6 +2,7 @@ Scanner for PHP.ini
 ===========================
 
 [![Build Status](https://secure.travis-ci.org/psecio/iniscan.png?branch=master)](http://travis-ci.org/psecio/iniscan)
+[![Total Downloads](https://img.shields.io/packagist/dt/psecio/iniscan.svg?style=flat-square)](https://packagist.org/packages/psecio/iniscan)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87/small.png)](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87)
 
@@ -14,13 +15,10 @@ Installation
 
 ### Using Composer
 
+```shell
+composer require psecio/iniscan
 ```
-{
-    "require": {
-        "psecio/iniscan": "dev-master"
-    }
-}
-```
+
 
 The only current dependency is the Symfony console.
 
@@ -29,7 +27,7 @@ Additionally, you can install it outside of a project with the `global` function
 any directory you can use:
 
 ```
-$ ./composer.phar global require "psecio/iniscan=dev-master"
+$ ./composer.phar global require psecio/iniscan
 $ ~/.composer/vendor/bin/iniscan
 ```
 
@@ -37,7 +35,7 @@ $ ~/.composer/vendor/bin/iniscan
 
 First make sure you run composer.phar install
 ```
-curl -s http://box-project.org/installer.php | php
+curl -LSs http://box-project.org/installer.php | php
 php box.phar build
 ```
 This should result in a iniscan.phar file being created in the root folder.
@@ -150,6 +148,9 @@ The scanner also supports the concept of "contexts" - environments you may be ex
 vendor/bin/iniscan show --path=/path/to/php.ini --context=dev
 ```
 
+In this case, we've told it we're running in dev, so anything that specifically mentions "prod" isn't executed.
+
+
 Deprecated reporting
 --------------------
 
@@ -164,7 +165,6 @@ It's recommended that these settings be removed as they will be removed from fut
 This is default behavior and does not need to be enabled.
 
 
-In this case, we're told it we're running in dev, so anything that specifically mentions "prod" isn't executed.
 
 @author Chris Cornutt <ccornutt@phpdeveloper.org>
 
