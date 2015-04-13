@@ -368,8 +368,8 @@
 				"test": "DisableCliFunctions"
 			},
 			{
-				"name": "CVE-2013-1635",
-				"description": "Checks to see if the SOAP WSDL cache directory is inside open_basedir for PHP before 5.3.22 and 5.4.x before 5.4.13",
+				"name": "SOAP WSDL Cache Directory",
+				"description": "Security checks for CVE-2013-1635 and CVE-2013-6501",
 				"level": "WARNING",
 				"test": "CheckSoapWsdlCacheDir"
 			},

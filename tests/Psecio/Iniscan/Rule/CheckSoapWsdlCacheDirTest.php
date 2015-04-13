@@ -4,49 +4,39 @@ namespace Psecio\Iniscan\Rule;
 
 class CheckSoapWsdlCacheDirTest extends \PHPUnit_Framework_TestCase
 {
+    public function soapConfigurationProvider() {
+        return array(
+            array(1, '5.3.21', array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '0', 'soap.wsdl_cache_dir' => '')),
+            array(0, '5.3.21', array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/foo')),
+            array(1, '5.3.21', array('open_basedir' => '/usr', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/usr')),
+            array(0, '5.3.21', array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/tmp')),
+            array(0, '5.3.21', array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '')),
+            array(0, '5.6.7',  array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/tmp')),
+            array(0, '5.6.7',  array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/tmp')),
+            array(0, '5.6.7',  array('open_basedir' => '/tmp', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '')),
+            array(1, '5.6.7',  array('open_basedir' => '/usr', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/usr')),
+            array(0, '5.6.8',  array('open_basedir' => '/usr', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '/foo')),
+            array(1, '5.6.8',  array('open_basedir' => '/foo', 'soap.wsdl_cache_enabled' => '1', 'soap.wsdl_cache_dir' => '')),
+        );
+    }
+
     /**
-     * Test that a SOAP WSDL cache dir is invalid
+     * Test various SOAP WSDL Cache configurations
      *
+     * @dataProvider soapConfigurationProvider
      * @covers \Psecio\Iniscan\Rule\CheckSoapWsdlCacheDir::evaluate
      */
-    public function testSoapWsdlCacheDirFail()
+    public function testSoapWsdlCache($expected, $version, $ini)
     {
         $config = array();
         $section = 'PHP';
         $rule = new CheckSoapWsdlCacheDir($config, $section);
 
-        $ini = array(
-            'open_basedir' => '/tmp',
-            'soap.wsdl_cache_enabled' => '1',
-            'soap.wsdl_cache_dir' => '/foo'
-        );
-
-        $rule->setVersion('5.3.21');
+        $rule->setVersion($version);
         $result = $rule->evaluate($ini);
-        $this->assertFalse($result);
+        $this->assertEquals($expected, $result);
     }
 
-    /**
-     * Test that a SOAP WSDL cache dir is set inside the open_basedir path
-     *
-     * @covers \Psecio\Iniscan\Rule\CheckSoapWsdlCacheDir::evaluate
-     */
-    public function testSoapWsdlCacheDir()
-    {
-        $config = array();
-        $section = 'PHP';
-        $rule = new CheckSoapWsdlCacheDir($config, $section);
-
-        $ini = array(
-            'open_basedir' => '/tmp',
-            'soap.wsdl_cache_enabled' => '1',
-            'soap.wsdl_cache_dir' => '/tmp'
-        );
-
-        $rule->setVersion('5.3.21');
-        $result = $rule->evaluate($ini);
-        $this->assertTrue($result);
-    }
 
     /**
      * Validate that the test config (key) is set correctly on
