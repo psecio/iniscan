@@ -360,6 +360,14 @@
 	            }
 	        }
 	    ],
+	    "SSL": [
+			{
+				"name": "SSL CA file specified",
+				"description": "If a custom CA file or path has been specified, ensure it's valid.",
+				"level": "WARNING",
+				"test": "CheckCertPath"
+			}
+		],
 		"Custom": [
 			{
 				"name": "Disable harmful CLI functions",

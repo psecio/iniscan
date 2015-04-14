@@ -9,7 +9,7 @@ class CheckUploadTmpDirTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Psecio\Iniscan\Rule\CheckUploadTmpDir::evaluate
      */
-/*    public function testUploadTmpDirFail()
+    public function testUploadTmpDirFail()
     {
         $config = array();
         $section = 'PHP';
@@ -17,7 +17,15 @@ class CheckUploadTmpDirTest extends \PHPUnit_Framework_TestCase
 
         $ini = array(
             'open_basedir' => '/tmp',
-            'upload_tmp_dir' => '/upload'
+            'upload_tmp_dir' => '/upload' // doesn't exist
+        );
+
+        $result = $rule->evaluate($ini);
+        $this->assertFalse($result);
+
+        $ini = array(
+            'open_basedir' => '/upload',
+            'upload_tmp_dir' => '/tmp' // doesn't exist
         );
 
         $result = $rule->evaluate($ini);
@@ -49,7 +57,7 @@ class CheckUploadTmpDirTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Psecio\Iniscan\Rule\CheckUploadTmpDir::evaluate
      */
-/*    public function testUploadTmpDirSysDefault()
+    public function testUploadTmpDirSysDefault()
     {
         $config = array();
         $section = 'PHP';
@@ -61,5 +69,5 @@ class CheckUploadTmpDirTest extends \PHPUnit_Framework_TestCase
 
         $result = $rule->evaluate($ini);
         $this->assertTrue($result);
-    }*/
+    }
 }
