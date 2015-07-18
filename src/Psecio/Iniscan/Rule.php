@@ -47,6 +47,12 @@ class Rule
 	private $version;
 
 	/**
+	 * The current value of the setting
+	 * @var string
+	 */
+	private $value = '[not set]';
+
+	/**
 	 * Current Cast instance
 	 * @var \Psecio\Iniscan\Cast
 	 */
@@ -179,6 +185,22 @@ class Rule
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getValue()
+	{
+	    return $this->value;
+	}
+
+	/**
+	 * @param string $value
+	 */
+	public function setValue($value)
+	{
+	    $this->value = $value;
+	}
+
+	/**
 	 * Set the pass/fail status for the rule
 	 *
 	 * @param boolean $flag Pass/fail status
@@ -302,7 +324,8 @@ class Rule
 			'name' => $this->name,
 			'description' => $this->description,
 			'level' => $this->level,
-			'status' => $this->status
+			'status' => $this->status,
+			'currentValue' => $this->value,
 		);
 	}
 
@@ -344,6 +367,8 @@ class Rule
 			throw new \InvalidArgumentException('Invalid operation "'.$test->operation.'"');
 		}
 		$value = (isset($test->value)) ? $test->value : null;
+		$this->setValue($value);
+
 		$evalInstance = new $evalClass($this->getSection());
 
 		if (isset($test->version) && !$this->isVersion($test->version)) {
