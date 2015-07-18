@@ -50,7 +50,7 @@ class Rule
 	 * The current value of the setting
 	 * @var string
 	 */
-	private $value = '[not set]';
+	private $value;
 
 	/**
 	 * Current Cast instance

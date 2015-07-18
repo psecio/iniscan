@@ -221,7 +221,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'name' => 'test1',
             'description' => 'test description',
             'level' => 'ERROR',
-            'status' => true
+            'status' => true,
+            'currentValue' => null
         );
         $rule = new Rule($config, 'testing123');
         $this->assertEquals($rule->values(), $config);
@@ -300,7 +301,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'key' => 'foo',
             'operation' => 'equals',
             'value' => '1',
-            'version' => '5.6'
+            'version' => '5.6.12'
         );
         $ini = array(
             'PHP' => array(
