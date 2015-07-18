@@ -325,7 +325,7 @@ class Rule
 			'description' => $this->description,
 			'level' => $this->level,
 			'status' => $this->status,
-			'currentValue' => $this->value,
+			'value' => $this->value,
 		);
 	}
 

@@ -221,7 +221,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'name' => 'test1',
             'description' => 'test description',
             'level' => 'ERROR',
-            'status' => true
+            'status' => true,
+            'value' => '123',
         );
         $rule = new Rule($config, 'testing123');
         $this->assertEquals($rule->values(), $config);
