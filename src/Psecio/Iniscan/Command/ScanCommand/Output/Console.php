@@ -4,6 +4,9 @@ namespace Psecio\Iniscan\Command\ScanCommand\Output;
 
 class Console extends \Psecio\Iniscan\Command\Output
 {
+    /**
+     * @param \Psecio\Iniscan\Rule[] $results
+     */
     public function render($results)
     {
         $output = $this->getOutput();
@@ -20,6 +23,7 @@ class Console extends \Psecio\Iniscan\Command\Output
             str_pad("Status", 7, ' ').'| '
             .str_pad("Severity", 9, ' ').'| '
             .str_pad("PHP Version", 12, ' ').'| '
+            .str_pad("Current Value", 14, ' ').'| '
             .str_pad("Key", 25, ' ').'| Description'
         );
         $output->writeLn(str_repeat('-', 70));
@@ -49,15 +53,18 @@ class Console extends \Psecio\Iniscan\Command\Output
             if ($failOnly === true && $status !== 'FAIL') {
                 continue;
             }
+
             $test = $result->getTest();
             $version = (isset($test->version)) ? $test->version : '';
             $test = (isset($test->key)) ? $test->key : '';
+            $value = $result->getValue();
 
             $output->writeLn(
                 '<fg='.$fgcolor.';bg='.$bgcolor.'>'
                 .str_pad($status, 7, ' ')
                 .'| '.str_pad($result->getLevel(), 9, ' ')
                 .'| '.str_pad($version, 12, ' ')
+                .'| '.str_pad($value, 14, ' ')
                 .'| '.str_pad($test, 25, ' ')
                 .'| '.$result->getDescription()
                 .'</fg='.$fgcolor.';bg='.$bgcolor.'>'
