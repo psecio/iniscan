@@ -301,7 +301,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'key' => 'foo',
             'operation' => 'equals',
             'value' => '1',
-            'version' => '5.6.12'
+            'version' => '8.1.2'
         );
         $ini = array(
             'PHP' => array(
@@ -311,7 +311,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $rule = new Rule(array(), 'PHP');
         $rule->setTest($test);
 
-        $result = $rule->evaluate($ini);
+        $rule->evaluate($ini);
         $this->assertNull($rule->getStatus());
     }
 
