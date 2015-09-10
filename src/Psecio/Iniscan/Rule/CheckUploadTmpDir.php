@@ -27,7 +27,7 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 
 		$openBasedirDirs = explode(PATH_SEPARATOR, $openBasedirDirs);
 		$openBasedirDirs = array_filter($openBasedirDirs, function($baseDir) {
-			return !empty(trim($baseDir));
+			return trim($baseDir) !== '';
 		});
 
 		// This only matters if an open_basedir is set
