@@ -62,4 +62,45 @@ class CheckUploadTmpDirTest extends \PHPUnit_Framework_TestCase
         $result = $rule->evaluate($ini);
         $this->assertTrue($result);
     }
+
+    /**
+     * Test that when upload_tmp_dir is inside one of open_basedir directories, we evaluate true
+     *
+     * @covers \Psecio\Iniscan\Rule\CheckUploadTmpDir::evaluate
+     */
+    public function testUploadTmpDirInOneOfOpenBasedir()
+    {
+        $config = array();
+        $section = 'PHP';
+        $rule = new CheckUploadTmpDir($config, $section);
+
+        $ini = array(
+            'open_basedir' => '/tmp' . PATH_SEPARATOR . '/var',
+            'upload_tmp_dir' => '/tmp'
+        );
+
+        $result = $rule->evaluate($ini);
+        $this->assertTrue($result);
+    }
+
+    /**
+     * Test that when upload_tmp_dir is not inside one of open_basedir directories, we evaluate false
+     *
+     * @covers \Psecio\Iniscan\Rule\CheckUploadTmpDir::evaluate
+     */
+    public function testUploadTmpDirNotInOneOfOpenBasedir()
+    {
+        $config = array();
+        $section = 'PHP';
+        $rule = new CheckUploadTmpDir($config, $section);
+
+        $ini = array(
+            'open_basedir' => '/tmp' . PATH_SEPARATOR . '/var',
+            'upload_tmp_dir' => '/etc'
+        );
+
+        $result = $rule->evaluate($ini);
+        $this->assertFalse($result);
+    }
+
 }

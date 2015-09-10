@@ -23,13 +23,20 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 	 */
 	public function evaluate(array $ini)
 	{
-		$openBasedir = $this->getCast()->castValue($this->findValue('open_basedir', $ini));
+		$openBasedirDirs = $this->getCast()->castValue($this->findValue('open_basedir', $ini));
+
+		$openBasedirDirs = explode(PATH_SEPARATOR, $openBasedirDirs);
+		$openBasedirDirs = array_filter($openBasedirDirs, function($baseDir) {
+			return !empty(trim($baseDir));
+		});
 
 		// This only matters if an open_basedir is set
-		if ($openBasedir === 0) {
+		if (!isset($openBasedirDirs[0])) {
 			return true;
 		} else {
-			$openBasedir = realpath($openBasedir);
+			array_walk($openBasedirDirs, function(&$openBasedir) {
+				$openBasedir = realpath($openBasedir);
+			});
 		}
 
 		$uploadTmpDir = $this->getCast()->castValue($this->findValue('upload_tmp_dir', $ini));
@@ -41,12 +48,16 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 			$uploadTmpDir = realpath($uploadTmpDir);
 		}
 
+
 		// Make sure the folders are still valid
-		if ($openBasedir === false) {
-			$this->setDescription('The open_basedir did not resolve to a valid directory');
-			$this->fail();
-			return false;
+		foreach ($openBasedirDirs as $openBasedir) {
+			if ($openBasedir === false) {
+				$this->setDescription(sprintf('The open_basedir [%s] did not resolve to a valid directory', $openBasedir));
+				$this->fail();
+				return false;
+			}
 		}
+
 		if ($uploadTmpDir === false) {
 			$this->setDescription('The upload_tmp_dir did not resolve to a valid directory');
 			$this->fail();
@@ -54,8 +65,15 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 		}
 
 		// Ensure that the upload_tmp_dir is inside the base directory
-		if (strpos($uploadTmpDir, $openBasedir) !== 0) {
-			$this->setDescription('upload_tmp_dir is not inside of open_basedir which will prevent files from being uploaded');
+		$uploadDirInOpenBasedir = false;
+		foreach ($openBasedirDirs as $openBasedir) {
+			if (preg_match("#^$openBasedir(.*)#", $uploadTmpDir)) {
+				$uploadDirInOpenBasedir = true;
+				break;
+			}
+		}
+		if (!$uploadDirInOpenBasedir) {
+			$this->setDescription('upload_tmp_dir is not inside any of open_basedir directories which will prevent files from being uploaded');
 			$this->fail();
 			return false;
 		}
