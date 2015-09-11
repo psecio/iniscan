@@ -31,7 +31,7 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 		});
 
 		// This only matters if an open_basedir is set
-		if (!isset($openBasedirDirs[0])) {
+		if (empty($openBasedirDirs)) {
 			return true;
 		} else {
 			array_walk($openBasedirDirs, function(&$openBasedir) {
@@ -67,7 +67,7 @@ class CheckUploadTmpDir extends \Psecio\Iniscan\Rule
 		// Ensure that the upload_tmp_dir is inside the base directory
 		$uploadDirInOpenBasedir = false;
 		foreach ($openBasedirDirs as $openBasedir) {
-			if (preg_match("#^$openBasedir(.*)#", $uploadTmpDir)) {
+			if (strpos($uploadTmpDir, $openBasedir) === 0) {
 				$uploadDirInOpenBasedir = true;
 				break;
 			}
