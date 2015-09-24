@@ -24,9 +24,9 @@ class Console extends \Psecio\Iniscan\Command\Output
             .str_pad("Severity", 9, ' ').'| '
             .str_pad("PHP Version", 12, ' ').'| '
             .str_pad("Current Value", 14, ' ').'| '
-            .str_pad("Key", 25, ' ').'| Description'
+            .str_pad("Key", 30, ' ').'| Description'
         );
-        $output->writeLn(str_repeat('-', 70));
+        $output->writeLn(str_repeat('-', 90));
         $fail = 0;
         $pass = 0;
         $warn = 0;
@@ -65,7 +65,7 @@ class Console extends \Psecio\Iniscan\Command\Output
                 .'| '.str_pad($result->getLevel(), 9, ' ')
                 .'| '.str_pad($version, 12, ' ')
                 .'| '.str_pad($value, 14, ' ')
-                .'| '.str_pad($test, 25, ' ')
+                .'| '.str_pad($test, 30, ' ')
                 .'| '.$result->getDescription()
                 .'</fg='.$fgcolor.';bg='.$bgcolor.'>'
                 );
