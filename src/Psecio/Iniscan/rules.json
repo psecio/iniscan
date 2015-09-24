@@ -114,6 +114,17 @@
 					"value": "1",
 					"version": "5.5.2"
 				}
+			},
+			{
+				"name": "Lazy session writing is enabled",
+				"description": "Lazy session writes only when the session data if it has been modified. This should be enabled to prevent potential information exposure.",
+				"level": "WARNING",
+				"test": {
+					"key": "session.lazy_write",
+					"operation": "equals",
+					"value": "1",
+					"version": "7.0.0"
+				}
 			}
 		],
 		"PHP": [
@@ -331,6 +342,26 @@
 				"level": "WARNING",
 				"test": {
 					"key": "asp_tags",
+					"operation": "equals",
+					"value": "0"
+				}
+			},
+			{
+				"name": "Default character set is defined",
+				"description": "Ensure that a default character set is defined, UTF-8 is preferred",
+				"level": "WARNING",
+				"test": {
+					"key": "default_charset",
+					"operation": "isset",
+					"value": "UTF-8"
+				}
+			},
+			{
+				"name": "Disable PHP 4 Compatability mode",
+				"description": "The Zend Engine PHP 4 compatibility mode should be disabled to prevent object-related functional issues.",
+				"level": "ERROR",
+				"test": {
+					"key": "zend.ze1_compatibility_mode",
 					"operation": "equals",
 					"value": "0"
 				}
