@@ -428,6 +428,7 @@ class Rule
 	 * The levels and their numerical values
 	 */
 	protected $levelValues = array(
+		'info' => 5,
 		'warning' => 10,
 		'error' => 20,
 		'fatal' => 30,

@@ -38,8 +38,19 @@ class Console extends \Psecio\Iniscan\Command\Output
                 ($severity == 'WARNING') ? $warn++ : $fail++;
 
                 $fgcolor = 'black';
-                $bgcolor = ($severity == 'WARNING') ? 'yellow' : 'red';
                 $status = 'FAIL';
+
+                switch($severity) {
+                    case 'INFO':
+                        $bgcolor = 'black';
+                        $fgcolor = 'cyan';
+                        break;
+                    case 'WARNING':
+                        $bgcolor = 'yellow';
+                        break;
+                    default:
+                        $bgcolor = 'red';
+                }
             } elseif ($result->getStatus() === null) {
                 $fgcolor = 'magenta';
                 $status = 'N/A';

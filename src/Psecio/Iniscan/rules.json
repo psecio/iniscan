@@ -125,6 +125,16 @@
 					"value": "1",
 					"version": "7.0.0"
 				}
+			},
+			{
+				"nanme": "Rename default session cookie name",
+				"description": "Renaming the session cookie to something other than the default can make it more difficult to detect if a user's cookies are hijacked",
+				"level": "INFO",
+				"test": {
+					"key": "session.name",
+					"operation": "notequals",
+					"value": "PHPSESSID"
+				}
 			}
 		],
 		"PHP": [
