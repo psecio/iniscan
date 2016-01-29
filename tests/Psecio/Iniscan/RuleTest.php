@@ -430,6 +430,11 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $phpVersion = '3.0';
         $rule = new Rule(array(), 'testing');
 
+        // Ensure that the running version is fine
+        $this->assertTrue(
+            $rule->isVersion($phpVersion)
+        );
+
         // Assume we're using 5.6 for now
         $rule->setVersion('5.6');
         // 5.6 > 3.0, so we get true
@@ -441,12 +446,6 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $phpVersion = '7.0';
         // 5.6 < 7.0, so we get false
         $this->assertNotTrue(
-            $rule->isVersion($phpVersion)
-        );
-
-        // Update to 7.0 and we should get true
-        $rule->setVersion($phpVersion);
-        $this->assertTrue(
             $rule->isVersion($phpVersion)
         );
     }

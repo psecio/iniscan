@@ -171,7 +171,7 @@ class Rule
 	 */
 	public function getVersion()
 	{
-		return $this->version;
+		return $this->version ?: PHP_VERSION;
 	}
 
 	/**
@@ -387,9 +387,7 @@ class Rule
 	 */
 	public function isVersion($phpVersion)
 	{
-		$currentVersion = $this->getVersion() ?: PHP_VERSION;
-		//$currentVersion = PHP_VERSION;
-		$compare = version_compare($currentVersion, $phpVersion);
+		$compare = version_compare($this->getVersion(), $phpVersion);
 		return ($compare === 1 || $compare === 0) ? true : false;
 	}
 
