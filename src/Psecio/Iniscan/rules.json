@@ -117,7 +117,7 @@
 			},
 			{
 				"name": "Lazy session writing is enabled",
-				"description": "Lazy session writes only when the session data if it has been modified. This should be enabled to prevent potential information exposure.",
+				"description": "Lazy session writes only when the session data has been modified. This should be enabled to prevent potential information exposure.",
 				"level": "WARNING",
 				"test": {
 					"key": "session.lazy_write",
