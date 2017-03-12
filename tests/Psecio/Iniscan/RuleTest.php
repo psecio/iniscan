@@ -294,6 +294,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
      *     not applicable
      *
      * @covers \Psecio\Iniscan\Rule::evaluate
+     * @group test1
      */
     public function testEvaluationNa()
     {
@@ -309,6 +310,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             )
         );
         $rule = new Rule(array(), 'PHP');
+        $rule->setVersion(5.3);
         $rule->setTest($test);
 
         $result = $rule->evaluate($ini);
