@@ -98,6 +98,6 @@ class Console extends \Psecio\Iniscan\Command\Output
                 ."as they will be removed from future PHP versions.\n");
         }
 
-        return (count($fail) > 0) ? 1 : 0;
+        return intval($fail > 0);
     }
 }
