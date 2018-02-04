@@ -14,7 +14,7 @@
     ],
     "require":{
         "php":">=5.5.9",
-        "symfony/console": "~3.0.2"
+        "symfony/console": "^3.0 || ^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.2.*"
@@ -25,7 +25,10 @@
         }
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "platform": {
+            "php": "5.5.9"
+        }
     },
     "bin": [
         "bin/iniscan"
