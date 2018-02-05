@@ -40,6 +40,20 @@ class ShowCommand extends Command
         if (!is_file($path)) {
             throw new \Exception('Path is null or not accessible: "'.$path.'"');
         }
+
+        $this->showIni($output, $path);
+    }
+
+    /**
+     * Read an INI file and display each of it's configuration
+     *
+     * @param OutputInterface $output Output object
+     * @param string          $path   The path to the ini file
+     *
+     * @return null
+     */
+    protected function showIni(OutputInterface $output, $path)
+    {
         $ini = parse_ini_file($path, true);
 
         $output->writeLn('Current PHP.ini settings from '.$path);
@@ -47,15 +61,31 @@ class ShowCommand extends Command
 
         foreach ($ini as $section => $data) {
             $output->writeLn('<info>:: '.$section.'</info>');
-            if (empty($data)) {
-                $output->writeLn("\t<fg=yellow>No settings</fg=yellow>");
-            } else {
-                foreach ($data as $path => $value) {
-                    $output->writeLn("\t".$path.' => '.var_export($value, true));
-                }
-            }
+            $this->showSection($output, $data);
             $output->writeLn("-----------------\n");
         }
 
+    }
+
+    /**
+     * Display a section from the INI file
+     *
+     * @param OutputInterface $output Output object
+     * @param mixed           $data   The content of the section
+     *
+     * @return null
+     */
+    protected function showSection(OutputInterface $output, $data)
+    {
+        if (empty($data)) {
+            $output->writeLn("\t<fg=yellow>No settings</fg=yellow>");
+            return;
+        } else if (is_array($data)) {
+            foreach ($data as $path => $value) {
+                $output->writeLn("\t".$path.' => '.var_export($value, true));
+            }
+            return;
+        }
+        $output->writeLn("\t" . var_export($data, true));
     }
 }
