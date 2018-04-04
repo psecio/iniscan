@@ -49,7 +49,7 @@ class CheckSoapWsdlCacheDir extends \Psecio\Iniscan\Rule
 			return false;
 		}
 
-		if (strpos($wsdlCacheDir, '/tmp') !== false)
+		if (preg_match('/\/tmp$/', $wsdlCacheDir))
 		{
 			$this->setDescription('The SOAP WSDL cache directory is inside of "/tmp/" which allows local users to conduct WSDL injection attacks (CVE-2013-6501)');
 			$this->fail();
