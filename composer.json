@@ -2,7 +2,7 @@
     "name":"psecio/iniscan",
     "type":"library",
     "description":"A scanner to evaluate php.ini security",
-    "keywords":["php.ini","scanner"],
+    "keywords":["php.ini","scanner","security"],
     "homepage":"https://github.com/psecio/iniscan.git",
     "license":"MIT",
     "authors":[
