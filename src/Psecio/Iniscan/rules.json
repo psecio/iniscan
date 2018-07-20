@@ -191,7 +191,7 @@
 				"test": {
 					"key": "expose_php",
 					"operation": "notequals",
-					"value": "1"
+					"value": "0"
 				}
 			},
 			{
@@ -201,7 +201,7 @@
 				"test": {
 					"key": "register_globals",
 					"operation": "notequals",
-					"value": "1"
+					"value": "0"
 				}
 			},
 			{
