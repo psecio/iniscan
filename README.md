@@ -2,7 +2,7 @@ Scanner for PHP.ini
 ===========================
 
 [![Build Status](https://secure.travis-ci.org/psecio/iniscan.png?branch=master)](http://travis-ci.org/psecio/iniscan)
-[![Total Downloads](https://img.shields.io/packagist/dt/psecio/iniscan.svg?style=flat-square)](https://packagist.org/packages/psecio/iniscan)
+[![Backers on Open Collective](https://opencollective.com/iniscan/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/iniscan/sponsors/badge.svg)](#sponsors) [![Total Downloads](https://img.shields.io/packagist/dt/psecio/iniscan.svg?style=flat-square)](https://packagist.org/packages/psecio/iniscan)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87/small.png)](https://insight.sensiolabs.com/projects/262321f3-1522-4e82-abd6-7968e108ee87)
 
@@ -170,4 +170,34 @@ This is default behavior and does not need to be enabled.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/psecio/iniscan/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+
+## Contributors
+
+This project exists thanks to all the people who contribute. 
+<a href="graphs/contributors"><img src="https://opencollective.com/iniscan/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/iniscan#backer)]
+
+<a href="https://opencollective.com/iniscan#backers" target="_blank"><img src="https://opencollective.com/iniscan/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/iniscan#sponsor)]
+
+<a href="https://opencollective.com/iniscan/sponsor/0/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/1/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/2/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/3/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/4/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/5/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/6/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/7/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/8/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/iniscan/sponsor/9/website" target="_blank"><img src="https://opencollective.com/iniscan/sponsor/9/avatar.svg"></a>
+
 
