@@ -45,7 +45,9 @@ Example
 -------
 ```
 vendor/bin/iniscan scan --path=/path/to/php.ini
+composer exec iniscan scan -- --path=/path/to/php.ini
 ```
+
 ```
 Results for /private/etc/php.ini:
 ============
