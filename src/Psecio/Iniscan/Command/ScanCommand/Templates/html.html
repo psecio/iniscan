@@ -1,51 +1,80 @@
-<html>
-	<head>
-		<title>IniScan Results - {{date}}</title>
-		<style>
-			body {
-				font-family: verdana, arial;
-				font-size: 12px;
-				background-color: #EEEEEE;
-			}
-			.container {
-				text-align: center;
-			}
-			.result {
-				width: 500px;
-			}
-			.result tr td {
-				border: 0px solid #000000;
-				color: #FFFFFF;
-				padding: 7px;
-				font-size: 11px;
-				vertical-align: top;
-			}
-			.result tr td.key {
-				width: 170px;
-			}
-			.header tr td {
-				background-color: #838383;
-			}
-			.fail {
-				background-color: #830000;
-			}
-			.pass {
-				background-color: #1E8A00;
-			}
-			.warn {
-				background-color: #FB9700;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<center>
-				<h2>IniScan Results - {{date}}</h2>
-				<table class="result header">
-					<tr><td class="key">Key</td><td>Detail</td>
-				</table>
-				{{results}}
-			</center>
-		</div>
-	</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IniScan Results – {{date}}</title>
+    <style>
+      body {
+        font: 12px verdana, arial, sans-serif;
+        background-color: #eee;
+      }
+
+      h1 {
+        font-size: 1.5em;
+        margin-top: 0.83em;
+        margin-bottom: 0.83em;
+      }
+
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .table {
+        width: 500px;
+      }
+
+      .table thead tr th,
+      .table tbody tr td {
+        border: 0;
+        color: #fff;
+        padding: 7px;
+        font-size: 11px;
+        vertical-align: top;
+      }
+
+      .table thead tr th {
+        background-color: #838383;
+        font-weight: normal;
+      }
+
+      .key {
+        width: 170px;
+      }
+
+      .fail {
+        background-color: #830000;
+      }
+
+      .pass {
+        background-color: #1e8a00;
+      }
+
+      .warn {
+        background-color: #fb9700;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="text-center">
+      <h1 class="center text-center">IniScan Results &ndash; <time datetime="{{date}}">{{date}}</time></h1>
+      <table class="center table">
+        <thead>
+          <tr>
+            <th class="key">Key</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>{{results}}
+        </tbody>
+      </table>
+    </main>
+  </body>
 </html>
