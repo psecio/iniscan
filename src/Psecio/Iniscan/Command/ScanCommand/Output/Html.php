@@ -17,10 +17,10 @@ class Html extends \Psecio\Iniscan\Command\Output
 		}
 
 		// read in the template file
-		$template = file_get_contents(__DIR__.'/../Templates/html.html');
+		$template = file_get_contents(__DIR__ . '/../Templates/html.html');
 
 		$values = array(
-			'date' => date('m.d.Y H:i:s'),
+			'date' => date('Y-m-d H:i:s'),
 			'results' => ''
 		);
 
@@ -28,21 +28,20 @@ class Html extends \Psecio\Iniscan\Command\Output
 			$pass = ($result->getStatus() === true) ? 'pass' : 'fail';
 
 			if ($result->getStatus() === null) {
-			    $pass = 'warn';
+				$pass = 'warn';
 			}
 
-			$resultHtml = '<div class="result '.$pass.'">';
-			$resultHtml .= '<table cellpadding="2" cellspacing="0" border="0" class="result">';
-			$resultHtml .= '<tr><td class="key">'.$result->getTestKey();
-			$resultHtml .= '<td>'.$result->getDescription().'</td></tr>';
-			$resultHtml .= '</table></div><br/>';
+			$resultHtml = "\n" . str_repeat(" ", 10) . '<tr class="' . $pass . '">' . "\n";
+			$resultHtml .= str_repeat(" ", 12) . '<td>' . htmlspecialchars($result->getTestKey(), ENT_QUOTES, 'UTF-8') . '</td>' . "\n";
+			$resultHtml .= str_repeat(" ", 12) . '<td>' . htmlspecialchars($result->getDescription(), ENT_QUOTES, 'UTF-8') . '</td>' . "\n";
+			$resultHtml .= str_repeat(" ", 10) . '</tr>';
 
 			$values['results'] .= $resultHtml;
 		}
 
 		if (is_writable(dirname($outputFilePath))) {
 			foreach ($values as $key => $value) {
-				$template = str_replace('{{'.$key.'}}', $value, $template);
+				$template = str_replace('{{' . $key . '}}', $value, $template);
 			}
 			file_put_contents($outputFilePath, $template);
 		}
@@ -69,7 +68,7 @@ class Html extends \Psecio\Iniscan\Command\Output
 
 	public function getDefaultOutputFilename()
 	{
-		return 'iniscan-output-'.date('Ymd').'.html';
+		return 'iniscan-output-' . date('Ymd') . '.html';
 	}
 
 	/**
